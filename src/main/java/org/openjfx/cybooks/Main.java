@@ -20,7 +20,7 @@ public class Main extends Application {
         // Set the icon for the stage
         primaryStage.getIcons().add(icon);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/home-page.fxml"));
         Parent root = loader.load();
         MainController controller = loader.getController();
         controller.setPrimaryStage(primaryStage); // Pass the primary stage to the controller
