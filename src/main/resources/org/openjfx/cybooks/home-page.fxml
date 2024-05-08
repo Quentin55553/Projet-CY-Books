@@ -10,7 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.MainController">
+<VBox alignment="CENTER" style="-fx-background-color: #e0e0e0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.MainController">
    <ImageView fitHeight="143.0" fitWidth="151.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@img/enchantment_table.gif" />
