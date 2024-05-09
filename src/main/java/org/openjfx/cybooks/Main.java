@@ -24,7 +24,7 @@ public class Main extends Application {
         Parent root = loader.load();
         MainController controller = loader.getController();
         controller.setPrimaryStage(primaryStage); // Pass the primary stage to the controller
-        Scene scene = new Scene(root, 300, 300); // Set initial scene size
+        Scene scene = new Scene(root); // Set initial scene
         primaryStage.setScene(scene);
         primaryStage.setTitle("Cy-Books");
         primaryStage.show();

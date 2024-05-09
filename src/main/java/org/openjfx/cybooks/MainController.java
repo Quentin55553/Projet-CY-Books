@@ -44,7 +44,7 @@ public class MainController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("second-page.fxml"));
                 Parent root = loader.load();
-                Scene scene = new Scene(root, 800, 600);
+                Scene scene = new Scene(root, 1000, 800);
                 primaryStage.setScene(scene);
                 // Set full screen mode
                 //primaryStage.setFullScreen(true);
