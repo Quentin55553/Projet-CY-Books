@@ -84,6 +84,7 @@ public class APIHandler {
      * @param subject String. A subject to search for
      */
     public void generateQuery(String title, String author, String date, String identifier, String doctype, String language, String subject){
+        this.query=new String("https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=");
         boolean andNeeded=false;
 
         if(!title.equals("")){
