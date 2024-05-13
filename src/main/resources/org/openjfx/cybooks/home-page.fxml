@@ -21,7 +21,7 @@
                   <Image url="@img/enchantment_table.gif" />
                </image>
             </ImageView>
-            <Line endX="73.0" endY="0.49847412109375" layoutX="108.0" layoutY="285.0" startX="-78.0" stroke="#fefae0" />
+            <Line endX="73.0" endY="0.49847412109375" layoutX="115.0" layoutY="285.0" startX="-78.0" stroke="#fefae0" />
             <Label layoutX="23.0" layoutY="309.0" text="CY-Books" textAlignment="CENTER" textFill="#fefae0">
                <font>
                   <Font name="Eras Bold ITC" size="37.0" />
@@ -31,7 +31,7 @@
       </AnchorPane>
       <AnchorPane maxHeight="400.0" maxWidth="325.0" minHeight="400.0" minWidth="325.0" prefHeight="400.0" prefWidth="325.0" style="-fx-background-color: #FEFAE0;">
          <children>
-            <Label layoutX="75.0" layoutY="82.0" prefHeight="49.0" prefWidth="176.0" text="Connectez-vous" textAlignment="CENTER" textFill="#bc6c25" textOverrun="CLIP" wrapText="true">
+            <Label layoutX="61.0" layoutY="82.0" prefHeight="49.0" prefWidth="197.0" text="Connectez-vous" textAlignment="CENTER" textFill="#bc6c25" textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="269.0" AnchorPane.topAnchor="82.0">
                <font>
                   <Font name="Eras Medium ITC" size="24.0" />
                </font>
