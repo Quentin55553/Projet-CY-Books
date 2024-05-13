@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.SecondPageController">
+   <top>
+      <HBox prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #283618;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="31.0" prefWidth="161.0">
+               <children>
+                  <ImageView fitHeight="44.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/enchanted_book.gif" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label prefHeight="40.0" prefWidth="85.0" text="CY-Books" textFill="#fefae0">
+                     <font>
+                        <Font name="Eras Bold ITC" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="308.0" prefWidth="88.0" style="-fx-background-color: #BC6C25;" BorderPane.alignment="CENTER" />
+   </left>
+   <bottom>
+      <HBox prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #606C38;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #DDA15E;" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <TextFlow prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #FEFAE0;" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
