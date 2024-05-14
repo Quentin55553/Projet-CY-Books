@@ -2,7 +2,8 @@ package API;
 
 public class APIErrorException extends Exception{
     private int errorCode;
-    public APIErrorException(int errorCode){
+    public APIErrorException(String message,int errorCode){
+        super(message);
         this.errorCode=errorCode;
     }
 

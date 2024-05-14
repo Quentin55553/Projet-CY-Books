@@ -16,9 +16,7 @@ import static java.lang.System.exit;
 // A faire :
 // Améliorer intervalle de temps deux dates
 // Rajouter des caractères pour les recherches
-// Mieux gérer les exceptions ?
 // Commentaires
-// Recherche par ISBN
 
 /**
  * Class used to manage searches done using Gallica and their results
@@ -101,7 +99,7 @@ public class APIHandler {
      *     spa = Espagnol
      *  Do not use accentuated or special characters in the parameters
      */
-    public void generateQueryStandard(String title, String author, String date, String identifier, String publisher, String language, String subject){
+    public void generateQueryStandard(String title, String author, String date, String identifier, String publisher, String language, String subject) throws QueryParameterException{
         this.query= "https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=";
         boolean andNeeded=false;
         try {
@@ -161,8 +159,7 @@ public class APIHandler {
             this.query+="&maximumRecords=30";
         }
         catch(QueryParameterException e){
-            System.out.println(e.getMessage());
-            exit(222);
+            throw e;
         }
     }
 
@@ -178,7 +175,7 @@ public class APIHandler {
      * @param language String. A language to search for
      * @param subject String. A subject to search for
      */
-    public void generateQueryTimeInterval(String title, String author, String startYear, String endYear, String identifier, String publisher, String language, String subject){
+    public void generateQueryTimeInterval(String title, String author, String startYear, String endYear, String identifier, String publisher, String language, String subject) throws QueryParameterException{
         this.query= "https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=";
         boolean andNeeded=false;
         try {
@@ -238,8 +235,7 @@ public class APIHandler {
             this.query+="&maximumRecords=30";
         }
         catch(QueryParameterException e){
-            System.out.println(e.getMessage());
-            exit(222);
+            throw e;
         }
     }
 
@@ -248,7 +244,7 @@ public class APIHandler {
      * This version is used to search for a specific ISBN book number in the database
      * @param ISBN String. An ISBN book number to search for
      */
-    public void generateQueryISBN(String ISBN){
+    public void generateQueryISBN(String ISBN) throws QueryParameterException{
         this.query= "https://gallica.bnf.fr/SRU?operation=searchRetrieve&version=1.2&query=";
         boolean andNeeded=false;
         try {
@@ -256,8 +252,7 @@ public class APIHandler {
             this.query+="ISBN%20any%20"+normalizedISBN;
         }
         catch(QueryParameterException e){
-            System.out.println(e.getMessage());
-            exit(222);
+            throw e;
         }
     }
 
@@ -278,7 +273,7 @@ public class APIHandler {
             int responseCode= connection.getResponseCode();
 
             if(responseCode!=200){
-                throw new APIErrorException(responseCode);
+                throw new APIErrorException("There was an error during communication with the API",responseCode);
             }
             else {
                 StringBuilder informationString = new StringBuilder();
@@ -294,7 +289,6 @@ public class APIHandler {
         }
         catch(Exception e){
             System.out.println(e.getMessage());
-            exit(111);
             return -1;
         }
     }
