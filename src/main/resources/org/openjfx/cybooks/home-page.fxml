@@ -1,65 +1,318 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fillHeight="false" maxHeight="400.0" maxWidth="550.0" minHeight="400.0" minWidth="550.0" prefHeight="400.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.MainController">
-   <children>
-      <AnchorPane maxHeight="400.0" maxWidth="225.0" minHeight="400.0" minWidth="225.0" prefHeight="400.0" prefWidth="225.0" style="-fx-background-color: #606C38;">
+
+<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.HomePageController">
+   <top>
+      <AnchorPane>
          <children>
-            <ImageView fitHeight="219.0" fitWidth="160.0" layoutX="28.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/enchantment_table.gif" />
-               </image>
-            </ImageView>
-            <Line endX="73.0" endY="0.49847412109375" layoutX="115.0" layoutY="285.0" startX="-78.0" stroke="#fefae0" />
-            <Label layoutX="23.0" layoutY="309.0" text="CY-Books" textAlignment="CENTER" textFill="#fefae0">
-               <font>
-                  <Font name="Eras Bold ITC" size="37.0" />
-               </font>
-            </Label>
+            <AnchorPane prefHeight="76.0" prefWidth="1000.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane style="-fx-background-color: #283618;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="39.0" fitWidth="118.0" layoutX="8.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/Cy-books-full.png" />
+                           </image>
+                        </ImageView>
+                        <Pane layoutX="744.0" layoutY="13.0" AnchorPane.rightAnchor="14.0">
+                           <children>
+                              <Label layoutX="27.0" layoutY="5.0" text="Label" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="24.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="logout" fitHeight="18.0" fitWidth="16.0" layoutX="226.0" layoutY="11.0" onMouseClicked="#logoutClicked" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/sign-out-alt.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <ImageView fitHeight="21.0" fitWidth="20.0" layoutX="4.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/user.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="55.0" style="-fx-background-color: #DDA15E;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
+               <children>
+                  <HBox alignment="CENTER" layoutX="202.0" layoutY="3.0" prefHeight="56.0" prefWidth="800.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="3.0">
+                     <children>
+                        <JFXButton fx:id="ConsultTopButton" prefHeight="56.0" prefWidth="175.0" text="Consulter livres" textFill="WHITE">
+                           <font>
+                              <Font name="Eras Medium ITC" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/books.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" contrast="-0.73" hue="0.01" saturation="0.27" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton fx:id="AddCustomerTopButton" prefHeight="56.0" prefWidth="175.0" text="Inscription" textFill="WHITE">
+                           <font>
+                              <Font name="Eras Medium ITC" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/user-add.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton prefHeight="56.0" prefWidth="175.0" text="Recherche" textFill="WHITE">
+                           <font>
+                              <Font name="Eras Medium ITC" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/member-search.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton fx:id="AddLoanTopButton" prefHeight="56.0" prefWidth="175.0" text="Créer emprunt" textFill="WHITE">
+                           <font>
+                              <Font name="Eras Medium ITC" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/calendar-plus.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <Label layoutX="48.0" layoutY="19.0" text="Menu" textFill="#fefae0">
+                     <font>
+                        <Font name="Eras Medium ITC" size="24.0" />
+                     </font>
+                     <graphic>
+                        <JFXHamburger fx:id="MenuHamb">
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
+                        </JFXHamburger>
+                     </graphic>
+                  </Label>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane maxHeight="400.0" maxWidth="325.0" minHeight="400.0" minWidth="325.0" prefHeight="400.0" prefWidth="325.0" style="-fx-background-color: #FEFAE0;">
+   </top>
+   <center>
+      <AnchorPane>
          <children>
-            <Label layoutX="61.0" layoutY="82.0" prefHeight="49.0" prefWidth="197.0" text="Connectez-vous" textAlignment="CENTER" textFill="#bc6c25" textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="269.0" AnchorPane.topAnchor="82.0">
-               <font>
-                  <Font name="Eras Medium ITC" size="24.0" />
-               </font>
-            </Label>
-            <TextField fx:id="usernameField" layoutX="80.0" layoutY="212.0" promptText="Identifiant">
-               <font>
-                  <Font name="Eras Light ITC" size="12.0" />
-               </font>
-            </TextField>
-            <PasswordField fx:id="passwordField" layoutX="80.0" layoutY="246.0" promptText="Mot de passe">
-               <font>
-                  <Font name="Eras Light ITC" size="12.0" />
-               </font>
-            </PasswordField>
-            <Button layoutX="107.0" layoutY="299.0" onAction="#loginClicked" prefHeight="22.0" prefWidth="102.0" style="-fx-background-color: #DDA15E;" text="Connexion" textFill="WHITE">
-               <font>
-                  <Font name="Eras Demi ITC" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Label fx:id="errorLabel" layoutX="76.0" layoutY="276.0" prefHeight="17.0" prefWidth="170.0" textFill="#f80000">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Label>
+            <AnchorPane fx:id="Center" style="-fx-background-color: #FEFAE0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <AnchorPane fx:id="Menuside" prefHeight="294.0" prefWidth="198.0" style="-fx-background-color: #606C38;">
+               <children>
+                  <VBox layoutY="18.0" prefHeight="276.0" prefWidth="203.0" style="-fx-background-color: #606C38;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
+                     <children>
+                        <JFXButton alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Consulter les livres" textFill="#fefae0">
+                           <font>
+                              <Font name="Eras Demi ITC" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/books.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton fx:id="AddCustomerLeftButton" alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Inscription membre" textFill="#fefae0">
+                           <font>
+                              <Font name="Eras Demi ITC" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/user-add.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Rechercher membre" textFill="#fefae0">
+                           <font>
+                              <Font name="Eras Demi ITC" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/member-search.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Tous les membres" textFill="#fefae0">
+                           <font>
+                              <Font name="Eras Demi ITC" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/users-alt.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton fx:id="AddLoanLeftButton" alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Créer un emprunt" textFill="#fefae0">
+                           <font>
+                              <Font name="Eras Demi ITC" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/calendar-plus.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Liste emprunts" textFill="#fefae0">
+                           <font>
+                              <Font name="Eras Demi ITC" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/calendar-clock.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                        <JFXButton alignment="TOP_LEFT" prefHeight="48.0" prefWidth="195.0" text="Problèmes emprunts" textFill="#fefae0">
+                           <font>
+                              <Font name="Eras Demi ITC" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/icons/calendar-exclamation.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-   </children>
-</HBox>
+   </center>
+</BorderPane>
