@@ -7,15 +7,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
+public class LogInController {
 
-public class MainController {
+    private Main main;
+
+    public void setMain(Main main) {
+        this.main = main;
+    }
+
     @FXML
     public TextField usernameField;
     @FXML
@@ -25,9 +28,8 @@ public class MainController {
 
     private Stage primaryStage;
 
-
     // Default constructor
-    public MainController() {
+    public LogInController() {
     }
 
     // Setter for the primary stage
@@ -37,31 +39,25 @@ public class MainController {
 
 
     @FXML
-    protected void loginClicked() {
+    protected void loginClicked() throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (isValidCredentials(username, password)) {
-            // go to second page
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("second-page.fxml"));
-                Parent root = loader.load();
-                Scene scene = new Scene(root, 1000, 800);
-                primaryStage.setScene(scene);
-                // Set full screen mode
-                // primaryStage.setFullScreen(true);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+        if(isValidCredentials(username, password)) {
+            // go to home page
+            main.showHomeScene();
         } else {
             errorLabel.setText("Invalid username or password");
         }
     }
 
-
     private boolean isValidCredentials(String username, String password) {
         return username.equals("admin") && password.equals("admin");
+    }
+
+    @FXML
+    protected void signUpClicked() throws IOException {
+        // go to sign in page
+        main.showSignInScene();
     }
 }
