@@ -118,12 +118,12 @@ public class HomePageController implements Initializable {
         newCenter.setPrefSize(Center.getPrefWidth(), Center.getPrefHeight());
 
         AnchorPane.setTopAnchor(newCenter, 0.0);
-        AnchorPane.setRightAnchor(newCenter, 0.0);
+        AnchorPane.setLeftAnchor(newCenter, 210.0);
         AnchorPane.setBottomAnchor(newCenter, 0.0);
-        AnchorPane.setLeftAnchor(newCenter, 0.0);
+        AnchorPane.setRightAnchor(newCenter, 210.0);
 
         Center.getChildren().setAll(newCenter);
-/*
+        /*
         // Transfer children from newCenter to Center
         Center.getChildren().setAll(newCenter.getChildren());*/
 
