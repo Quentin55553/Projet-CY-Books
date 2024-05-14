@@ -33,7 +33,7 @@ public class ExempleUtilisationAPIHandler {
         try {
             // Query 2 : standard version
             System.out.println("QUERY 2");
-            API.generateQueryStandard("","Franz Kafka","","","","","");
+            API.generateQueryStandard("","","","https://gallica.bnf.fr/ark:/12148/bpt6k5427023p","","","");
             System.out.println(API.getQuery());
             API.exec();
             System.out.println("Number of results : "+API.getNumberOfResults());

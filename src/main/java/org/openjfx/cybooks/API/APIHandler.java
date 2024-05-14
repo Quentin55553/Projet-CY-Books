@@ -133,7 +133,7 @@ public class APIHandler {
                 if(andNeeded){
                     this.query+="%20and%20";
                 }
-                this.query+="dc.title%20any%20"+normalizedIdentifier;
+                this.query+="dc.identifier%20any%20"+normalizedIdentifier;
                 andNeeded=true;
             }
             if(!publisher.equals("")){
@@ -203,7 +203,7 @@ public class APIHandler {
                 if(andNeeded){
                     this.query+="%20and%20";
                 }
-                this.query+="dc.title%20any%20"+normalizedIdentifier;
+                this.query+="dc.identifier%20any%20"+normalizedIdentifier;
                 andNeeded=true;
             }
             if(!publisher.equals("")){
@@ -475,6 +475,9 @@ public class APIHandler {
             else if('0' <= currentChar && currentChar <= '9'){
                 normalizedString+=currentChar;
             }
+            else if(currentChar=='.'){
+                normalizedString+=currentChar;
+            }
             else if(currentChar==' '){
                 normalizedString+="%20";
             }
@@ -483,6 +486,12 @@ public class APIHandler {
             }
             else if(currentChar==')'){
                 normalizedString+="%29";
+            }
+            else if(currentChar==':'){
+                normalizedString+="%3A";
+            }
+            else if(currentChar=='/'){
+                normalizedString+="%2F";
             }
             else if(currentChar=='"'){
                 normalizedString+="%22";
