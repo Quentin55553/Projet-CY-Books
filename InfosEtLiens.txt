@@ -1,9 +1,0 @@
-Tuto Java pour se connecter à une API : https://www.youtube.com/watch?v=zZoboXqsCNw
-
-Tuto pour utiliser l'API de la BNF : https://api.bnf.fr/fr/api-gallica-de-recherche
-
-Syntaxe des requêtes à utiliser (CQL) : https://www.loc.gov/standards/sru/cql/spec.html
-
-Infos sur le format Dublin Core pour les entrées de la base de données : https://www.bnf.fr/fr/dublin-core
-
-Comment lire du XML en Java : https://howtodoinjava.com/java/xml/parse-string-to-xml-dom/
