@@ -62,9 +62,10 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Menuside.setTranslateX(-200);
         MenuHamb.setOnMouseClicked(event -> {
             TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
+            slide.setDuration(Duration.seconds(0.3));
             slide.setNode(Menuside);
 
             // Check if the menu is currently hidden
