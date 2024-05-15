@@ -3,14 +3,23 @@ package org.openjfx.cybooks.data;
 import java.util.Objects;
 
 public class Book {
-    private final int ISBN;
-    private final String title;
-    private final String author;
+
+    private final int id;
+    private final String ISBN;
+    private String title;
+    private String author;
     private final int total;
     private int stock;
 
+    public Book (int id, String ISBN, int total, int stock) {
+        this.id = id;
+        this.ISBN = ISBN;
+        this.stock = stock;
+        this.total = total;
+    }
 
-    public Book(int ISBN, String title, String author, int total, int stock) {
+    public Book(int id, String ISBN, String title, String author, int total, int stock) {
+        this.id = id;
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;
@@ -18,7 +27,7 @@ public class Book {
         this.stock = stock;
     }
 
-    public int getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
@@ -40,6 +49,14 @@ public class Book {
 
     public void setStock (int stock) {
         this.stock = stock;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     @Override

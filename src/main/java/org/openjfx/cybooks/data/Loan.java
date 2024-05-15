@@ -8,26 +8,28 @@ import java.time.LocalDate;
 public class Loan {
     private final int id;
     private final int customerId;
-    private final int bookISBN;
+    private final String bookISBN;
     private final Date beginDate;
 
-    private Duration duration;
+    private int duration;
+    private boolean completed;
 
-    private Boolean expired;
+    private boolean expired;
 
-    public Boolean hasExpired() {
+    public boolean hasExpired() {
         return expired;
     }
 
-    public Loan(int id, int ISBN, int customerId, Date beginDate, Duration duration) {
+    public Loan(int id, String ISBN, int customerId, Date beginDate, int duration, boolean completed) {
         this.id = id;
         this.bookISBN = ISBN;
         this.customerId = customerId;
         this.beginDate = beginDate;
         this.duration = duration;
         this.expired = false;
+        this.completed = completed;
     }
-    public void setDuration (Duration duration) {
+    public void setDuration (int duration) {
         this.duration = duration;
         // modify expired
     }
@@ -49,7 +51,8 @@ public class Loan {
                 + "\nISBN: " + bookISBN
                 + "\ncustomer: " + customerId
                 + "\nbegin date: " + beginDate
-                + "\n duration: " + duration
+                + "\nduration: " + duration
+                + "\ncompleted:" + completed
                 + "\nhas expired: " + hasExpired();
     }
 }

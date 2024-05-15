@@ -52,9 +52,8 @@ public class Core {
         // modify user in database
     }
 
-    public static void addLoan(Book book, Customer customer, Duration duration) {
-        Date now = null;
-        Loan n = new Loan(0, book.getISBN(), customer.getId(), now, duration);
+    public static void addLoan(Book book, Customer customer, int duration) {
+//        Loan n = new Loan(0, book.getISBN(), customer.getId(), new Date(), duration);
     }
 
     public static void alterLoan() {
