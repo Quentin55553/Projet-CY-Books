@@ -5,6 +5,7 @@ module org.openjfx.cybooks {
     requires org.controlsfx.controls;
     requires com.jfoenix;
     requires java.desktop;
+    requires java.sql;
 
     opens org.openjfx.cybooks to javafx.fxml;
     exports org.openjfx.cybooks;
