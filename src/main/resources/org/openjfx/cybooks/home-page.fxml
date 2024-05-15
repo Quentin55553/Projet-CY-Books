@@ -226,7 +226,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <JFXButton alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Tous les membres" textFill="#fefae0">
+                        <JFXButton fx:id="AllUsersButton" alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Tous les membres" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="15.0" />
                            </font>

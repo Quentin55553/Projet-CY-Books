@@ -35,6 +35,9 @@ public class HomePageController implements Initializable {
     private JFXButton AddLoanLeftButton;
     @FXML
     private JFXButton AddLoanTopButton;
+    @FXML
+    private JFXButton AllUsersButton;
+
 
 
     @FXML
@@ -90,7 +93,7 @@ public class HomePageController implements Initializable {
         AddCustomerLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addCustomer-page.fxml"));
         AddLoanTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
         AddLoanLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/Profil-page.fxml"));
-
+        AllUsersButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/AllUsers-page.fxml"));
     }
 
     public void logoutClicked() throws IOException {
