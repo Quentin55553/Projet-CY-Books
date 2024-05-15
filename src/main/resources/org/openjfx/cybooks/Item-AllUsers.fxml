@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
@@ -10,10 +10,13 @@
    <children>
       <Label prefHeight="22.0" prefWidth="144.0" text="Nom" textOverrun="CLIP" />
       <Label prefHeight="27.0" prefWidth="155.0" text="Prenom" />
-      <Label prefHeight="20.0" prefWidth="99.0" text="Genre" />
-      <Label prefHeight="24.0" prefWidth="130.0" text="date emprunt" />
-      <JFXButton prefHeight="20.0" prefWidth="135.0" text="Rendu/pas Rendu" />
-      <FontAwesomeIconView fill="#606c38" glyphName="SEARCH" selectionFill="#fefae0" size="15" />
+      <Label prefHeight="20.0" prefWidth="99.0" text="id" />
+      <Label prefHeight="24.0" prefWidth="130.0" text="nombre d'emprunt" />
+      <Button fx:id="ProfilButton" mnemonicParsing="false" style="-fx-background-color: none;">
+         <graphic>
+            <FontAwesomeIconView fill="#606c38" glyphName="SEARCH" selectionFill="#fefae0" size="15" />
+         </graphic>
+      </Button>
    </children>
    <padding>
       <Insets left="3.0" />

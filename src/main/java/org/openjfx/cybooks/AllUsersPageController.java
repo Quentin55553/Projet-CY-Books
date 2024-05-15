@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -145,6 +147,18 @@ public class AllUsersPageController implements Initializable {
 
         for (int i = start; i < end; i++) {
             Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-AllUsers.fxml")));
+            if (node instanceof Parent){
+                Button button = (Button) ((Parent)node).lookup("#ProfilButton");
+                if (button != null) {
+                    //set ID   (il faudrait mettre l'id du membre comme ça on appel la fonction pour la page spécifique)
+                    button.setId("ProfilButton"+i);
+                    // Set the onAction event handler for the button
+                    button.setOnAction(event -> {
+                        // Your action code here
+                        System.out.println("Button clicked! ID: " + button.getId());
+                    });
+                }
+            }
             AllUsersVbox.getChildren().add(node);
         }
         System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
@@ -154,6 +168,13 @@ public class AllUsersPageController implements Initializable {
     private void updateButtonStates(int totalPages) {
         ChevronLeft.setVisible(currentPage > 0);
         ChevronRight.setVisible(currentPage < totalPages - 1);
+    }
+
+    public void ShowProfil(){
+        System.out.println("Profil");
+    }
+    public void getID(){
+
     }
 
 }
