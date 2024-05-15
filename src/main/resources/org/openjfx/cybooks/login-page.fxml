@@ -28,17 +28,17 @@
             </AnchorPane>
             <AnchorPane prefHeight="400.0" prefWidth="325.0" style="-fx-background-color: #FEFAE0;">
                <children>
-                  <Label layoutX="54.0" layoutY="81.0" prefHeight="44.0" prefWidth="214.0" text="Connectez-vous" textAlignment="CENTER" textFill="#bc6c25" textOverrun="CLIP" wrapText="true">
+                  <Label layoutX="48.0" layoutY="81.0" prefHeight="44.0" prefWidth="239.0" text="Connectez-vous" textAlignment="CENTER" textFill="#bc6c25" textOverrun="CLIP" wrapText="true">
                      <font>
                         <Font name="Eras Medium ITC" size="29.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="usernameField" layoutX="80.0" layoutY="200.0" promptText="Identifiant">
+                  <TextField fx:id="usernameField" layoutX="80.0" layoutY="196.0" promptText="Identifiant" AnchorPane.leftAnchor="80.0">
                      <font>
                         <Font name="Eras Light ITC" size="12.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="passwordField" layoutX="80.0" layoutY="246.0" promptText="Mot de passe">
+                  <PasswordField fx:id="passwordField" layoutX="80.0" layoutY="246.0" promptText="Mot de passe" AnchorPane.leftAnchor="80.0">
                      <font>
                         <Font name="Eras Light ITC" size="12.0" />
                      </font>
@@ -51,22 +51,22 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="81.0" layoutY="276.0" prefHeight="17.0" prefWidth="156.0" textFill="#f80000">
+                  <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="276.0" prefHeight="17.0" prefWidth="225.0" textFill="#f80000">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <Label layoutX="79.0" layoutY="182.0" text="Identifiant" textFill="#bc6c25">
+                  <Label layoutX="79.0" layoutY="179.0" text="Identifiant" textFill="#bc6c25" AnchorPane.leftAnchor="79.0">
                      <font>
                         <Font name="Eras Light ITC" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="79.0" layoutY="231.0" text="Mot de passe" textFill="#bc6c25">
+                  <Label layoutX="79.0" layoutY="229.0" text="Mot de passe" textFill="#bc6c25" AnchorPane.leftAnchor="79.0">
                      <font>
                         <Font name="Eras Light ITC" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="215.0" layoutY="369.0" onMouseClicked="#signUpClicked" prefHeight="17.0" prefWidth="100.0" text="Créer un compte" textFill="#bc6c25" underline="true">
+                  <Label layoutX="194.0" layoutY="369.0" onMouseClicked="#signUpClicked" prefHeight="17.0" prefWidth="115.0" text="Créer un compte" textFill="#bc6c25" underline="true">
                      <font>
                         <Font name="Eras Medium ITC" size="13.0" />
                      </font>
