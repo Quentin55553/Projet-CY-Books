@@ -89,7 +89,7 @@ public class HomePageController implements Initializable {
         AddCustomerTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addCustomer-page.fxml"));
         AddCustomerLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addCustomer-page.fxml"));
         AddLoanTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
-        AddLoanLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
+        AddLoanLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/Profil-page.fxml"));
 
     }
 
