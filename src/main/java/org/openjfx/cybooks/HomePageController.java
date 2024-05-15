@@ -1,6 +1,5 @@
 package org.openjfx.cybooks;
 
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 
@@ -24,9 +23,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-
 public class HomePageController implements Initializable {
-
     @FXML
     private JFXButton AddCustomerTopButton;
     @FXML
@@ -35,26 +32,24 @@ public class HomePageController implements Initializable {
     private JFXButton AddLoanLeftButton;
     @FXML
     private JFXButton AddLoanTopButton;
-
-
     @FXML
     private AnchorPane Center;
     @FXML
     private JFXHamburger MenuHamb;
-
     @FXML
     private AnchorPane Menuside;
-
     private Main main;
-
-    public void setMain(Main main) {
-        this.main = main;
-    }
 
 
     // Default constructor
     public HomePageController() {
     }
+
+
+    public void setMain(Main main) {
+        this.main = main;
+    }
+
 
     public void setPrimaryStage(Stage primaryStage) {
     }
@@ -72,6 +67,7 @@ public class HomePageController implements Initializable {
                 // Slide the menu in
                 slide.setToX(0);
                 slide.play();
+
             } else {
                 // Slide the menu out
                 slide.setToX(-200);
@@ -89,28 +85,32 @@ public class HomePageController implements Initializable {
         AddCustomerLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addCustomer-page.fxml"));
         AddLoanTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
         AddLoanLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
-
     }
+
 
     public void logoutClicked() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Déconnexion");
-        alert.setHeaderText("Vous êtes sur le point de vous déconnecté !");
-        alert.setContentText("Voulez vous vraiment vous déconnecté ?");
+        alert.setHeaderText("Vous êtes sur le point de vous déconnecter");
+        alert.setContentText("Voulez-vous vraiment vous déconnecter ?");
 
-        if(alert.showAndWait().get() == ButtonType.OK){
+        if (alert.showAndWait().get() == ButtonType.OK) {
             main.showLogInScene();
         }
     }
+
 
     private void handleChangeCenter(String fxmlFile) {
         try {
             // Call the changeCenter method with the specified path
             changeCenter(fxmlFile);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
     private void changeCenter(String fxmlFile) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         AnchorPane newCenter = loader.load();
@@ -123,12 +123,9 @@ public class HomePageController implements Initializable {
         AnchorPane.setLeftAnchor(newCenter, 0.0);
 
         Center.getChildren().setAll(newCenter);
-/*
+        /*
         // Transfer children from newCenter to Center
-        Center.getChildren().setAll(newCenter.getChildren());*/
-
+        Center.getChildren().setAll(newCenter.getChildren());
+        */
     }
 }
-
-
-

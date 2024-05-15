@@ -7,13 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Main extends Application {
 
+public class Main extends Application {
     private Stage primaryStage;
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -30,32 +30,34 @@ public class Main extends Application {
         showHomeScene();
     }
 
-    public void showSignInScene() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("signin-page.fxml"));
+
+    public void showSignUpScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("signup-page.fxml"));
         Parent root = loader.load();
-        SignInController controller = loader.getController();
+        SignUpController controller = loader.getController();
         controller.setMain(this);
 
         primaryStage.setScene(new Scene(root, 550, 400));
         primaryStage.show();
     }
+
 
     public void showLogInScene() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login-page.fxml"));
         Parent root = loader.load();
         LogInController controller = loader.getController();
-
         controller.setMain(this);
+
         primaryStage.setScene(new Scene(root, 550, 400));
         primaryStage.show();
     }
+
 
     public void showHomeScene() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
         Parent root = loader.load();
         HomePageController controller = loader.getController();
         controller.setMain(this);
-
 
         primaryStage.setScene(new Scene(root, 1000, 800));
         primaryStage.show();

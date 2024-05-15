@@ -16,14 +16,14 @@ import java.util.Objects;
 
 
 public class MainController {
+    private Stage primaryStage;
+
     @FXML
     public TextField usernameField;
     @FXML
     public PasswordField passwordField;
     @FXML
     public Label errorLabel;
-
-    private Stage primaryStage;
 
 
     // Default constructor

@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 
 import java.util.Objects;
 
-public class SecondPageController {
 
+public class SecondPageController {
 
 }
