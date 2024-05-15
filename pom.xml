@@ -53,10 +53,10 @@
             <version>4.7.0-9.1.2</version> <!-- Adjust the version number as needed -->
         </dependency>
         <dependency>
-	    <groupId>mysql</groupId>
-	    <artifactId>mysql-connector-java</artifactId>
-	    <version>8.0.30</version>
-	</dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version>
+        </dependency>
 
     </dependencies>
 
