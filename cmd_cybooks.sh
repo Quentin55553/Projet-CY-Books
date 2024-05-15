@@ -17,6 +17,29 @@ Italique='\e[3m'         # Texte en italique
 Souligne='\e[4m'         # Texte souligné
 
 
+function run() {
+	# Asks the user if he wants to run the project with GUI. If not, the program will run the project with CLI
+	read -p "Souhaitez-vous lancer l'interface graphique ? Autrement l'interface en ligne de commande sera lancée. (O/n) " run_gui
+	
+	# Converts the string to lower case to avoid unintended behavior
+	run_gui=$(echo "$run_gui" | tr '[:upper:]' '[:lower:]')
+	
+	# If the user wants to run the project with GUI
+	if [ "$run_gui" = "o" ] || [ "$run_gui" = "oui" ]; then
+		echo -e "Lancement de l'interface graphique"
+		# Runs the project with GUI
+		mvn -q clean javafx:run
+	
+	# Otherwise, we run the project with CLI
+	else
+		echo -e "Lancement de l'interface en ligne de commande"
+		# Runs the project with CLI
+		# Ne marche pas pour le moment. Il faut créer la classe Main pour l'interface en ligne de commande et ensuite ajouter l'exécution dans pom.xml (je le ferai (Quentin))
+		# mvn -q clean javafx:run@run-main-cli
+	fi
+}
+
+
 function compile() {
 	# Checks whether mvn command is installed
 	if ! command -v mvn &> /dev/null; then
@@ -50,16 +73,16 @@ function compile() {
 
 
 function main() {
-	# Executes the compile function
+	# Executes the compile function to compile the project
 	compile
 	
-	# Lancer l'interface graphique
-	# mvn clean javafx:run
+	# Executes the run function to run the project
+	run
 	
 	exit 0
 }
 
 
-# Amorçage du script
+# Script start
 main
 
