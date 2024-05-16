@@ -6,7 +6,6 @@ import org.openjfx.cybooks.data.Loan;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -41,15 +40,18 @@ public class DBHandler {
         }
     }
 
+
+
+
+
     public static Book getBook(int id) throws NoSuchElementException {
         createConnexion();
         ResultSet res;
         Book book;
 
         try {
-            res = statement.executeQuery("SELECT * FROM books WHERE id=" + id);
-
-
+            res = statement.executeQuery("SELECT * FROM books WHERE id='" + id + "'");
+            res.next();
             book = new Book(id, res.getString("ISBN"), res.getInt("quantity"), res.getInt("stock"));
 
 
@@ -68,9 +70,9 @@ public class DBHandler {
         Book book;
 
         try {
-            res = statement.executeQuery("SELECT * FROM books WHERE ISBN=\"" + ISBN + "\"");
+            res = statement.executeQuery("SELECT * FROM books WHERE ISBN='" + ISBN + "'");
 
-
+            res.next();
             book = new Book(res.getInt("id"), ISBN, res.getInt("quantity"), res.getInt("stock"));
 
 
@@ -83,18 +85,17 @@ public class DBHandler {
         return book;
     }
 
-    public static Loan getLoan (int customer_id) throws NoSuchElementException {
+    public static List<Loan> getLoansByCustomer(int customer_id) throws NoSuchElementException {
         createConnexion();
         ResultSet res;
-        Loan loan;
+        List<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT * FROM loans WHERE customer_id=" + customer_id);
+            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, duration, completed, books.ISBN as ISBN FROM loans, books WHERE customer_id='" + customer_id + "' AND book_id=books.id");
 
-            String datestr = res.getString("begin_date");
-//            Date date = new Date(datestr);
-            Date date = null;
-            loan = new Loan(res.getInt("id"), res.getString("ISBN"),customer_id, date, res.getInt("duration"), res.getBoolean("completed"));
+            while (res.next()) {
+                loans.add(new Loan(res.getInt("id"), res.getString("ISBN"), customer_id, res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed")));
+            }
 
 
         } catch (SQLException e) {
@@ -103,23 +104,20 @@ public class DBHandler {
 
         closeConnexion();
 
-        return loan;
+        return loans;
     }
 
-    public static List<Loan> getLoans (String ISBN) throws NoSuchElementException {
+    public static List<Loan> getLoansByISBN(String ISBN) throws NoSuchElementException {
         createConnexion();
         ResultSet res;
         Loan loan;
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT loans.id, customer_id, begin_date, duration, completed FROM loans, books WHERE loans.book_id=books.id and books.ISBN=" + ISBN);
+            res = statement.executeQuery("SELECT loans.id, customer_id, begin_date, duration, completed FROM loans, books WHERE loans.book_id=books.id and books.ISBN='" + ISBN + "'");
 
             while (res.next()){
-                String datestr = res.getString("begin_date");
-//                Date date = new Date(datestr);
-                Date date = null;
-                loan = new Loan(res.getInt("id"), res.getString("ISBN"), res.getInt("customer_id"), date, res.getInt("duration"), res.getBoolean("completed"));
+                loan = new Loan(res.getInt("id"), ISBN, res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed"));
                 loans.add(loan);
             }
 
@@ -133,21 +131,18 @@ public class DBHandler {
         return loans;
     }
 
-    public static List<Loan> getLoans () throws NoSuchElementException {
+    public static List<Loan> getLoans() throws NoSuchElementException {
         createConnexion();
         ResultSet res;
         Loan loan;
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT loans.id, customer_id, begin_date, duration, completed FROM loans");
+            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, duration, completed, books.ISBN as ISBN FROM loans, books WHERE books.id=loans.book_id");
 
             while (res.next()){
-                String datestr = res.getString("begin_date");
-                System.out.println(datestr);
-//                Date date = new Date(datestr);
-                Date date = null;
-                loan = new Loan(res.getInt("id"), res.getString("ISBN"), res.getInt("customer_id"), date, res.getInt("duration"), res.getBoolean("completed"));
+
+                loan = new Loan(res.getInt("id"), res.getString("ISBN"), res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed"));
                 loans.add(loan);
             }
 
@@ -161,15 +156,14 @@ public class DBHandler {
         return loans;
     }
 
-    public static List<Customer> getCustomer (String name) throws NoSuchElementException {
+    public static List<Customer> getCustomers(String name) throws NoSuchElementException {
         createConnexion();
         ResultSet res;
         Customer customer;
         ArrayList<Customer> customers = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT * FROM customers WHERE last_name like %" + name + "%");
-
+            res = statement.executeQuery("SELECT * FROM customers WHERE last_name like '%" + name + "%'");
             while (res.next()) {
                 customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
                 customers.add(customer);
@@ -191,12 +185,10 @@ public class DBHandler {
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT loans.id, customer_id, begin_date, duration, completed FROM loans WHERE completed = 0");
+            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, duration, completed, books.ISBN as ISBN FROM loans, books WHERE completed='0' AND loans.book_id=books.id");
 
             while (res.next()){
-                String datestr = res.getString("begin_date");
-                Date date = new Date(datestr);
-                loan = new Loan(res.getInt("id"), res.getString("ISBN"), res.getInt("customer_id"), date, res.getInt("duration"), false);
+                loan = new Loan(res.getInt("id"), res.getString("ISBN"), res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), false);
                 loans.add(loan);
             }
 
@@ -214,18 +206,18 @@ public class DBHandler {
         createConnexion();
 
         try {
-            statement.execute("INSERT INTO books (ISBN, quantity, stock) VALUES (" + ISBN + ", " + total + ", " + stock + ")");
+            statement.execute("INSERT INTO books (ISBN, quantity, stock) VALUES ('" + ISBN + "', '" + total + "', '" + stock + "')");
         } catch (SQLException e) {
             System.out.println(e);
         }
         closeConnexion();
     }
 
-    public static void addLoan (int id, int customer_id, int duration) {
+    public static void addLoan (int book_id, int customer_id, int duration) {
         createConnexion();
 
         try {
-            statement.execute("INSERT INTO loans (book_id, customer_id, duration) VALUES (" + id + ", " + customer_id + ", " + duration + ")");
+            statement.execute("INSERT INTO loans (book_id, customer_id, duration) VALUES ('" + book_id + "', '" + customer_id + "', '" + duration + "')");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -236,7 +228,7 @@ public class DBHandler {
         createConnexion();
 
         try {
-            statement.execute("INSERT INTO customers (`last_name`, `first_name`) VALUES (`" + lastName + "`, `" + firstName + "`)");
+            statement.execute("INSERT INTO customers (`last_name`, `first_name`) VALUES ('" + lastName + "', '" + firstName + "')");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -247,7 +239,7 @@ public class DBHandler {
         createConnexion();
 
         try {
-            statement.execute("UPDATE customers SET last_name=" + lastName + ", first_name=" + firstName + "WHERE id=" + id);
+            statement.execute("UPDATE customers SET last_name='" + lastName + "', first_name='" + firstName + "' WHERE id='" + id + "'");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -257,8 +249,10 @@ public class DBHandler {
     public static void updateLoan (int id, boolean completed) {
         createConnexion();
 
+        int value = (completed ? 1 : 0);
+
         try {
-            statement.execute("UPDATE loans SET completed=" + completed + "WHERE id=" + id);
+            statement.execute("UPDATE loans SET completed='" + value + "' WHERE id='" + id + "'");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -269,7 +263,7 @@ public class DBHandler {
         createConnexion();
 
         try {
-            statement.execute("UPDATE loans SET duration=" + duration + "WHERE id=" + id);
+            statement.execute("UPDATE loans SET duration='" + duration + "' WHERE id='" + id + "'");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -280,7 +274,7 @@ public class DBHandler {
         createConnexion();
 
         try {
-            statement.execute("UPDATE books SET stock=" + stock + "WHERE id=" + id);
+            statement.execute("UPDATE books SET stock='" + stock + "' WHERE id='" + id + "'");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -290,7 +284,7 @@ public class DBHandler {
         createConnexion();
 
         try {
-            statement.execute("UPDATE books SET quantity=" + total + "WHERE id=" + id);
+            statement.execute("UPDATE books SET quantity='" + total + "' WHERE id='" + id + "'");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -300,18 +294,21 @@ public class DBHandler {
     public static List<Book> getMostPopularBooks() {
         createConnexion();
         ResultSet res;
+
         List<Book> books = new ArrayList<>();
 
 
         try {
-            res = statement.executeQuery("SELECT * FROM loans ORDER BY COUNT(book_id)");
-
+//            resBooks = statement.executeQuery("SELECT * FROM books WHERE id IN (SELECT book_id FROM loans GROUP BY book_id ORDER BY COUNT(book_id) DESC)");
+            res = statement.executeQuery("SELECT *, count(book_id) as nb FROM books RIGHT JOIN loans l on books.id = l.book_id GROUP BY book_id ORDER BY COUNT(book_id) DESC");
 
 
             while (res.next()) {
-                Loan loan = new Loan(res.getInt("id"), res.getString("book_id"), res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed"));
-                System.out.println(loan);
+                System.out.println(res.getString("id") + ", " + res.getInt("nb"));
+                Book book = new Book(res.getInt("id"), res.getString("ISBN"), res.getInt("quantity"), res.getInt("stock"));
+                books.add(book);
             }
+
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -320,4 +317,28 @@ public class DBHandler {
         return books;
     }
 
+    public static List<Book> getMostPopularBooksSince(String date) {
+        createConnexion();
+        ResultSet res;
+
+        List<Book> books = new ArrayList<>();
+
+
+        try {
+            res = statement.executeQuery("SELECT *, count(book_id) as nb FROM books RIGHT JOIN loans l on books.id = l.book_id WHERE begin_date >= '" + date + "' GROUP BY book_id ORDER BY COUNT(book_id) DESC");
+
+
+            while (res.next()) {
+                System.out.println(res.getString("id") + ", " + res.getInt("nb"));
+                Book book = new Book(res.getInt("id"), res.getString("ISBN"), res.getInt("quantity"), res.getInt("stock"));
+                books.add(book);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        closeConnexion();
+        return books;
+    }
 }
