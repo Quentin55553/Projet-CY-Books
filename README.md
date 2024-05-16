@@ -1,10 +1,28 @@
 # CY-Books
 
-### Documentation
+<div>
+  <img src="src/main/resources/org/openjfx/cybooks/img/CYBooksFullGit.png" style="width: 65%;">
+</div>
 
-For further reference, please consider the following sections:
+## 📋 Projet
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.5/maven-plugin/reference/html/#build-image)
+CY-Books est une application programmée en Java permettant aux bibliothécaires de gérer leur bibliothèque.
 
-Built by : Théo BELLIERE, Quentin FILLION, Alexandre GRISEZ, Pauline MACEIRAS, Emilien MASSI
+Pour cela, elle dispose de toutes les fonctionnalités les plus élémentaires telles que l'inscription des bibliothécaires et des usagers, la gestion des livres et du stock ainsi que celle des différents emprunts effectués par les usagers. Toutes ces informations sont stockées dans une base de données SQL locale.
+
+Le bibliothécaire a par exemple également la possibilité de modifier les informations des usagers, d'effectuer des recherches multi-critères, d'afficher l'historique des emprunts ou la liste des retards de rendu d'un usager pour l'aider dans la gestion des livres et des emprunts.
+
+L'application peut soit être lancée avec une interface en ligne de commande (CLI) ou avec l'interface graphique (GUI) qui lui est dédiée grâce à un programme écrit en Shell.
+
+L'interface graphique de l'application à été produite à l'aide de JavaFX et la relation avec la base de données est permise grâce au driver JDBC (Java DataBase Connectivity).
+L'application utilise l'API de la Bibliothèque nationale de France (BNF) afin de récupérer la liste des livres possibles.
+
+### 👀 Aperçu
+
+Je ferai une vidéo de présentation sous forme de .gif que je mettrai ici
+<div align="center">
+  <img src="img/cybooks_presentation.gif" />
+</div>
+
+## 🚀 Lancer le site internet
+> [Accéder au tutoriel](docs/run_project.md)
