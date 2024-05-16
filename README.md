@@ -1,7 +1,7 @@
 # CY-Books
 
 <div>
-  <img src="src/main/resources/org/openjfx/cybooks/img/CYBooksFullGit.png" style="width: 65%;">
+  <img src="src/main/resources/org/openjfx/cybooks/img/CYBooksFullGit.png" style="width: 55%;">
 </div>
 
 ## 📋 Projet
@@ -19,7 +19,7 @@ L'application utilise l'API de la Bibliothèque nationale de France (BNF) afin d
 
 ### 👀 Aperçu
 
-Je ferai une vidéo de présentation sous forme de .gif que je mettrai ici
+(Je ferai une vidéo de présentation sous forme de .gif que je mettrai ici)
 <div align="center">
   <img src="img/cybooks_presentation.gif" />
 </div>
