@@ -24,5 +24,5 @@ L'application utilise l'API de la Bibliothèque nationale de France (BNF) afin d
   <img src="img/cybooks_presentation.gif" />
 </div>
 
-## 🚀 Lancer le site internet
+## 🚀 Lancer l'application
 > [Accéder au tutoriel](docs/run_project.md)
