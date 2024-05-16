@@ -12,7 +12,7 @@ Pour cela, elle dispose de toutes les fonctionnalités les plus élémentaires t
 
 Le bibliothécaire a par exemple également la possibilité de modifier les informations des usagers, d'effectuer des recherches multi-critères, d'afficher l'historique des emprunts ou la liste des retards de rendu d'un usager pour l'aider dans la gestion des livres et des emprunts.
 
-L'application peut soit être lancée avec une interface en ligne de commande (CLI) ou avec l'interface graphique (GUI) qui lui est dédiée grâce à un programme écrit en Shell.
+L'application peut soit être lancée avec une interface en ligne de commande ou avec l'interface graphique qui lui est dédiée grâce à un programme écrit en Shell.
 
 L'interface graphique de l'application à été produite à l'aide de JavaFX et la relation avec la base de données est permise grâce au driver JDBC (Java DataBase Connectivity).<br>
 L'application utilise l'API de la Bibliothèque nationale de France (BNF) afin de récupérer la liste des livres possibles.
