@@ -14,7 +14,7 @@ Le bibliothécaire a par exemple également la possibilité de modifier les info
 
 L'application peut soit être lancée avec une interface en ligne de commande (CLI) ou avec l'interface graphique (GUI) qui lui est dédiée grâce à un programme écrit en Shell.
 
-L'interface graphique de l'application à été produite à l'aide de JavaFX et la relation avec la base de données est permise grâce au driver JDBC (Java DataBase Connectivity).
+L'interface graphique de l'application à été produite à l'aide de JavaFX et la relation avec la base de données est permise grâce au driver JDBC (Java DataBase Connectivity).<br>
 L'application utilise l'API de la Bibliothèque nationale de France (BNF) afin de récupérer la liste des livres possibles.
 
 ### 👀 Aperçu
