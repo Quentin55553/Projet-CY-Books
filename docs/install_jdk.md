@@ -5,7 +5,7 @@
 > - Avoir les privilèges administrateur
 
 > [!IMPORTANT]
-> Le JDK installé doit obligatoirement être de la version 20 ou ultérieure.
+> Le JDK installé doit obligatoirement être de la version **20** ou ultérieure.
 
 ## Étape 1 : Ouvrir le terminal Linux
 Sur votre ordinateur Linux, ouvrez le terminal (**Ctrl+Alt+T**).
@@ -33,7 +33,7 @@ sudo apt install openjdk-21-jdk
 
 > [!NOTE]
 > Cette commande n'est qu'un exemple valable pour pouvoir lancer l'application.<br>
-> Vous pouvez installer n'importe quelle version du moment qu'elle est de la version 20 ou ultérieure en remplaçant '**21**' par la version désirée dans la commande.
+> Vous pouvez installer n'importe quelle version du moment qu'elle est de la version **20** ou ultérieure en remplaçant '**21**' par la version désirée dans la commande.
 
 Après avoir entré la commande ci-dessus, une confirmation vous sera demandée afin de poursuivre l'installation, entrez **Y** et appuyez sur **ENTRÉE**.
 
