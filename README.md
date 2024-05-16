@@ -25,4 +25,4 @@ L'application utilise l'API de la Bibliothèque nationale de France (BNF) afin d
 </div>
 
 ## 🚀 Lancer l'application
-> [Accéder au tutoriel](docs/run_project.md)
+> [Accéder au tutoriel](docs/run_app.md)
