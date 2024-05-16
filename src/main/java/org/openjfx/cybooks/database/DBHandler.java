@@ -91,7 +91,7 @@ public class DBHandler {
         List<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT * FROM loans WHERE customer_id='" + customer_id + "'");
+            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, duration, completed, books.ISBN as ISBN FROM loans, books WHERE customer_id='" + customer_id + "' AND book_id=books.id");
 
             while (res.next()) {
                 loans.add(new Loan(res.getInt("id"), res.getString("ISBN"), customer_id, res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed")));
@@ -117,7 +117,7 @@ public class DBHandler {
             res = statement.executeQuery("SELECT loans.id, customer_id, begin_date, duration, completed FROM loans, books WHERE loans.book_id=books.id and books.ISBN='" + ISBN + "'");
 
             while (res.next()){
-                loan = new Loan(res.getInt("id"), res.getString("ISBN"), res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed"));
+                loan = new Loan(res.getInt("id"), ISBN, res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed"));
                 loans.add(loan);
             }
 
@@ -138,11 +138,11 @@ public class DBHandler {
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT id, book_id, customer_id, begin_date, duration, completed FROM loans");
+            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, duration, completed, books.ISBN as ISBN FROM loans, books WHERE books.id=loans.book_id");
 
             while (res.next()){
 
-                loan = new Loan(res.getInt("id"), res.getString("book_id"), res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed"));
+                loan = new Loan(res.getInt("id"), res.getString("ISBN"), res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed"));
                 loans.add(loan);
             }
 
@@ -185,10 +185,10 @@ public class DBHandler {
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT id, book_id, customer_id, begin_date, duration, completed FROM loans WHERE completed='0'");
+            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, duration, completed, books.ISBN as ISBN FROM loans, books WHERE completed='0' AND loans.book_id=books.id");
 
             while (res.next()){
-                loan = new Loan(res.getInt("id"), res.getString("book_id"), res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), false);
+                loan = new Loan(res.getInt("id"), res.getString("ISBN"), res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), false);
                 loans.add(loan);
             }
 

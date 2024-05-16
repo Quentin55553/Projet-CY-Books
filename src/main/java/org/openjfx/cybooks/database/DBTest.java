@@ -26,7 +26,7 @@ public class DBTest {
 //                System.out.println(c);
 //            }
 
-            DBHandler.updateLoan(5, true);
+//            DBHandler.updateLoan(5, true);
 
             loans = DBHandler.getOngoingLoans();
 
