@@ -10,10 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -41,7 +40,7 @@ public class HomePageController implements Initializable {
 
 
     @FXML
-    private AnchorPane Center;
+    public AnchorPane Center;
     @FXML
     private JFXHamburger MenuHamb;
 
@@ -92,7 +91,7 @@ public class HomePageController implements Initializable {
         AddCustomerTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addCustomer-page.fxml"));
         AddCustomerLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addCustomer-page.fxml"));
         AddLoanTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
-        AddLoanLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/Profil-page.fxml"));
+        AddLoanLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
         AllUsersButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/AllUsers-page.fxml"));
     }
 
@@ -107,7 +106,7 @@ public class HomePageController implements Initializable {
         }
     }
 
-    private void handleChangeCenter(String fxmlFile) {
+    public void handleChangeCenter(String fxmlFile) {
         try {
             // Call the changeCenter method with the specified path
             changeCenter(fxmlFile);
@@ -115,7 +114,7 @@ public class HomePageController implements Initializable {
             e.printStackTrace();
         }
     }
-    private void changeCenter(String fxmlFile) throws IOException {
+    public void changeCenter(String fxmlFile) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         AnchorPane newCenter = loader.load();
         // Set the size constraints of the new AnchorPane
@@ -126,6 +125,7 @@ public class HomePageController implements Initializable {
         AnchorPane.setBottomAnchor(newCenter, 0.0);
         AnchorPane.setRightAnchor(newCenter, 210.0);
 
+        Center.getChildren().clear();
         Center.getChildren().setAll(newCenter);
         /*
         // Transfer children from newCenter to Center

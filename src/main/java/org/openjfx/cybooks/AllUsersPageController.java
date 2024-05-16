@@ -1,12 +1,15 @@
 package org.openjfx.cybooks;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -19,29 +22,17 @@ import java.util.ResourceBundle;
 public class AllUsersPageController implements Initializable {
 
     @FXML
+    private HomePageController homePageController;
+    @FXML
+    AnchorPane AllUsersAnchorPane;
+
+    @FXML
     private VBox AllUsersVbox;
     @FXML
     private FontAwesomeIconView ChevronLeft;
 
     @FXML
     private FontAwesomeIconView ChevronRight;
-
-    /*@Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // 10 le nombre de line de la requete     à changer
-        Node[] nodes = new Node[10];
-        for (int i = 0; i < nodes.length; i++) {
-            try {
-                nodes[i] = (Node) FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-AllUsers.fxml")));
-                AllUsersVbox.getChildren().add(nodes[i]);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
-
-    /*@FXML
-    private TextField rowsPerPageField;*/
 
     private int currentPage = 0;
     private int rowsPerPage = 10; // Valeur par défaut
@@ -57,8 +48,6 @@ public class AllUsersPageController implements Initializable {
             e.printStackTrace();
         }
 
-        /*// Initialiser le champ de saisie avec la valeur par défaut
-        rowsPerPageField.setText(String.valueOf(rowsPerPage));*/
     }
 
     @FXML
@@ -71,19 +60,6 @@ public class AllUsersPageController implements Initializable {
         showPage(currentPage + 1);
     }
 
-    /*@FXML
-    private void handleRowsPerPageChange() {
-        try {
-            int newRowsPerPage = Integer.parseInt(rowsPerPageField.getText());
-            if (newRowsPerPage > 0) {
-                rowsPerPage = newRowsPerPage;
-                showPage(0); // Revenir à la première page après le changement
-            }
-        } catch (NumberFormatException e) {
-            // Gérer l'exception si l'utilisateur n'entre pas un nombre valide
-            rowsPerPageField.setText(String.valueOf(rowsPerPage));
-        }
-    }*/
 
     private List<String> getResultsFromDatabase() {
         List<String> results = new ArrayList<>();
@@ -153,10 +129,7 @@ public class AllUsersPageController implements Initializable {
                     //set ID   (il faudrait mettre l'id du membre comme ça on appel la fonction pour la page spécifique)
                     button.setId("ProfilButton"+i);
                     // Set the onAction event handler for the button
-                    button.setOnAction(event -> {
-                        // Your action code here
-                        System.out.println("Button clicked! ID: " + button.getId());
-                    });
+                    button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
                 }
             }
             AllUsersVbox.getChildren().add(node);
@@ -170,10 +143,35 @@ public class AllUsersPageController implements Initializable {
         ChevronRight.setVisible(currentPage < totalPages - 1);
     }
 
-    public void ShowProfil(){
-        System.out.println("Profil");
-    }
-    public void getID(){
+
+    @FXML
+    private void handleButtonClick(String id) {
+        System.out.println(id);
+        try {
+            // Load the new FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Profil-page.fxml"));
+            Parent parent = AllUsersAnchorPane.getParent();
+
+            if (parent instanceof AnchorPane) {
+                AnchorPane center = (AnchorPane) parent;
+
+                AnchorPane newCenter = loader.load();
+                // Set the size constraints of the new AnchorPane
+                newCenter.setPrefSize(center.getWidth(), center.getHeight());
+
+                AnchorPane.setTopAnchor(newCenter, 0.0);
+                AnchorPane.setLeftAnchor(newCenter, 210.0);
+                AnchorPane.setBottomAnchor(newCenter, 0.0);
+                AnchorPane.setRightAnchor(newCenter, 210.0);
+
+                // Replace the embedded node with the new one
+                center.getChildren().setAll(newCenter);
+            } else {
+                System.err.println("Parent is not an instance of AnchorPane");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
