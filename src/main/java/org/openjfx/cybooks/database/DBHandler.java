@@ -85,7 +85,7 @@ public class DBHandler {
         return book;
     }
 
-    public static List<Loan> getLoans(int customer_id) throws NoSuchElementException {
+    public static List<Loan> getLoansByCustomer(int customer_id) throws NoSuchElementException {
         createConnexion();
         ResultSet res;
         List<Loan> loans = new ArrayList<>();
@@ -107,7 +107,7 @@ public class DBHandler {
         return loans;
     }
 
-    public static List<Loan> getLoans (String ISBN) throws NoSuchElementException {
+    public static List<Loan> getLoansByISBN(String ISBN) throws NoSuchElementException {
         createConnexion();
         ResultSet res;
         Loan loan;
@@ -131,7 +131,7 @@ public class DBHandler {
         return loans;
     }
 
-    public static List<Loan> getLoans () throws NoSuchElementException {
+    public static List<Loan> getLoans() throws NoSuchElementException {
         createConnexion();
         ResultSet res;
         Loan loan;

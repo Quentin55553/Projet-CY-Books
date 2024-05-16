@@ -8,7 +8,7 @@ public class Book {
     private final String ISBN;
     private String title;
     private String author;
-    private final int total;
+    private int total;
     private int stock;
 
     public Book (int id, String ISBN, int total, int stock) {
@@ -25,6 +25,10 @@ public class Book {
         this.author = author;
         this.total = total;
         this.stock = stock;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getISBN() {
@@ -57,6 +61,10 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     @Override
