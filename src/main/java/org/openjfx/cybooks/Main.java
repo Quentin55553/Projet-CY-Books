@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -29,6 +30,7 @@ public class Main extends Application {
         primaryStage.setTitle("Cy-Books");
         primaryStage.show();
     }
+
 
     public static void main(String[] args) {
         launch(args);
