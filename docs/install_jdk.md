@@ -3,7 +3,6 @@
 > [!NOTE]
 > ## Prérequis
 > - Avoir les privilèges administrateur
-
 > [!IMPORTANT]
 > Le JDK installé doit obligatoirement être de la version 20 ou ultérieure.
 
