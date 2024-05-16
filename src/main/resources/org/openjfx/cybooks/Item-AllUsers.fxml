@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER" prefHeight="95.0" prefWidth="700.0" spacing="3.0" style="-fx-background-color: DDA15E;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label prefHeight="22.0" prefWidth="144.0" text="Nom" textOverrun="CLIP" />
+      <Label prefHeight="27.0" prefWidth="155.0" text="Prenom" />
+      <Label prefHeight="20.0" prefWidth="99.0" text="id" />
+      <Label prefHeight="24.0" prefWidth="130.0" text="nombre d'emprunt" />
+      <Button fx:id="ProfilButton" mnemonicParsing="false" style="-fx-background-color: none;">
+         <graphic>
+            <FontAwesomeIconView fill="#606c38" glyphName="SEARCH" selectionFill="#fefae0" selectionStart="0" size="19">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></FontAwesomeIconView>
+         </graphic>
+      </Button>
+   </children>
+   <padding>
+      <Insets left="3.0" />
+   </padding>
+</HBox>

@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+
 <BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.HomePageController">
    <top>
       <AnchorPane>
@@ -226,7 +227,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <JFXButton fx:id="AllUsersButton" alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Tous les membres" textFill="#fefae0">
+                        <JFXButton alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Tous les membres" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="15.0" />
                            </font>
