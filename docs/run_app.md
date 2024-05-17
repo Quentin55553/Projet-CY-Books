@@ -16,7 +16,7 @@ Faites un **CLIC DROIT** avec la souris et cliquez sur `Ouvrir dans un terminal`
 
 ## Étape 2 : Lancer l'application
 ### Exécuter le programme de lancement de l'application
-Pour pouvoir compiler et exécuter l'application sur votre ordinnateur, exécutez le programme de lancement de l'application à l'aide de la commande suivante :
+Pour pouvoir compiler et exécuter l'application sur votre ordinateur, exécutez le programme de lancement de l'application à l'aide de la commande suivante :
 
 ```bash
 bash run_app.sh
