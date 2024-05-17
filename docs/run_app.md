@@ -8,7 +8,7 @@
 
 > [!NOTE]
 > ## À savoir
-> L'application peut également être lancée sur Windows à l'aide d'un JDK de la version **20** ou ultérieure ainsi que de Maven.<br>
+> L'application peut également être lancée sur Windows à l'aide d'un JDK de la version **20** ou ultérieure ainsi que de **Maven**.<br>
 > Le script de lancement de l'application peut être exécuté grâce à l'outil d'émulation [Git Bash](https://gitforwindows.org/) ou via [WSL](https://learn.microsoft.com/fr-fr/windows/wsl/install).
 
 ## Étape 1 : Ouvrir le terminal Linux
