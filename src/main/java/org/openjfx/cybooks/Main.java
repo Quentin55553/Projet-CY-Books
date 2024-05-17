@@ -27,7 +27,7 @@ public class Main extends Application {
         primaryStage.setTitle("Cy Books");
 
         // Show the login scene
-        showHomeScene();
+        showLogInScene();
     }
 
 
