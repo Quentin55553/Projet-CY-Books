@@ -25,6 +25,7 @@ bash run_app.sh
 
 ### Choisir l'interface
 Une fois la compilation du projet réussie le programme de lancement vous demandera avec quelle interface vous souhaitez utiliser l'application.<br>
-Si vous voulez utilisez l'application avec l'interface graphique entrez **O**, sinon l'application se lancera avec l'interface en ligne de commande (rentrez **n**).
+Si vous voulez utilisez l'application avec l'interface graphique entrez **O**, sinon l'application se lancera avec l'interface en ligne de commande (rentrez **n**).<br>
+Appuyez ensuite sur **ENTRÉE**.
 
 ### Vous voilà sur l'application ! 🎉
