@@ -88,8 +88,8 @@ public class Core {
 
     }
 
-    public Boolean librarianAuthentication(String login, String password) {
-        return true;
+    public Librarian librarianAuthentication(String login, String password) {
+        return DBHandler.librarianAuthentication(login, password);
     }
 
 
