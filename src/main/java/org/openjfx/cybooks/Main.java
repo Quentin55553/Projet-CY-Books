@@ -29,8 +29,6 @@ public class Main extends Application {
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("CY-Books");
 
-        // Prevents the user from resizing the window
-        primaryStage.setResizable(false);
 
         // Show the login scene
         showLogInScene();
@@ -42,6 +40,8 @@ public class Main extends Application {
         Parent root = loader.load();
         SignUpController controller = loader.getController();
         controller.setMain(this);
+        // Prevents the user from resizing the window
+        primaryStage.setResizable(false);
 
         primaryStage.setScene(new Scene(root, 550, 470));
         primaryStage.show();
@@ -53,6 +53,8 @@ public class Main extends Application {
         Parent root = loader.load();
         LogInController controller = loader.getController();
         controller.setMain(this);
+        // Prevents the user from resizing the window
+        primaryStage.setResizable(false);
 
         primaryStage.setScene(new Scene(root, 550, 400));
         primaryStage.show();
@@ -64,6 +66,8 @@ public class Main extends Application {
         Parent root = loader.load();
         HomePageController controller = loader.getController();
         controller.setMain(this);
+        // Makes the user able to resize the window
+        primaryStage.setResizable(true);
 
         primaryStage.setScene(new Scene(root, 1300, 800));
         primaryStage.show();
