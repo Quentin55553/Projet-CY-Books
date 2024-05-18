@@ -44,9 +44,11 @@ public class LogInController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (isValidCredentials(username, password)) {
-            // Go to home page
-            main.showHomeScene();
+        if (!username.isEmpty() && !password.isEmpty()) {
+            if (isValidCredentials(username, password)) {
+                // Go to home page
+                main.showHomeScene();
+            }
 
         } else {
             errorLabel.setText("Identifiant et/ou mot de passe incorrect");
