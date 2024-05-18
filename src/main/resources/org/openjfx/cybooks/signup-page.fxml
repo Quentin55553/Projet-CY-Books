@@ -91,7 +91,7 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="406.0" layoutY="442.0" onMouseClicked="#logInClicked" prefHeight="17.0" prefWidth="130.0" text="J'ai déjà un compte" textFill="#bc6c25" underline="true">
+      <Label layoutX="406.0" layoutY="442.0" onMouseClicked="#logInClicked" prefHeight="17.0" prefWidth="119.0" text="J'ai déjà un compte" textFill="#bc6c25" underline="true">
          <font>
             <Font name="Eras Medium ITC" size="13.0" />
          </font>

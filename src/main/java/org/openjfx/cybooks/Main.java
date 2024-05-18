@@ -56,7 +56,7 @@ public class Main extends Application {
         // Prevents the user from resizing the window
         primaryStage.setResizable(false);
 
-        primaryStage.setScene(new Scene(root, 550, 400));
+        primaryStage.setScene(new Scene(root, 550, 470));
         primaryStage.show();
     }
 
