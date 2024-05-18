@@ -5,6 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.openjfx.cybooks.data.Librarian;
+import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
 
@@ -43,7 +45,7 @@ public class LogInController {
         String password = passwordField.getText();
 
         if (isValidCredentials(username, password)) {
-            // go to home page
+            // Go to home page
             main.showHomeScene();
 
         } else {
@@ -53,7 +55,10 @@ public class LogInController {
 
 
     private boolean isValidCredentials(String username, String password) {
-        return username.equals("admin") && password.equals("admin");
+        Librarian librarian = DBHandler.librarianAuthentication(username, password);
+
+        // Returns 'true' if the 'librarian' variable is not null, 'false' otherwise
+        return librarian != null;
     }
 
 

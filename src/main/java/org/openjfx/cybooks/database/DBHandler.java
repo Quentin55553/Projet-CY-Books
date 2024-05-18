@@ -5,49 +5,83 @@ import org.openjfx.cybooks.data.Customer;
 import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.data.Loan;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class DBHandler {
 
-    private static Connection connexion;
+public class DBHandler {
+    private static Connection connection;
     private static Statement statement;
 
 
-    private static void createConnexion () {
-        String url = "jdbc:mysql://localhost/CY-Books";
-        String user = "root";
-        String password = "";
-
+    private static void createFirstConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            connexion = DriverManager.getConnection(url, user, password);
-            statement = connexion.createStatement();
-
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "");
+            statement = connection.createStatement();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static void closeConnexion () {
+
+    private static void createConnection() {
         try {
-            connexion.close();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/CY-Books", "root", "");
+            statement = connection.createStatement();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static void closeConnection () {
+        try {
+            connection.close();
+
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
 
+    public static void executeSQLFile(String filePath) {
+        createFirstConnection();
 
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            StringBuilder sql = new StringBuilder();
+
+            while ((line = br.readLine()) != null) {
+                sql.append(line).append("\n");
+            }
+
+            String[] sqlCommands = sql.toString().split(";");
+
+            for (String command : sqlCommands) {
+                if (!command.trim().isEmpty()) {
+                    statement.execute(command.trim());
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static Book getBook(String id) throws NoSuchElementException {
-        createConnexion();
+        createConnection();
         ResultSet res;
         Book book = null;
 
@@ -63,13 +97,14 @@ public class DBHandler {
             System.out.println(e.getMessage());
         }
 
-        closeConnexion();
+        closeConnection();
 
         return book;
     }
 
+
     public static List<Loan> getLoansByCustomer(int customer_id) throws NoSuchElementException {
-        createConnexion();
+        createConnection();
         ResultSet res;
         List<Loan> loans = new ArrayList<>();
 
@@ -81,18 +116,18 @@ public class DBHandler {
                 loans.add(new Loan(res.getInt("id"), res.getString("book_id"), customer_id, res.getDate("begin_date"), res.getDate("expiration_date"), res.getBoolean("completed")));
             }
 
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        closeConnexion();
+        closeConnection();
 
         return loans;
     }
 
+
     public static List<Loan> getLoansByBookId(String bookId) throws NoSuchElementException {
-        createConnexion();
+        createConnection();
         ResultSet res;
         Loan loan;
         ArrayList<Loan> loans = new ArrayList<>();
@@ -106,18 +141,18 @@ public class DBHandler {
                 loans.add(loan);
             }
 
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        closeConnexion();
+        closeConnection();
 
         return loans;
     }
 
+
     public static List<Loan> getLoans() throws NoSuchElementException {
-        createConnexion();
+        createConnection();
         ResultSet res;
         Loan loan;
         ArrayList<Loan> loans = new ArrayList<>();
@@ -133,18 +168,18 @@ public class DBHandler {
                 loans.add(loan);
             }
 
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        closeConnexion();
+        closeConnection();
 
         return loans;
     }
 
+
     public static List<Customer> getCustomers(String name) throws NoSuchElementException {
-        createConnexion();
+        createConnection();
         ResultSet res;
         Customer customer;
         ArrayList<Customer> customers = new ArrayList<>();
@@ -158,17 +193,18 @@ public class DBHandler {
                 customers.add(customer);
             }
 
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        closeConnexion();
+        closeConnection();
 
         return customers;
     }
+
+
     public static List<Loan> getOngoingLoans () throws NoSuchElementException {
-        createConnexion();
+        createConnection();
         ResultSet res;
         Loan loan;
         ArrayList<Loan> loans = new ArrayList<>();
@@ -183,158 +219,197 @@ public class DBHandler {
                 loans.add(loan);
             }
 
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        closeConnexion();
+        closeConnection();
 
         return loans;
     }
 
+
     public static void addBook (String ID, int stock, int total) {
-        createConnexion();
+        createConnection();
 
         try {
             statement.execute("INSERT INTO books (id, quantity, stock) VALUES ('" + ID + "', '" + total + "', '" + stock + "')");
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        closeConnexion();
+
+        closeConnection();
     }
 
+
     public static void addLoan (String book_id, int customer_id, Date expirationDate) {
-        createConnexion();
+        createConnection();
 
         try {
             statement.execute("INSERT INTO loans (book_id, customer_id, expiration_date) VALUES ('" + book_id + "', '" + customer_id + "', '" + expirationDate + "')");
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        closeConnexion();
+
+        closeConnection();
     }
 
+
     public static void addCustomer (String lastName, String firstName) {
-        createConnexion();
+        createConnection();
 
         try {
             statement.execute("INSERT INTO customers (`last_name`, `first_name`) VALUES ('" + lastName + "', '" + firstName + "')");
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        closeConnexion();
+
+        closeConnection();
     }
 
+
+    public static void addLibrarian (String login, String lastName, String firstName, String password) {
+        createConnection();
+
+        try {
+            statement.execute("INSERT INTO librarians (`login`, `last_name`, `first_name`, `password`) VALUES ('" + login + "', '" + lastName + "', '" + firstName + "', '" + password +"')");
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        closeConnection();
+    }
+
+
     public static void updateCustomer (int id, String lastName, String firstName) {
-        createConnexion();
+        createConnection();
 
         try {
             statement.execute("UPDATE customers SET last_name='" + lastName + "', first_name='" + firstName + "' WHERE id='" + id + "'");
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        closeConnexion();
+
+        closeConnection();
     }
 
+
     public static void updateLoan (int id, boolean completed) {
-        createConnexion();
+        createConnection();
 
         int value = (completed ? 1 : 0);
 
         try {
             statement.execute("UPDATE loans SET completed='" + value + "' WHERE id='" + id + "'");
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        closeConnexion();
+
+        closeConnection();
     }
 
+
     public static void updateExpirationDate(String id, Date expirationDate) {
-        createConnexion();
+        createConnection();
 
         try {
             statement.execute("UPDATE loans SET expiration_date='" + expirationDate + "' WHERE id='" + id + "'");
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        closeConnexion();
+
+        closeConnection();
     }
 
+
     public static void updateBookStock (String id, int stock) {
-        createConnexion();
+        createConnection();
 
         try {
             statement.execute("UPDATE books SET stock='" + stock + "' WHERE id='" + id + "'");
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        closeConnexion();
+
+        closeConnection();
     }
+
+
     public static void updateBookTotal (String id, int total) {
-        createConnexion();
+        createConnection();
 
         try {
             statement.execute("UPDATE books SET quantity='" + total + "' WHERE id='" + id + "'");
+
         } catch (SQLException e) {
             System.out.println(e);
         }
-        closeConnexion();
+
+        closeConnection();
     }
 
+
     public static List<Book> getMostPopularBooks() {
-        createConnexion();
+        createConnection();
         ResultSet res;
 
         List<Book> books = new ArrayList<>();
 
-
         try {
-//            resBooks = statement.executeQuery("SELECT * FROM books WHERE id IN (SELECT book_id FROM loans GROUP BY book_id ORDER BY COUNT(book_id) DESC)");
+            // resBooks = statement.executeQuery("SELECT * FROM books WHERE id IN (SELECT book_id FROM loans GROUP BY book_id ORDER BY COUNT(book_id) DESC)");
             res = statement.executeQuery("SELECT *, count(book_id) as nb FROM books RIGHT JOIN loans l on books.id = l.book_id GROUP BY book_id ORDER BY COUNT(book_id) DESC");
 
-
             while (res.next()) {
-//                System.out.println(res.getString("id") + ", " + res.getInt("nb"));
+                // System.out.println(res.getString("id") + ", " + res.getInt("nb"));
                 Book book = new Book(res.getString("id"), res.getInt("quantity"), res.getInt("stock"));
                 books.add(book);
             }
 
-
         } catch (SQLException e) {
             System.out.println(e);
         }
-        closeConnexion();
+
+        closeConnection();
+
         return books;
     }
 
+
     public static List<Book> getMostPopularBooksSince(String date) {
-        createConnexion();
+        createConnection();
         ResultSet res;
 
         List<Book> books = new ArrayList<>();
-
 
         try {
             res = statement.executeQuery("SELECT *, count(book_id) as nb FROM books RIGHT JOIN loans l on books.id = l.book_id WHERE begin_date >= '" + date + "' GROUP BY book_id ORDER BY COUNT(book_id) DESC");
 
-
             while (res.next()) {
-//                System.out.println(res.getString("id") + ", " + res.getInt("nb"));
+                // System.out.println(res.getString("id") + ", " + res.getInt("nb"));
                 Book book = new Book(res.getString("id"), res.getInt("quantity"), res.getInt("stock"));
                 books.add(book);
             }
 
-
         } catch (SQLException e) {
             System.out.println(e);
         }
-        closeConnexion();
+
+        closeConnection();
+
         return books;
     }
 
+
     public static List<Loan> getExpiredLoans() throws NoSuchElementException {
-        createConnexion();
+        createConnection();
         ResultSet res;
         List<Loan> loans = new ArrayList<>();
 
@@ -342,31 +417,69 @@ public class DBHandler {
             res = statement.executeQuery("SELECT * FROM loans WHERE expiration_date < CURRENT_DATE");
             if (res.getFetchSize() == 0)
                 throw new NoSuchElementException("No expired loans in database in database");
+
             while (res.next()) {
                 boolean completed = (res.getInt("completed") != 0);
                 loans.add(new Loan(res.getInt("id"), res.getString("book_id"), res.getInt("customer_id"), res.getDate("begin_date"), res.getDate("expiration_date"), completed));
             }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        closeConnexion();
+
+        closeConnection();
+
         return loans;
     }
 
+
+    public static boolean isUniqueLibrarian(String login) {
+        createConnection();
+        boolean isUnique = true;
+
+        try {
+            String sql = "SELECT COUNT(*) AS count FROM librarians WHERE login = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            // Assigns the login value to the first parameter of the query
+            statement.setString(1, login);
+
+            // Executes the query
+            ResultSet resultSet = statement.executeQuery();
+
+            // If the query returned a line
+            if (resultSet.next()) {
+                int nbLibrarians = resultSet.getInt("count");
+
+                if (nbLibrarians > 0) {
+                    isUnique = false;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        closeConnection();
+
+        return isUnique;
+    }
+
+
     public static Librarian librarianAuthentication(String user, String password) {
-        createConnexion();
+        createConnection();
         ResultSet res;
         Librarian librarian = null;
 
         try {
-            res = statement.executeQuery("SELECT * FROM librarians WHERE last_name='" + user + "'AND password='" + password + "'");
+            res = statement.executeQuery("SELECT * FROM librarians WHERE login='" + user + "'AND password='" + password + "'");
             res.next();
             librarian = new Librarian(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        closeConnexion();
+        closeConnection();
 
         return librarian;
     }

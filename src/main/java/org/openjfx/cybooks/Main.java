@@ -6,8 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.sql.SQLInput;
 import java.util.Objects;
 
 
@@ -24,7 +27,10 @@ public class Main extends Application {
 
         // Set the icon for the stage
         primaryStage.getIcons().add(icon);
-        primaryStage.setTitle("Cy Books");
+        primaryStage.setTitle("CY-Books");
+
+        // Prevents the user from resizing the window
+        primaryStage.setResizable(false);
 
         // Show the login scene
         showLogInScene();
@@ -36,9 +42,8 @@ public class Main extends Application {
         Parent root = loader.load();
         SignUpController controller = loader.getController();
         controller.setMain(this);
-        primaryStage.setResizable(false);
 
-        primaryStage.setScene(new Scene(root, 550, 400));
+        primaryStage.setScene(new Scene(root, 550, 470));
         primaryStage.show();
     }
 
@@ -48,7 +53,6 @@ public class Main extends Application {
         Parent root = loader.load();
         LogInController controller = loader.getController();
         controller.setMain(this);
-        primaryStage.setResizable(false);
 
         primaryStage.setScene(new Scene(root, 550, 400));
         primaryStage.show();
@@ -60,14 +64,16 @@ public class Main extends Application {
         Parent root = loader.load();
         HomePageController controller = loader.getController();
         controller.setMain(this);
-        primaryStage.setResizable(true);
 
-        primaryStage.setScene(new Scene(root, 1000, 800));
+        primaryStage.setScene(new Scene(root, 1300, 800));
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
+        // Executes the database creation file
+        DBHandler.executeSQLFile(Paths.get("").toAbsolutePath().toString() + "/src/main/resources/org/openjfx/cybooks/database/CY-Books.sql");
+
         launch(args);
     }
 }

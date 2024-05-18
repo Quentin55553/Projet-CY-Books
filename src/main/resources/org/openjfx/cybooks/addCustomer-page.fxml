@@ -38,7 +38,7 @@
                       <RowConstraints maxHeight="156.0" minHeight="10.0" prefHeight="156.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="22.0" prefWidth="278.0" text="Prenom" textAlignment="CENTER" textFill="#283618" GridPane.columnIndex="1">
+                        <Label prefHeight="22.0" prefWidth="278.0" text="Prénom" textAlignment="CENTER" textFill="#283618" GridPane.columnIndex="1">
                            <font>
                               <Font name="Eras Medium ITC" size="17.0" />
                            </font>
@@ -62,7 +62,7 @@
                               <Insets left="15.0" right="50.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <CustomTextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer prenom" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <CustomTextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer prénom" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="15.0" />
                            </GridPane.margin>
@@ -70,7 +70,7 @@
                               <Font name="Eras Medium ITC" size="18.0" />
                            </font>
                         </CustomTextField>
-                        <CustomTextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer prenom" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <CustomTextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer nom" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="15.0" />
                            </GridPane.margin>
@@ -82,7 +82,7 @@
                   </GridPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="244.0" text="Inscription membre" textFill="#fefae0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="301.0" text="Inscription d'un membre" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="23.0" />
                            </font>

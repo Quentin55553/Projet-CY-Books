@@ -3,18 +3,6 @@
 Couleur_OFF='\033[0m'    # Réinitialisation des couleurs
 Rouge='\033[0;31m'       # Rouge
 Vert='\033[0;32m'        # Vert
-Jaune='\033[0;33m'       # Jaune
-Violet='\033[0;35m'      # Violet
-Orange='\e[38;5;208m'    # Orange
-Noir='\033[0;30m'        # Noir
-Bleu='\033[0;34m'        # Bleu
-Cyan='\033[0;36m'        # Cyan
-Blanc='\033[0;37m'       # Blanc
-
-MEF_OFF='\e[0m'          # Réinitialisation de la mise en forme du texte
-Gras='\e[1m'             # Texte en gras
-Italique='\e[3m'         # Texte en italique
-Souligne='\e[4m'         # Texte souligné
 
 
 function run() {

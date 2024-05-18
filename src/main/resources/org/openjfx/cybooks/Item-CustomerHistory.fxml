@@ -20,7 +20,7 @@
       <Label text="Titre" />
       <Label text="Auteur" />
       <Label text="Genre" />
-      <Label text="date emprunt" />
-      <JFXButton text="Rendu/pas Rendu" />
+      <Label text="Date emprunt" />
+      <JFXButton text="Rendu / Pas rendu" />
    </children>
 </HBox>

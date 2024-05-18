@@ -2,23 +2,20 @@ package org.openjfx.cybooks;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
-
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-
 import java.util.ResourceBundle;
 
 
@@ -33,8 +30,6 @@ public class HomePageController implements Initializable {
     private JFXButton AddLoanTopButton;
     @FXML
     private JFXButton AllUsersButton;
-
-
 
     @FXML
     public AnchorPane Center;
@@ -61,7 +56,7 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Menuside.setTranslateX(-200);
+        Menuside.setTranslateX(-208);
         MenuHamb.setOnMouseClicked(event -> {
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.3));
@@ -69,13 +64,13 @@ public class HomePageController implements Initializable {
 
             // Check if the menu is currently hidden
             if (Menuside.getTranslateX() != 0) {
-                // Slide the menu in
+                // Slide the menu out
                 slide.setToX(0);
                 slide.play();
 
             } else {
-                // Slide the menu out
-                slide.setToX(-200);
+                // Slide the menu in
+                slide.setToX(-208);
                 slide.play();
             }
 
@@ -105,6 +100,7 @@ public class HomePageController implements Initializable {
         }
     }
 
+
     public void handleChangeCenter(String fxmlFile) {
         try {
             // Call the changeCenter method with the specified path
@@ -114,6 +110,8 @@ public class HomePageController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
     public void changeCenter(String fxmlFile) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         AnchorPane newCenter = loader.load();
@@ -126,12 +124,9 @@ public class HomePageController implements Initializable {
         AnchorPane.setRightAnchor(newCenter, 210.0);
 
         Center.getChildren().setAll(newCenter);
-/*
+        /*
         // Transfer children from newCenter to Center
-        Center.getChildren().setAll(newCenter.getChildren());*/
-
+        Center.getChildren().setAll(newCenter.getChildren());
+        */
     }
 }
-
-
-

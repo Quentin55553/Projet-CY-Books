@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
 
@@ -14,7 +15,11 @@ public class SignUpController {
     private Stage primaryStage;
 
     @FXML
-    public TextField username;
+    public TextField login;
+    @FXML
+    public TextField lastname;
+    @FXML
+    public TextField firstname;
     @FXML
     public PasswordField password;
     @FXML
@@ -48,13 +53,16 @@ public class SignUpController {
 
     @FXML
     public void signUpClicked() {
-        String enteredUsername = username.getText();
+        String enteredLogin = login.getText();
+        String enteredLastname = lastname.getText();
+        String enteredFirstname = firstname.getText();
         String enteredPassword = password.getText();
         String confirmedPassword = password2.getText();
 
-        if (isValidSignUp(enteredUsername, enteredPassword, confirmedPassword)) {
-            // go to login page
+        if (isValidSignUp(enteredLogin, enteredPassword, confirmedPassword)) {
+            // Go to login page
             try {
+                DBHandler.addLibrarian(enteredLogin, enteredLastname, enteredFirstname, enteredPassword);
                 main.showLogInScene();
 
             } catch (IOException e) {
@@ -62,13 +70,13 @@ public class SignUpController {
             }
 
         } else {
-            errorLabel.setText("L'identifiant doit avoir au moins 1 caractère et les deux mots de passe doivent être identiques");
+            errorLabel.setText("L'identifiant doit être unique et avoir au moins 1 caractère \net les deux mots de passe doivent être identiques");
         }
     }
 
 
-    private boolean isValidSignUp(String username, String password, String confirmedPassword) {
-        // Assuming a valid sign up requires username and matching passwords
-        return !username.isEmpty() && password.equals(confirmedPassword);
+    private boolean isValidSignUp(String login, String password, String confirmedPassword) {
+        // Assuming a valid sign up requires a unique login and matching passwords
+        return !login.isEmpty() && DBHandler.isUniqueLibrarian(login) && password.equals(confirmedPassword);
     }
 }

@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.HomePageController">
+<BorderPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.HomePageController">
    <top>
       <AnchorPane>
          <children>
@@ -64,7 +64,7 @@
                <children>
                   <HBox alignment="CENTER" layoutX="202.0" layoutY="3.0" prefHeight="56.0" prefWidth="800.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="3.0">
                      <children>
-                        <JFXButton fx:id="ConsultTopButton" prefHeight="56.0" prefWidth="175.0" text="Consulter livres" textFill="WHITE">
+                        <JFXButton fx:id="ConsultTopButton" prefHeight="56.0" prefWidth="192.0" text="Consulter livres" textFill="WHITE">
                            <font>
                               <Font name="Eras Medium ITC" size="18.0" />
                            </font>
@@ -118,7 +118,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <JFXButton fx:id="AddLoanTopButton" prefHeight="56.0" prefWidth="175.0" text="Créer emprunt" textFill="WHITE">
+                        <JFXButton fx:id="AddLoanTopButton" prefHeight="56.0" prefWidth="184.0" text="Créer emprunt" textFill="WHITE">
                            <font>
                               <Font name="Eras Medium ITC" size="18.0" />
                            </font>
@@ -159,9 +159,9 @@
       <AnchorPane>
          <children>
             <AnchorPane fx:id="Center" style="-fx-background-color: #FEFAE0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <AnchorPane fx:id="Menuside" prefHeight="294.0" prefWidth="198.0" style="-fx-background-color: #606C38;">
+            <AnchorPane fx:id="Menuside" prefHeight="294.0" prefWidth="208.0" style="-fx-background-color: #606C38;">
                <children>
-                  <VBox layoutY="18.0" prefHeight="276.0" prefWidth="203.0" style="-fx-background-color: #606C38;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
+                  <VBox layoutY="18.0" prefHeight="276.0" prefWidth="208.0" style="-fx-background-color: #606C38;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
                      <children>
                         <JFXButton alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Consulter les livres" textFill="#fefae0">
                            <font>
@@ -289,7 +289,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <JFXButton alignment="TOP_LEFT" prefHeight="48.0" prefWidth="195.0" text="Problèmes emprunts" textFill="#fefae0">
+                        <JFXButton alignment="TOP_LEFT" prefHeight="48.0" prefWidth="208.0" text="Problèmes emprunts" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="15.0" />
                            </font>
