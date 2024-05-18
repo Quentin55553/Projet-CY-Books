@@ -2,22 +2,15 @@ package org.openjfx.cybooks.data;
 
 import org.openjfx.cybooks.database.DBHandler;
 
-import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+
 public class Core {
 
-    public static Book getBook(int id) throws NoSuchElementException {
+    public static Book getBook(String id) throws NoSuchElementException {
         Book book = DBHandler.getBook(id);
-        // get data from API
-        return book;
-    }
-
-    public static Book getBook(String ISBN) throws NoSuchElementException {
-        Book book = DBHandler.getBook(ISBN);
         // get data from API
         return book;
     }
@@ -26,8 +19,8 @@ public class Core {
         return DBHandler.getLoansByCustomer(customerId);
     }
 
-    public static List<Loan> getLoans(String ISBN) throws NoSuchElementException {
-        return DBHandler.getLoansByISBN(ISBN);
+    public static List<Loan> getLoans(String book_id) throws NoSuchElementException {
+        return DBHandler.getLoansByBookId(book_id);
     }
 
     public static List<Loan> getLoans() throws NoSuchElementException {
@@ -42,12 +35,12 @@ public class Core {
         return DBHandler.getCustomers(name);
     }
 
-    public static void addBook(String ISBN, int stock, int total) {
-        DBHandler.addBook(ISBN, stock, total);
+    public static void addBook(String id, int stock, int total) {
+        DBHandler.addBook(id, stock, total);
     }
 
-    public static void addLoan(Book book, Customer customer, int duration) {
-        DBHandler.addLoan(book.getId(), customer.getId(), duration);
+    public static void addLoan(Book book, Customer customer, Date expirationDate) {
+        DBHandler.addLoan(book.getId(), customer.getId(), expirationDate);
     }
 
     public static void addCustomer(String firstName, String lastName) {
@@ -64,19 +57,19 @@ public class Core {
         DBHandler.updateLoan(id, completed);
     }
 
-    public static void updateLoanDuration(int id, int duration) {
-        DBHandler.updateLoanDuration(id, duration);
+    public static void updateLoanExpirationDate(String id, Date expirationDate) {
+        DBHandler.updateExpirationDate(id, expirationDate);
     }
 
 
     public static void updateBookStock(Book book, int stock) {
         book.setStock(stock);
-        DBHandler.updateLoanDuration(book.getId(), stock);
+        DBHandler.updateBookStock(book.getId(), stock);
     }
 
     public static void updateBookTotal(Book book, int total) {
         book.setTotal(total);
-        DBHandler.updateLoanDuration(book.getId(), total);
+        DBHandler.updateBookTotal(book.getId(), total);
     }
 
     public static List<Book> getMostPopularBooks() {
@@ -85,6 +78,10 @@ public class Core {
 
     public static List<Book> getMostPopularBooksSince(String date) {
         return DBHandler.getMostPopularBooksSince(date);
+    }
+
+    public static List<Loan> getExpiredLoans () {
+        return DBHandler.getExpiredLoans();
     }
 
     public static void removeBook() {

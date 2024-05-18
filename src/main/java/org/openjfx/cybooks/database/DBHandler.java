@@ -2,10 +2,12 @@ package org.openjfx.cybooks.database;
 
 import org.openjfx.cybooks.data.Book;
 import org.openjfx.cybooks.data.Customer;
+import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.data.Loan;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -44,40 +46,21 @@ public class DBHandler {
 
 
 
-    public static Book getBook(int id) throws NoSuchElementException {
+    public static Book getBook(String id) throws NoSuchElementException {
         createConnexion();
         ResultSet res;
-        Book book;
+        Book book = null;
 
         try {
             res = statement.executeQuery("SELECT * FROM books WHERE id='" + id + "'");
+            if (res.getFetchSize() == 0)
+                throw new NoSuchElementException("No such book with id " + id + " in database");
             res.next();
-            book = new Book(id, res.getString("ISBN"), res.getInt("quantity"), res.getInt("stock"));
+            book = new Book(id, res.getInt("quantity"), res.getInt("stock"));
 
 
         } catch (SQLException e) {
-            throw new NoSuchElementException("No such book with id " + id + " in database");
-        }
-
-        closeConnexion();
-
-        return book;
-    }
-
-    public static Book getBook(String ISBN) throws NoSuchElementException {
-        createConnexion();
-        ResultSet res;
-        Book book;
-
-        try {
-            res = statement.executeQuery("SELECT * FROM books WHERE ISBN='" + ISBN + "'");
-
-            res.next();
-            book = new Book(res.getInt("id"), ISBN, res.getInt("quantity"), res.getInt("stock"));
-
-
-        } catch (SQLException e) {
-            throw new NoSuchElementException("No such book with ISBN " + ISBN + " in database");
+            System.out.println(e.getMessage());
         }
 
         closeConnexion();
@@ -91,15 +74,16 @@ public class DBHandler {
         List<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, duration, completed, books.ISBN as ISBN FROM loans, books WHERE customer_id='" + customer_id + "' AND book_id=books.id");
-
+            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, expiration_date, completed FROM loans, books WHERE customer_id='" + customer_id + "' AND book_id=books.id");
+            if (res.getFetchSize() == 0)
+                throw new NoSuchElementException("No such loan with customer_id " + customer_id + " in database");
             while (res.next()) {
-                loans.add(new Loan(res.getInt("id"), res.getString("ISBN"), customer_id, res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed")));
+                loans.add(new Loan(res.getInt("id"), res.getString("book_id"), customer_id, res.getDate("begin_date"), res.getDate("expiration_date"), res.getBoolean("completed")));
             }
 
 
         } catch (SQLException e) {
-            throw new NoSuchElementException("No such loan with customer_id " + customer_id + " in database");
+            System.out.println(e.getMessage());
         }
 
         closeConnexion();
@@ -107,23 +91,24 @@ public class DBHandler {
         return loans;
     }
 
-    public static List<Loan> getLoansByISBN(String ISBN) throws NoSuchElementException {
+    public static List<Loan> getLoansByBookId(String bookId) throws NoSuchElementException {
         createConnexion();
         ResultSet res;
         Loan loan;
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT loans.id, customer_id, begin_date, duration, completed FROM loans, books WHERE loans.book_id=books.id and books.ISBN='" + ISBN + "'");
-
+            res = statement.executeQuery("SELECT loans.id, customer_id, begin_date, expiration_date, completed FROM loans, books WHERE loans.book_id=books.id");
+            if (res.getFetchSize() == 0)
+                throw new NoSuchElementException("No such loan with bookId " + bookId + " in database");
             while (res.next()){
-                loan = new Loan(res.getInt("id"), ISBN, res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed"));
+                loan = new Loan(res.getInt("id"), bookId, res.getInt("customer_id"), res.getDate("begin_date"), res.getDate("expiration_date"), res.getBoolean("completed"));
                 loans.add(loan);
             }
 
 
         } catch (SQLException e) {
-            throw new NoSuchElementException("No such loan with ISBN " + ISBN + " in database");
+            System.out.println(e.getMessage());
         }
 
         closeConnexion();
@@ -138,17 +123,19 @@ public class DBHandler {
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, duration, completed, books.ISBN as ISBN FROM loans, books WHERE books.id=loans.book_id");
+            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, expiration_date, completed FROM loans");
+            if (res.getFetchSize() == 0)
+                throw new NoSuchElementException("No loans in database");
 
             while (res.next()){
 
-                loan = new Loan(res.getInt("id"), res.getString("ISBN"), res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), res.getBoolean("completed"));
+                loan = new Loan(res.getInt("id"), res.getString("book_id"), res.getInt("customer_id"), res.getDate("begin_date"), res.getDate("expiration_date"), res.getBoolean("completed"));
                 loans.add(loan);
             }
 
 
         } catch (SQLException e) {
-            throw new NoSuchElementException("No loans in database");
+            System.out.println(e.getMessage());
         }
 
         closeConnexion();
@@ -164,14 +151,16 @@ public class DBHandler {
 
         try {
             res = statement.executeQuery("SELECT * FROM customers WHERE last_name like '%" + name + "%'");
+            if (res.getFetchSize() == 0)
+                throw new NoSuchElementException("No such customer with name " + name + " in database");
             while (res.next()) {
-                customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
+                customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"));
                 customers.add(customer);
             }
 
 
         } catch (SQLException e) {
-            throw new NoSuchElementException("No such customer " + name + " in database");
+            System.out.println(e.getMessage());
         }
 
         closeConnexion();
@@ -185,16 +174,18 @@ public class DBHandler {
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, duration, completed, books.ISBN as ISBN FROM loans, books WHERE completed='0' AND loans.book_id=books.id");
+            res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, expiration_date, completed FROM loans WHERE completed='0'");
+            if (res.getFetchSize() == 0)
+                throw new NoSuchElementException("No ongoing loans in database");
 
             while (res.next()){
-                loan = new Loan(res.getInt("id"), res.getString("ISBN"), res.getInt("customer_id"), res.getDate("begin_date"), res.getInt("duration"), false);
+                loan = new Loan(res.getInt("id"), res.getString("book_id"), res.getInt("customer_id"), res.getDate("begin_date"), res.getDate("expiration_date"), false);
                 loans.add(loan);
             }
 
 
         } catch (SQLException e) {
-            throw new NoSuchElementException("No such loans in database");
+            System.out.println(e.getMessage());
         }
 
         closeConnexion();
@@ -202,22 +193,22 @@ public class DBHandler {
         return loans;
     }
 
-    public static void addBook (String ISBN, int stock, int total) {
+    public static void addBook (String ID, int stock, int total) {
         createConnexion();
 
         try {
-            statement.execute("INSERT INTO books (ISBN, quantity, stock) VALUES ('" + ISBN + "', '" + total + "', '" + stock + "')");
+            statement.execute("INSERT INTO books (id, quantity, stock) VALUES ('" + ID + "', '" + total + "', '" + stock + "')");
         } catch (SQLException e) {
             System.out.println(e);
         }
         closeConnexion();
     }
 
-    public static void addLoan (int book_id, int customer_id, int duration) {
+    public static void addLoan (String book_id, int customer_id, Date expirationDate) {
         createConnexion();
 
         try {
-            statement.execute("INSERT INTO loans (book_id, customer_id, duration) VALUES ('" + book_id + "', '" + customer_id + "', '" + duration + "')");
+            statement.execute("INSERT INTO loans (book_id, customer_id, expiration_date) VALUES ('" + book_id + "', '" + customer_id + "', '" + expirationDate + "')");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -259,18 +250,18 @@ public class DBHandler {
         closeConnexion();
     }
 
-    public static void updateLoanDuration (int id, int duration) {
+    public static void updateExpirationDate(String id, Date expirationDate) {
         createConnexion();
 
         try {
-            statement.execute("UPDATE loans SET duration='" + duration + "' WHERE id='" + id + "'");
+            statement.execute("UPDATE loans SET expiration_date='" + expirationDate + "' WHERE id='" + id + "'");
         } catch (SQLException e) {
             System.out.println(e);
         }
         closeConnexion();
     }
 
-    public static void updateBookStock (int id, int stock) {
+    public static void updateBookStock (String id, int stock) {
         createConnexion();
 
         try {
@@ -280,7 +271,7 @@ public class DBHandler {
         }
         closeConnexion();
     }
-    public static void updateBookTotal (int id, int total) {
+    public static void updateBookTotal (String id, int total) {
         createConnexion();
 
         try {
@@ -304,8 +295,8 @@ public class DBHandler {
 
 
             while (res.next()) {
-                System.out.println(res.getString("id") + ", " + res.getInt("nb"));
-                Book book = new Book(res.getInt("id"), res.getString("ISBN"), res.getInt("quantity"), res.getInt("stock"));
+//                System.out.println(res.getString("id") + ", " + res.getInt("nb"));
+                Book book = new Book(res.getString("id"), res.getInt("quantity"), res.getInt("stock"));
                 books.add(book);
             }
 
@@ -329,8 +320,8 @@ public class DBHandler {
 
 
             while (res.next()) {
-                System.out.println(res.getString("id") + ", " + res.getInt("nb"));
-                Book book = new Book(res.getInt("id"), res.getString("ISBN"), res.getInt("quantity"), res.getInt("stock"));
+//                System.out.println(res.getString("id") + ", " + res.getInt("nb"));
+                Book book = new Book(res.getString("id"), res.getInt("quantity"), res.getInt("stock"));
                 books.add(book);
             }
 
@@ -340,5 +331,43 @@ public class DBHandler {
         }
         closeConnexion();
         return books;
+    }
+
+    public static List<Loan> getExpiredLoans() throws NoSuchElementException {
+        createConnexion();
+        ResultSet res;
+        List<Loan> loans = new ArrayList<>();
+
+        try {
+            res = statement.executeQuery("SELECT * FROM loans WHERE expiration_date < CURRENT_DATE");
+            if (res.getFetchSize() == 0)
+                throw new NoSuchElementException("No expired loans in database in database");
+            while (res.next()) {
+                boolean completed = (res.getInt("completed") != 0);
+                loans.add(new Loan(res.getInt("id"), res.getString("book_id"), res.getInt("customer_id"), res.getDate("begin_date"), res.getDate("expiration_date"), completed));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        closeConnexion();
+        return loans;
+    }
+
+    public static Librarian librarianAuthentication(String user, String password) {
+        createConnexion();
+        ResultSet res;
+        Librarian librarian = null;
+
+        try {
+            res = statement.executeQuery("SELECT * FROM librarians WHERE last_name='" + user + "'AND password='" + password + "'");
+            res.next();
+            librarian = new Librarian(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        closeConnexion();
+
+        return librarian;
     }
 }

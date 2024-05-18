@@ -6,7 +6,6 @@ public class Librarian {
     private final String firstName;
     private final String lastName;
 
-
     public Librarian(int id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;

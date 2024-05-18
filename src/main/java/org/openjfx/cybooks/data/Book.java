@@ -4,37 +4,31 @@ import java.util.Objects;
 
 
 public class Book {
-    private final int id;
-    private final String ISBN;
+    private final String id;
     private String title;
     private String author;
     private int total;
     private int stock;
 
 
-    public Book (int id, String ISBN, int total, int stock) {
+    public Book (String id, int total, int stock) {
         this.id = id;
-        this.ISBN = ISBN;
         this.stock = stock;
         this.total = total;
     }
 
 
-    public Book(int id, String ISBN, String title, String author, int total, int stock) {
+    public Book(String id, String title, String author, int total, int stock) {
         this.id = id;
-        this.ISBN = ISBN;
         this.title = title;
         this.author = author;
         this.total = total;
         this.stock = stock;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public String getISBN() {
-        return ISBN;
+    public String getId() {
+        return id;
     }
 
 
@@ -81,18 +75,18 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return ISBN == book.ISBN;
+        return id == book.id;
     }
 
 
     @Override
     public int hashCode() {
-        return Objects.hash(ISBN);
+        return Objects.hash(id);
     }
 
 
     public String toString () {
-        return "ISBN: " + ISBN
+        return "id: " + id
             + "\ntitle: " + title
             + "\nauthor: " + author
             + "\nstock: " + stock

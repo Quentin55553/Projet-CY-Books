@@ -15,29 +15,33 @@ public class DBTest {
         List<Customer> customers;
 
         try {
-            // System.out.println(DBHandler.getBook("22784"));
-            // List<Loan> loans = DBHandler.getLoans();
+            int address;
+//             System.out.println(DBHandler.getBook("22784"));
+//             loans = DBHandler.getLoans();
 
-            // customers = DBHandler.getCustomers("Be");
-            // for (Customer c : customers) {
-            //     System.out.println(c);
-            // }
+             customers = DBHandler.getCustomers("gze");
 
-            // DBHandler.updateLoan(5, true);
 
-            loans = DBHandler.getOngoingLoans();
+
+//             DBHandler.updateLoan(4, true);
+//
+//            loans = DBHandler.getOngoingLoans();
+//            loans = DBHandler.getExpiredLoans();
 
             // DBHandler.addCustomer("Bel", "Theo");
-            // books = DBHandler.getMostPopularBooks();
-            // books = DBHandler.getMostPopularBooksSince("2024-05-14");
+//             books = DBHandler.getMostPopularBooks();
+//             books = DBHandler.getMostPopularBooksSince("2024-05-14");
 
-            // for (Book b : books) {
-            //   System.out.println(b);
-            // }
-
-            for (Loan l : loans) {
-                System.out.println(l);
-            }
+//             for (Book b : books) {
+//               System.out.println(b);
+//             }
+//
+//            for (Loan l : loans) {
+//                System.out.println(l);
+//            }
+             for (Customer c : customers) {
+                 System.out.println(c);
+             }
 
         } catch (NoSuchElementException e) {
             System.out.println(e);

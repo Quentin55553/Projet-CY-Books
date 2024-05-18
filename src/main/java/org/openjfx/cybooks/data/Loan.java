@@ -1,28 +1,26 @@
 package org.openjfx.cybooks.data;
 
-import java.time.Duration;
 import java.util.Date;
 import java.util.Objects;
-import java.time.LocalDate;
 
 
 public class Loan {
     private final int id;
     private final int customerId;
-    private final String bookISBN;
+    private final String bookId;
     private final Date beginDate;
-    private int duration;
+    private Date expirationDate;
     private boolean completed;
     private boolean expired;
 
 
-    public Loan(int id, String ISBN, int customerId, Date beginDate, int duration, boolean completed) {
+    public Loan(int id, String bookId, int customerId, Date beginDate, Date expirationDate, boolean completed) {
         this.id = id;
-        this.bookISBN = ISBN;
+        this.bookId = bookId;
         this.customerId = customerId;
         this.beginDate = beginDate;
-        this.duration = duration;
-        this.expired = false;
+        this.expirationDate = expirationDate;
+        this.expired = expirationDate.before(new Date());
         this.completed = completed;
     }
 
@@ -32,9 +30,9 @@ public class Loan {
     }
 
 
-    public void setDuration (int duration) {
-        this.duration = duration;
-        // modify expired
+    public void setDuration (Date date) {
+        this.expirationDate = date;
+        this.expired = expirationDate.before(new Date());
     }
 
 
@@ -55,10 +53,10 @@ public class Loan {
 
     public String toString () {
         return "id : " + id
-            + "\nISBN: " + bookISBN
+            + "\nISBN: " + bookId
             + "\ncustomer: " + customerId
             + "\nbegin date: " + beginDate
-            + "\nduration: " + duration
+            + "\nexpiration date: " + expirationDate
             + "\ncompleted:" + completed
             + "\nhas expired: " + hasExpired();
     }
