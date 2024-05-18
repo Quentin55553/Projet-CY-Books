@@ -36,6 +36,7 @@ public class Main extends Application {
         Parent root = loader.load();
         SignUpController controller = loader.getController();
         controller.setMain(this);
+        primaryStage.setResizable(false);
 
         primaryStage.setScene(new Scene(root, 550, 400));
         primaryStage.show();
@@ -47,6 +48,7 @@ public class Main extends Application {
         Parent root = loader.load();
         LogInController controller = loader.getController();
         controller.setMain(this);
+        primaryStage.setResizable(false);
 
         primaryStage.setScene(new Scene(root, 550, 400));
         primaryStage.show();
@@ -58,6 +60,7 @@ public class Main extends Application {
         Parent root = loader.load();
         HomePageController controller = loader.getController();
         controller.setMain(this);
+        primaryStage.setResizable(true);
 
         primaryStage.setScene(new Scene(root, 1000, 800));
         primaryStage.show();
