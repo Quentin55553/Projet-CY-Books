@@ -89,6 +89,13 @@
                             <noHeaderFiles>true</noHeaderFiles>
                         </configuration>
                     </execution>
+                    <execution>
+                        <!-- Default configuration for running with: mvn clean javafx:run -->
+                        <id>commandline-cli</id>
+                        <configuration>
+                            <mainClass>org.openjfx.cybooks/org.openjfx.cybooks.CommandLine.CommandLineHandler</mainClass>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

@@ -33,9 +33,7 @@ function run() {
 	# Otherwise, we run the project with CLI
 	else
 		echo -e "Lancement de l'interface en ligne de commande"
-		# Runs the project with CLI
-		# Ne marche pas pour le moment. Il faut créer la classe Main pour l'interface en ligne de commande et ensuite ajouter l'exécution dans pom.xml (je le ferai (Quentin))
-		# mvn -q clean javafx:run@run-main-cli
+		mvn -q clean javafx:run@commandline-cli
 	fi
 }
 
