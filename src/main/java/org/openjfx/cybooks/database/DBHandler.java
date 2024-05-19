@@ -468,23 +468,23 @@ public class DBHandler {
     }
 
 
-    public static Librarian librarianAuthentication(String user, String password) throws IncorrectPasswordException, NoSuchElementException {
+    public static Librarian librarianAuthentication(String login, String password) throws IncorrectPasswordException, NoSuchElementException {
         createConnection();
         ResultSet res;
         Librarian librarian = null;
 
         try {
-            res = statement.executeQuery("SELECT * FROM librarians WHERE login='" + user + "'");
+            res = statement.executeQuery("SELECT * FROM librarians WHERE login='" + login + "'");
 
-            if (res.getFetchSize() == 0) {
+            if (!res.next()) {
                 throw new NoSuchElementException("Nom d'utilisateur introuvable");
             }
 
-
-            res.next();
             String hashedPassword = res.getString("password");
+
             if (BCrypt.checkpw(password, hashedPassword))
                 librarian = new Librarian(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
+
             else
                 throw new IncorrectPasswordException("Mot de passe incorrect");
 
