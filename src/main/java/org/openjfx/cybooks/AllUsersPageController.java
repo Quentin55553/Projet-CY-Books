@@ -1,6 +1,7 @@
 package org.openjfx.cybooks;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,24 +20,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AllUsersPageController implements Initializable {
 
+public class AllUsersPageController implements Initializable {
     @FXML
     private HomePageController homePageController;
-    @FXML
-    AnchorPane AllUsersAnchorPane;
-
     @FXML
     private VBox AllUsersVbox;
     @FXML
     private FontAwesomeIconView ChevronLeft;
-
     @FXML
     private FontAwesomeIconView ChevronRight;
-
     private int currentPage = 0;
     private int rowsPerPage = 10; // Valeur par défaut
     private List<String> results;
+    @FXML
+    AnchorPane AllUsersAnchorPane;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -50,10 +49,12 @@ public class AllUsersPageController implements Initializable {
 
     }
 
+
     @FXML
     private void Previous() throws IOException {
         showPage(currentPage - 1);
     }
+
 
     @FXML
     private void Next() throws IOException {
@@ -104,12 +105,15 @@ public class AllUsersPageController implements Initializable {
         return results;
     }
 
+
     private int getTotalPages() {
         return (results.size() + rowsPerPage - 1) / rowsPerPage;
     }
 
+
     private void showPage(int page) throws IOException {
         int totalPages = getTotalPages();
+
         if (page < 0 || page > results.size() / rowsPerPage) {
             return;
         }
@@ -120,11 +124,12 @@ public class AllUsersPageController implements Initializable {
         int start = page * rowsPerPage;
         int end = Math.min(start + rowsPerPage, results.size());
 
-
         for (int i = start; i < end; i++) {
             Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-AllUsers.fxml")));
+
             if (node instanceof Parent){
                 Button button = (Button) ((Parent)node).lookup("#ProfilButton");
+
                 if (button != null) {
                     //set ID   (il faudrait mettre l'id du membre comme ça on appel la fonction pour la page spécifique)
                     button.setId("ProfilButton"+i);
@@ -134,9 +139,11 @@ public class AllUsersPageController implements Initializable {
             }
             AllUsersVbox.getChildren().add(node);
         }
+
         System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
         updateButtonStates(totalPages);
     }
+
 
     private void updateButtonStates(int totalPages) {
         ChevronLeft.setVisible(currentPage > 0);
@@ -147,6 +154,7 @@ public class AllUsersPageController implements Initializable {
     @FXML
     private void handleButtonClick(String id) {
         System.out.println(id);
+
         try {
             // Load the new FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Profil-page.fxml"));
@@ -166,16 +174,13 @@ public class AllUsersPageController implements Initializable {
 
                 // Replace the embedded node with the new one
                 center.getChildren().setAll(newCenter);
+
             } else {
                 System.err.println("Parent is not an instance of AnchorPane");
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }
-
-
-
