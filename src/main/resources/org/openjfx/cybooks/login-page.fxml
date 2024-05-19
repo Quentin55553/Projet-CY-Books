@@ -43,7 +43,7 @@
                         <Font name="Eras Light ITC" size="12.0" />
                      </font>
                   </PasswordField>
-                  <Button layoutX="110.0" layoutY="329.0" onMouseClicked="#loginClicked" prefHeight="22.0" prefWidth="102.0" style="-fx-background-color: #DDA15E;" text="Connexion" textFill="WHITE">
+                  <Button layoutX="110.0" layoutY="313.0" onMouseClicked="#loginClicked" prefHeight="22.0" prefWidth="102.0" style="-fx-background-color: #DDA15E;" text="Connexion" textFill="WHITE">
                      <font>
                         <Font name="Eras Demi ITC" size="12.0" />
                      </font>
@@ -51,7 +51,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="306.0" prefHeight="17.0" prefWidth="225.0" textFill="#f80000">
+                  <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="290.0" prefHeight="17.0" prefWidth="225.0" textFill="#f80000">
                      <font>
                         <Font size="10.0" />
                      </font>
