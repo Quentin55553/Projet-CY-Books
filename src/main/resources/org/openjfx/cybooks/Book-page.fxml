@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -43,19 +43,12 @@
                         <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton maxWidth="-Infinity" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #283618;" text="Edit stock" textFill="#fefae0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <JFXButton maxWidth="-Infinity" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" text="Modifier le stock" textFill="#fefae0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <font>
-                              <Font name="Eras Demi ITC" size="14.0" />
+                              <Font name="Eras Medium ITC" size="14.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@img/icons/edit.png" />
-                                 </image>
-                                 <effect>
-                                    <ColorAdjust brightness="1.0" />
-                                 </effect>
-                              </ImageView>
+                              <FontAwesomeIconView fill="#283618" glyphName="EDIT" size="24" />
                            </graphic>
                         </JFXButton>
                         <ImageView fitHeight="295.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">

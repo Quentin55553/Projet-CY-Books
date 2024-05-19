@@ -1,14 +1,11 @@
 package org.openjfx.cybooks;
 
-import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -20,14 +17,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AllUsersPageController implements Initializable {
+public class AllLoansController implements Initializable {
 
 
     @FXML
-    AnchorPane AllUsersAnchorPane;
+    AnchorPane AllLoansAnchorPane;
 
     @FXML
-    private VBox AllUsersVbox;
+    private VBox AllLoansVbox;
     @FXML
     private FontAwesomeIconView ChevronLeft;
 
@@ -89,18 +86,6 @@ public class AllUsersPageController implements Initializable {
         results.add("xigua");
         results.add("yellow passion fruit");
         results.add("zucchini");
-        /*try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "your_username", "your_password");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM your_table");
-            while (resultSet.next()) {
-                results.add(resultSet.getString("your_column"));
-            }
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
         return results;
     }
 
@@ -115,24 +100,15 @@ public class AllUsersPageController implements Initializable {
         }
 
         currentPage = page;
-        AllUsersVbox.getChildren().clear();
+        AllLoansVbox.getChildren().clear();
 
         int start = page * rowsPerPage;
         int end = Math.min(start + rowsPerPage, results.size());
 
 
         for (int i = start; i < end; i++) {
-            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-AllUsers.fxml")));
-            if (node instanceof Parent){
-                Button button = (Button) ((Parent)node).lookup("#ProfilButton");
-                if (button != null) {
-                    //set ID   (il faudrait mettre l'id du membre comme ça on appel la fonction pour la page spécifique)
-                    button.setId("ProfilButton"+i);
-                    // Set the onAction event handler for the button
-                    button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
-                }
-            }
-            AllUsersVbox.getChildren().add(node);
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-Loan.fxml")));
+            AllLoansVbox.getChildren().add(node);
         }
         System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
         updateButtonStates(totalPages);
@@ -150,7 +126,7 @@ public class AllUsersPageController implements Initializable {
         try {
             // Load the new FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Profil-page.fxml"));
-            Parent parent = AllUsersAnchorPane.getParent();
+            Parent parent = AllLoansAnchorPane.getParent();
 
             if (parent instanceof AnchorPane) {
                 AnchorPane center = (AnchorPane) parent;
@@ -175,7 +151,5 @@ public class AllUsersPageController implements Initializable {
 
     }
 
+
 }
-
-
-

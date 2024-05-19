@@ -1,15 +1,11 @@
 package org.openjfx.cybooks;
 
-import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -20,14 +16,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AllUsersPageController implements Initializable {
+public class LoanIssuesPageControler implements Initializable {
 
 
     @FXML
-    AnchorPane AllUsersAnchorPane;
+    AnchorPane LoanIssuesAnchorPane;
 
     @FXML
-    private VBox AllUsersVbox;
+    private VBox LoanIssuesVbox;
     @FXML
     private FontAwesomeIconView ChevronLeft;
 
@@ -89,18 +85,6 @@ public class AllUsersPageController implements Initializable {
         results.add("xigua");
         results.add("yellow passion fruit");
         results.add("zucchini");
-        /*try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "your_username", "your_password");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM your_table");
-            while (resultSet.next()) {
-                results.add(resultSet.getString("your_column"));
-            }
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
         return results;
     }
 
@@ -115,24 +99,15 @@ public class AllUsersPageController implements Initializable {
         }
 
         currentPage = page;
-        AllUsersVbox.getChildren().clear();
+        LoanIssuesVbox.getChildren().clear();
 
         int start = page * rowsPerPage;
         int end = Math.min(start + rowsPerPage, results.size());
 
 
         for (int i = start; i < end; i++) {
-            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-AllUsers.fxml")));
-            if (node instanceof Parent){
-                Button button = (Button) ((Parent)node).lookup("#ProfilButton");
-                if (button != null) {
-                    //set ID   (il faudrait mettre l'id du membre comme ça on appel la fonction pour la page spécifique)
-                    button.setId("ProfilButton"+i);
-                    // Set the onAction event handler for the button
-                    button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
-                }
-            }
-            AllUsersVbox.getChildren().add(node);
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-Loan.fxml")));
+            LoanIssuesVbox.getChildren().add(node);
         }
         System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
         updateButtonStates(totalPages);
@@ -144,38 +119,4 @@ public class AllUsersPageController implements Initializable {
     }
 
 
-    @FXML
-    private void handleButtonClick(String id) {
-        System.out.println(id);
-        try {
-            // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Profil-page.fxml"));
-            Parent parent = AllUsersAnchorPane.getParent();
-
-            if (parent instanceof AnchorPane) {
-                AnchorPane center = (AnchorPane) parent;
-
-                AnchorPane newCenter = loader.load();
-                // Set the size constraints of the new AnchorPane
-                newCenter.setPrefSize(center.getWidth(), center.getHeight());
-
-                AnchorPane.setTopAnchor(newCenter, 0.0);
-                AnchorPane.setLeftAnchor(newCenter, 210.0);
-                AnchorPane.setBottomAnchor(newCenter, 0.0);
-                AnchorPane.setRightAnchor(newCenter, 210.0);
-
-                // Replace the embedded node with the new one
-                center.getChildren().setAll(newCenter);
-            } else {
-                System.err.println("Parent is not an instance of AnchorPane");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 }
-
-
-

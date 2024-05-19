@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="490.0" prefWidth="363.0" style="-fx-background-color: FEFAE0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.FilterDialogUserController">
+    <children>
+        <Label layoutX="90.0" layoutY="14.0" text="Filtrage de recherche" textFill="#bc6c25">
+            <font>
+                <Font name="Eras Demi ITC" size="18.0" />
+            </font>
+        </Label>
+      <Label layoutX="22.0" layoutY="75.0" text="Nom" textFill="#dda15e">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="LastNameFIeld" layoutX="107.0" layoutY="75.0" />
+        <ButtonBar layoutX="-7.0" layoutY="203.0" prefHeight="42.0" prefWidth="370.0" style="-fx-background-color: #606C38;" AnchorPane.bottomAnchor="0.0">
+            <buttons>
+                <JFXButton minWidth="65.0" onAction="#reset" prefHeight="28.0" text="Reset" textFill="#283618">
+                    <graphic>
+                        <FontAwesomeIconView fill="#283618" glyphName="UNDO" selectionEnd="0" />
+                    </graphic>
+                    <font>
+                        <Font name="Eras Medium ITC" size="14.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </JFXButton>
+                <JFXButton style="-fx-background-color: #283618; -fx-background-radius: 10;" text="Sauvegarder" textFill="#fefae0">
+                    <font>
+                        <Font name="Eras Medium ITC" size="14.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </JFXButton>
+                <JFXButton onAction="#closeDialog" style="-fx-background-color: #283618; -fx-background-radius: 10;" text="Annuler" textFill="#fefae0">
+                    <font>
+                        <Font name="Eras Medium ITC" size="14.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+                </JFXButton>
+            </buttons>
+        </ButtonBar>
+      <Label layoutX="22.0" layoutY="120.0" text="Prénom" textFill="#dda15e">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="FirstNameField" layoutX="107.0" layoutY="120.0" />
+      <Label layoutX="22.0" layoutY="165.0" text="ID" textFill="#dda15e">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="IDField" layoutX="107.0" layoutY="165.0" />
+      <Label layoutX="22.0" layoutY="210.0" prefHeight="18.0" prefWidth="50.0" text="Email" textFill="#dda15e">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="EmaileField" layoutX="107.0" layoutY="210.0" />
+      <Label layoutX="22.0" layoutY="255.0" prefHeight="18.0" prefWidth="67.0" text="Téléphone" textFill="#dda15e">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="PhoneField" layoutX="107.0" layoutY="255.0" />
+      <Label layoutX="22.0" layoutY="300.0" prefHeight="18.0" prefWidth="67.0" text="Adresse" textFill="#dda15e">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="AddressField" layoutX="107.0" layoutY="300.0" prefHeight="25.0" prefWidth="211.0" />
+      <Label layoutX="22.0" layoutY="345.0" prefHeight="18.0" prefWidth="211.0" text="Nombre d'emprunt(s) supérieur à" textFill="#dda15e">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="LoanSuppField" layoutX="245.0" layoutY="342.0" prefHeight="25.0" prefWidth="76.0" />
+      <Label layoutX="24.0" layoutY="390.0" prefHeight="18.0" prefWidth="211.0" text="Nombre d'emprunt(s) inférieur à" textFill="#dda15e">
+         <font>
+            <Font name="Eras Medium ITC" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="LoanInfField" layoutX="245.0" layoutY="390.0" prefHeight="25.0" prefWidth="76.0" />
+    </children>
+</AnchorPane>

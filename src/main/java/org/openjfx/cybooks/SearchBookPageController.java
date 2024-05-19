@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,14 +22,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AllUsersPageController implements Initializable {
+public class SearchBookPageController implements Initializable {
 
 
-    @FXML
-    AnchorPane AllUsersAnchorPane;
 
     @FXML
-    private VBox AllUsersVbox;
+    private AnchorPane SearchBookAnchorPane;
+    @FXML
+    private JFXButton FilterSearchButton;
+
+    @FXML
+    private VBox BooksVbox;
     @FXML
     private FontAwesomeIconView ChevronLeft;
 
@@ -41,6 +46,9 @@ public class AllUsersPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         results = getResultsFromDatabase();
+
+        FilterSearchButton.setOnAction(this::openFilterDialog);
+
         try {
             showPage(0);
             updateButtonStates(results.size() / rowsPerPage);
@@ -89,18 +97,6 @@ public class AllUsersPageController implements Initializable {
         results.add("xigua");
         results.add("yellow passion fruit");
         results.add("zucchini");
-        /*try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "your_username", "your_password");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM your_table");
-            while (resultSet.next()) {
-                results.add(resultSet.getString("your_column"));
-            }
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
         return results;
     }
 
@@ -115,24 +111,24 @@ public class AllUsersPageController implements Initializable {
         }
 
         currentPage = page;
-        AllUsersVbox.getChildren().clear();
+        BooksVbox.getChildren().clear();
 
         int start = page * rowsPerPage;
         int end = Math.min(start + rowsPerPage, results.size());
 
 
         for (int i = start; i < end; i++) {
-            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-AllUsers.fxml")));
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-Book.fxml")));
             if (node instanceof Parent){
-                Button button = (Button) ((Parent)node).lookup("#ProfilButton");
+                Button button = (Button) ((Parent)node).lookup("#BookButton");
                 if (button != null) {
-                    //set ID   (il faudrait mettre l'id du membre comme ça on appel la fonction pour la page spécifique)
-                    button.setId("ProfilButton"+i);
+                    //set ID   (il faudrait mettre l'id du livre comme ça on appel la fonction pour la page spécifique)
+                    button.setId("BookButton"+i);
                     // Set the onAction event handler for the button
                     button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
                 }
             }
-            AllUsersVbox.getChildren().add(node);
+            BooksVbox.getChildren().add(node);
         }
         System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
         updateButtonStates(totalPages);
@@ -144,13 +140,14 @@ public class AllUsersPageController implements Initializable {
     }
 
 
+
     @FXML
     private void handleButtonClick(String id) {
         System.out.println(id);
         try {
             // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Profil-page.fxml"));
-            Parent parent = AllUsersAnchorPane.getParent();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Book-page.fxml"));
+            Parent parent = SearchBookAnchorPane.getParent();
 
             if (parent instanceof AnchorPane) {
                 AnchorPane center = (AnchorPane) parent;
@@ -175,7 +172,28 @@ public class AllUsersPageController implements Initializable {
 
     }
 
+    private void openFilterDialog(ActionEvent event) {
+        try {
+            // Load the FXML file for the dialog
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FilterDialogBook.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the dialog
+            Stage dialogStage = new Stage();
+            dialogStage.setScene(new Scene(root));
+            // Prevents the user from resizing the window
+            dialogStage.setResizable(false);
+
+            // Set modality
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(((Stage) ((JFXButton) event.getSource()).getScene().getWindow()));
+
+            // Show the dialog and wait until it is closed
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
-
-
-

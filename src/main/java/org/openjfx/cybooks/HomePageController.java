@@ -29,7 +29,19 @@ public class HomePageController implements Initializable {
     @FXML
     private JFXButton AddLoanTopButton;
     @FXML
+    private JFXButton SearchUserLeftButton;
+    @FXML
+    private JFXButton SearchUserTopButton;
+    @FXML
+    private JFXButton SearchBookLeftButton;
+    @FXML
+    private JFXButton SearchBookTopButton;
+    @FXML
     private JFXButton AllUsersButton;
+    @FXML
+    private JFXButton AllLoansButton;
+    @FXML
+    private JFXButton LoansIssuesButton;
 
     @FXML
     public AnchorPane Center;
@@ -87,7 +99,13 @@ public class HomePageController implements Initializable {
         AddCustomerLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addCustomer-page.fxml"));
         AddLoanTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
         AddLoanLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
+        SearchUserLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/SearchUser-page.fxml"));
+        SearchUserTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/SearchUser-page.fxml"));
+        SearchBookLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/SearchBook-page.fxml"));
+        SearchBookTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/SearchBook-page.fxml"));
         AllUsersButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/AllUsers-page.fxml"));
+        AllLoansButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/AllLoans-page.fxml"));
+        LoansIssuesButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/LoansIssues-page.fxml"));
     }
 
 
