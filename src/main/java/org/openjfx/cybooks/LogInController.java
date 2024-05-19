@@ -7,8 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.database.DBHandler;
+import org.openjfx.cybooks.database.IncorrectPasswordException;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 
 public class LogInController {
@@ -57,7 +59,14 @@ public class LogInController {
 
 
     private boolean isValidCredentials(String username, String password) {
-        Librarian librarian = DBHandler.librarianAuthentication(username, password);
+        Librarian librarian = null;
+        try {
+            librarian = DBHandler.librarianAuthentication(username, password);
+        } catch (NoSuchElementException e) {
+
+        } catch (IncorrectPasswordException e) {
+
+        }
 
         // Returns 'true' if the 'librarian' variable is not null, 'false' otherwise
         return librarian != null;

@@ -7,6 +7,7 @@ module org.openjfx.cybooks {
     requires java.desktop;
     requires java.sql;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires spring.security.crypto;
 
     opens org.openjfx.cybooks to javafx.fxml;
     exports org.openjfx.cybooks;

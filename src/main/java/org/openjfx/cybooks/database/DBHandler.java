@@ -4,6 +4,7 @@ import org.openjfx.cybooks.data.Book;
 import org.openjfx.cybooks.data.Customer;
 import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.data.Loan;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -275,7 +276,9 @@ public class DBHandler {
         createConnection();
 
         try {
-            statement.execute("INSERT INTO librarians (`login`, `last_name`, `first_name`, `password`) VALUES ('" + login + "', '" + lastName + "', '" + firstName + "', '" + password +"')");
+
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+            statement.execute("INSERT INTO librarians (`login`, `last_name`, `first_name`, `password`) VALUES ('" + login + "', '" + lastName + "', '" + firstName + "', '" + hashedPassword +"')");
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -465,15 +468,25 @@ public class DBHandler {
     }
 
 
-    public static Librarian librarianAuthentication(String user, String password) {
+    public static Librarian librarianAuthentication(String user, String password) throws IncorrectPasswordException, NoSuchElementException {
         createConnection();
         ResultSet res;
         Librarian librarian = null;
 
         try {
-            res = statement.executeQuery("SELECT * FROM librarians WHERE login='" + user + "'AND password='" + password + "'");
+            res = statement.executeQuery("SELECT * FROM librarians WHERE login='" + user + "'");
+
+            if (res.getFetchSize() == 0) {
+                throw new NoSuchElementException("Nom d'utilisateur introuvable");
+            }
+
+
             res.next();
-            librarian = new Librarian(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
+            String hashedPassword = res.getString("password");
+            if (BCrypt.checkpw(password, hashedPassword))
+                librarian = new Librarian(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
+            else
+                throw new IncorrectPasswordException("Mot de passe incorrect");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

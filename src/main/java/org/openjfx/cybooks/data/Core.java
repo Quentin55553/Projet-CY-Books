@@ -1,7 +1,9 @@
 package org.openjfx.cybooks.data;
 
 import org.openjfx.cybooks.database.DBHandler;
+import org.openjfx.cybooks.database.IncorrectPasswordException;
 
+import javax.crypto.Cipher;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -88,8 +90,12 @@ public class Core {
 
     }
 
-    public Librarian librarianAuthentication(String login, String password) {
+    public Librarian librarianAuthentication(String login, String password) throws NoSuchElementException, IncorrectPasswordException {
         return DBHandler.librarianAuthentication(login, password);
+    }
+
+    public static void addLibrarian (String login, String lastName, String firstName, String password) {
+        DBHandler.addLibrarian(login, lastName, firstName, password);
     }
 
 
