@@ -5,6 +5,25 @@ Rouge='\033[0;31m'       # Rouge
 Vert='\033[0;32m'        # Vert
 
 
+function generate_javadoc() {
+	# Asks the user if he wants to generate the Javadoc
+	read -p "Souhaitez-vous générer la Javadoc ? (O/n) " generate_javadoc
+
+	if [ "$generate_javadoc" = "o" ] || [ "$generate_javadoc" = "oui" ]; then
+		echo -e "Génération de la Javadoc..."
+
+		# Generates the Javadoc with Maven
+       		mvn -q javadoc:javadoc
+		
+		if [ $? -eq 0 ]; then
+			echo -e "${Vert}Génération de la Javadoc réussie !${Couleur_OFF}"
+		else
+			echo -e "${Rouge}Échec de la génération de la Javadoc${Couleur_OFF}"
+		fi
+	fi
+}
+
+
 function run() {
 	# Asks the user if he wants to run the project with GUI. If not, the program will run the project with CLI
 	read -p "Souhaitez-vous lancer l'interface graphique ? Autrement l'interface en ligne de commande sera lancée. (O/n) " run_gui
@@ -61,6 +80,9 @@ function compile() {
 function main() {
 	# Executes the compile function to compile the project
 	compile
+	
+	# Executes the generate_javadoc function to generate the Javadoc
+    	generate_javadoc
 	
 	# Executes the run function to run the project
 	run
