@@ -57,6 +57,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>6.2.4</version>
+        </dependency>
 
     </dependencies>
 
@@ -94,6 +99,18 @@
                         <id>commandline-cli</id>
                         <configuration>
                             <mainClass>org.openjfx.cybooks/org.openjfx.cybooks.CommandLine.CommandLineHandler</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <aggregate>true</aggregate>
                         </configuration>
                     </execution>
                 </executions>

@@ -70,7 +70,7 @@ public class SignUpController {
             }
 
         } else {
-            errorLabel.setText("L'identifiant doit être unique et avoir au moins 1 caractère \net les deux mots de passe doivent être identiques");
+            errorLabel.setText("L'identifiant doit être unique et avoir au moins 1 caractère \n     et les deux mots de passe doivent être identiques");
         }
     }
 

@@ -5,10 +5,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.database.DBHandler;
+import org.openjfx.cybooks.database.IncorrectPasswordException;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 
 public class LogInController {
@@ -16,7 +19,7 @@ public class LogInController {
     private Stage primaryStage;
 
     @FXML
-    public TextField usernameField;
+    public TextField loginField;
     @FXML
     public PasswordField passwordField;
     @FXML
@@ -41,11 +44,11 @@ public class LogInController {
 
     @FXML
     protected void loginClicked() throws IOException {
-        String username = usernameField.getText();
+        String login = loginField.getText();
         String password = passwordField.getText();
 
-        if (!username.isEmpty() && !password.isEmpty()) {
-            if (isValidCredentials(username, password)) {
+        if (!login.isEmpty() && !password.isEmpty()) {
+            if (isValidCredentials(login, password)) {
                 // Go to home page
                 main.showHomeScene();
             }
@@ -56,8 +59,15 @@ public class LogInController {
     }
 
 
-    private boolean isValidCredentials(String username, String password) {
-        Librarian librarian = DBHandler.librarianAuthentication(username, password);
+    private boolean isValidCredentials(String login, String password) {
+        Librarian librarian = null;
+
+        try {
+            librarian = DBHandler.librarianAuthentication(login, password);
+
+        } catch (NoSuchElementException | IncorrectPasswordException e) {
+            errorLabel.setText(e.getMessage());
+        }
 
         // Returns 'true' if the 'librarian' variable is not null, 'false' otherwise
         return librarian != null;

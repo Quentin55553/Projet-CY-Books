@@ -18,8 +18,8 @@ CREATE TABLE `books` (
 
 
 INSERT INTO `books` (`id`, `quantity`, `stock`) VALUES
-('22784', 2, 0),
-('28737', 5, 2);
+(22784, 2, 0),
+(28737, 5, 2);
 
 
 -- -----------------------------------------------------------
@@ -36,9 +36,9 @@ CREATE TABLE `customers` (
 
 
 INSERT INTO `customers` (`last_name`, `first_name`, `tel`, `email`, `address`) VALUES
-('yo', 'yo', NULL, NULL, NULL),
+('FILLION', 'Quentin', '0601020304', 'example@gmail.com', 'adresse1'),
 ('oui', 'non', NULL, NULL, NULL),
-('Bel', 'Theo', NULL, NULL, NULL);
+('Bel', 'Theo', '0601020304', 'example@gmail.com', 'adresse2');
 
 
 -- -----------------------------------------------------------
@@ -49,12 +49,13 @@ CREATE TABLE `librarians` (
   `last_name` varchar(50) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `login` varchar(50) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  UNIQUE KEY `login` (`login`)
 );
 
 
 INSERT INTO `librarians` (`last_name`, `first_name`, `login`, `password`) VALUES
-('admin', 'admin', 'admin', 'admin');
+('admin', 'admin', 'admin', '$2a$10$3UUh4ZNoASpFshfQFMMMx.Rb02A0CfIBd70nh0XWuc4VIoTcLKqym');
 
 
 -- -----------------------------------------------------------
@@ -64,7 +65,7 @@ CREATE TABLE `loans` (
   `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
-  `begin_date` TIMESTAMP DEFAULT current_timestamp(),
+  `begin_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `expiration_date` date NOT NULL,
   `completed` tinyint(1) DEFAULT 0,
   KEY `book_id` (`book_id`),
@@ -75,8 +76,8 @@ CREATE TABLE `loans` (
 
 
 INSERT INTO `loans` (`book_id`, `customer_id`, `begin_date`, `expiration_date`, `completed`) VALUES
-('22784', 1, '2024-05-15', '2024-05-18', 0),
-('22784', 2, '2024-05-15', '2024-05-20', 0),
-('28737', 2, '2024-05-13', '2024-05-16', 0),
-('28737', 2, '2024-05-13', '2024-05-19', 1),
-('28737', 2, '2024-05-13', '2024-05-16', 1);
+(22784, 1, '2024-05-14', '2024-05-18', 0),
+(22784, 2, '2024-05-14', '2024-05-20', 0),
+(28737, 2, '2024-05-12', '2024-05-16', 0),
+(28737, 2, '2024-05-12', '2024-05-19', 1),
+(28737, 2, '2024-05-12', '2024-05-16', 1);

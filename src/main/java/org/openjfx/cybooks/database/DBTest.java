@@ -19,9 +19,10 @@ public class DBTest {
 //             System.out.println(DBHandler.getBook("22784"));
 //             loans = DBHandler.getLoans();
 
-             customers = DBHandler.getCustomers("gze");
+//             customers = DBHandler.getCustomers("gze");
 
 
+            DBHandler.addLibrarian("admin", "admin", "admin", "admin");
 
 //             DBHandler.updateLoan(4, true);
 //
@@ -39,9 +40,9 @@ public class DBTest {
 //            for (Loan l : loans) {
 //                System.out.println(l);
 //            }
-             for (Customer c : customers) {
-                 System.out.println(c);
-             }
+//             for (Customer c : customers) {
+//                 System.out.println(c);
+//             }
 
         } catch (NoSuchElementException e) {
             System.out.println(e);

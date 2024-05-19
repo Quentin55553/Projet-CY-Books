@@ -74,7 +74,7 @@
             <Font name="Eras Medium ITC" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="EmaileField" layoutX="107.0" layoutY="210.0" />
+      <TextField fx:id="EmailField" layoutX="107.0" layoutY="210.0" />
       <Label layoutX="22.0" layoutY="255.0" prefHeight="18.0" prefWidth="67.0" text="Téléphone" textFill="#dda15e">
          <font>
             <Font name="Eras Medium ITC" size="14.0" />

@@ -12,7 +12,7 @@ public class FilterDialogUserController {
     private TextField AddressField;
 
     @FXML
-    private TextField EmaileField;
+    private TextField EmailField;
 
     @FXML
     private TextField FirstNameField;
@@ -41,7 +41,7 @@ public class FilterDialogUserController {
 
     public void reset(ActionEvent actionEvent) {
         AddressField.clear();
-        EmaileField.clear();
+        EmailField.clear();
         FirstNameField.clear();
         IDField.clear();
         LastNameFIeld.clear();

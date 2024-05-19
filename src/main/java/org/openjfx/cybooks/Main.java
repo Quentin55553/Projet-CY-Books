@@ -29,7 +29,6 @@ public class Main extends Application {
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle("CY-Books");
 
-
         // Show the login scene
         showLogInScene();
     }
