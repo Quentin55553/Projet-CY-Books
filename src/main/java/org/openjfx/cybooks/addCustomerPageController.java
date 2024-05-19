@@ -1,6 +1,7 @@
 package org.openjfx.cybooks;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.CustomTextField;
 
@@ -19,6 +20,8 @@ public class addCustomerPageController {
     public CustomTextField email;
     @FXML
     public CustomTextField address;
+    @FXML
+    public Label errorLabel;
 
 
     public void setMain(Main main) {
