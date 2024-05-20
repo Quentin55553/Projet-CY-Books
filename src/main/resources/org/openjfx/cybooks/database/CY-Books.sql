@@ -29,16 +29,15 @@ CREATE TABLE `customers` (
   `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `last_name` varchar(50) NOT NULL,
   `first_name` varchar(50) NOT NULL,
-  `tel` varchar(12) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
+  `tel` varchar(12) UNIQUE DEFAULT NULL,
+  `email` varchar(50) UNIQUE DEFAULT NULL,
   `address` text DEFAULT NULL
 );
 
 
 INSERT INTO `customers` (`last_name`, `first_name`, `tel`, `email`, `address`) VALUES
-('FILLION', 'Quentin', '0601020304', 'example@gmail.com', 'adresse1'),
-('oui', 'non', NULL, NULL, NULL),
-('Bel', 'Theo', '0601020304', 'example@gmail.com', 'adresse2');
+('FILLION', 'Quentin', '0601020304', 'quentin.fillion@gmail.com', 'adresse1'),
+('Belliere', 'Theo', '0602030405', 'theo.belliere@gmail.com', 'adresse2');
 
 
 -- -----------------------------------------------------------
