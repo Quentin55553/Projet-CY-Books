@@ -102,7 +102,7 @@
                         </Label>
                         <HBox prefHeight="36.0" prefWidth="841.0">
                            <children>
-                              <JFXButton maxWidth="-Infinity" prefHeight="28.0" prefWidth="143.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" text="Modifier le profil" textFill="#fefae0">
+                              <JFXButton maxWidth="-Infinity" prefHeight="28.0" prefWidth="156.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" text="Modifier le profil" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
