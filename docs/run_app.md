@@ -23,7 +23,8 @@ bash run_app.sh
 ```
 
 ### Choisir l'interface
-Une fois la compilation du projet réussie le programme de lancement vous demandera avec quelle interface vous souhaitez utiliser l'application.<br>
+Une fois la compilation du projet réussie, le programme de lancement vous demandera si vous souhaitez générer la Javadoc. Ceci n'étant pas nécessaire pour faire fonctionner le projet, vous pouvez la générer en appuyant sur **O** ou sur **n** dans le cas contraire. Apuuyez ensuite sur **ENTRÉE**.<br>
+Après cela, vous pourrez décider avec quelle interface vous souhaitez utiliser l'application.<br>
 Si vous souhaitez utiliser l'application avec l'interface graphique entrez **O**, sinon l'application se lancera avec l'interface en ligne de commande (entrez **n**).<br>
 Appuyez ensuite sur **ENTRÉE**.
 
