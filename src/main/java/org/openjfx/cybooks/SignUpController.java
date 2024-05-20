@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 public class SignUpController {
@@ -67,6 +68,9 @@ public class SignUpController {
 
             } catch (IOException e) {
                 e.printStackTrace();
+
+            } catch (SQLException e) {
+                errorLabel.setText(e.getMessage());
             }
 
         } else {
@@ -77,6 +81,6 @@ public class SignUpController {
 
     private boolean isValidSignUp(String login, String password, String confirmedPassword) {
         // Assuming a valid sign up requires a unique login and matching passwords
-        return !login.isEmpty() && DBHandler.isUniqueLibrarian(login) && password.equals(confirmedPassword);
+        return !login.isEmpty() && password.equals(confirmedPassword);
     }
 }

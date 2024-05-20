@@ -4,6 +4,7 @@ import org.openjfx.cybooks.database.DBHandler;
 import org.openjfx.cybooks.database.IncorrectPasswordException;
 
 import javax.crypto.Cipher;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -94,7 +95,7 @@ public class Core {
         return DBHandler.librarianAuthentication(login, password);
     }
 
-    public static void addLibrarian (String login, String lastName, String firstName, String password) {
+    public static void addLibrarian (String login, String lastName, String firstName, String password) throws SQLException {
         DBHandler.addLibrarian(login, lastName, firstName, password);
     }
 

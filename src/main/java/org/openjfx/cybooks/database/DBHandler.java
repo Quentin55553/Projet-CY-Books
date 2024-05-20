@@ -272,16 +272,21 @@ public class DBHandler {
     }
 
 
-    public static void addLibrarian (String login, String lastName, String firstName, String password) {
+    public static void addLibrarian (String login, String lastName, String firstName, String password) throws SQLException {
         createConnection();
 
         try {
-
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             statement.execute("INSERT INTO librarians (`login`, `last_name`, `first_name`, `password`) VALUES ('" + login + "', '" + lastName + "', '" + firstName + "', '" + hashedPassword +"')");
 
         } catch (SQLException e) {
-            System.out.println(e);
+            // Checks if MySQL indicates a unique constraint violation
+            if (e.getErrorCode() == 1062) {
+                throw new SQLException("Cet identifiant existe déjà");
+
+            } else {
+                throw new SQLException("Une erreur s'est produite");
+            }
         }
 
         closeConnection();
@@ -433,38 +438,6 @@ public class DBHandler {
         closeConnection();
 
         return loans;
-    }
-
-
-    public static boolean isUniqueLibrarian(String login) {
-        createConnection();
-        boolean isUnique = true;
-
-        try {
-            String sql = "SELECT COUNT(*) AS count FROM librarians WHERE login = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            // Assigns the login value to the first parameter of the query
-            statement.setString(1, login);
-
-            // Executes the query
-            ResultSet resultSet = statement.executeQuery();
-
-            // If the query returned a line
-            if (resultSet.next()) {
-                int nbLibrarians = resultSet.getInt("count");
-
-                if (nbLibrarians > 0) {
-                    isUnique = false;
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        closeConnection();
-
-        return isUnique;
     }
 
 

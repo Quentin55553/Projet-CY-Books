@@ -4,6 +4,7 @@ import org.openjfx.cybooks.data.Book;
 import org.openjfx.cybooks.data.Customer;
 import org.openjfx.cybooks.data.Loan;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -44,7 +45,7 @@ public class DBTest {
 //                 System.out.println(c);
 //             }
 
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | SQLException e) {
             System.out.println(e);
         }
     }
