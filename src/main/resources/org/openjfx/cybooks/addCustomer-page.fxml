@@ -103,9 +103,14 @@
                               <Font name="Eras Medium ITC" size="18.0" />
                            </font>
                         </CustomTextField>
-                        <Label fx:id="errorLabel" prefHeight="37.0" prefWidth="287.0" textFill="#f80000" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                        <Label fx:id="errorLabel" prefHeight="29.0" prefWidth="287.0" textFill="#f80000" GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <font>
                               <Font size="10.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="confirmationLabel" prefHeight="29.0" prefWidth="287.0" textFill="#019a15" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <font>
+                              <Font size="14.0" />
                            </font>
                         </Label>
                      </children>
@@ -121,7 +126,7 @@
                   </StackPane>
                </children>
             </GridPane>
-            <JFXButton onAction="#addCustomerClicked" maxWidth="903.0" prefHeight="28.0" prefWidth="678.0" style="-fx-background-color: #283618;" text="Inscrire" textFill="#fefae0">
+            <JFXButton maxWidth="903.0" onAction="#addCustomerClicked" prefHeight="28.0" prefWidth="678.0" style="-fx-background-color: #283618;" text="Inscrire" textFill="#fefae0">
                <font>
                   <Font name="Eras Medium ITC" size="14.0" />
                </font>
