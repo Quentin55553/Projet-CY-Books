@@ -82,13 +82,13 @@
          </font>
       </Label>
       <TextField fx:id="IdField" layoutX="90.0" layoutY="257.0" />
-      <ToggleSwitch fx:id="InLibraryToggle" layoutX="225.0" layoutY="357.0" />
-      <Label layoutX="22.0" layoutY="357.0" prefHeight="18.0" prefWidth="199.0" text="Que ceux dans la bibliothèque" textFill="#dda15e">
+      <ToggleSwitch fx:id="InLibraryToggle" layoutX="236.0" layoutY="357.0" />
+      <Label layoutX="22.0" layoutY="357.0" prefHeight="18.0" prefWidth="215.0" text="Que ceux dans la bibliothèque" textFill="#dda15e">
          <font>
             <Font name="Eras Medium ITC" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="22.0" layoutY="307.0" prefHeight="18.0" prefWidth="50.0" text="Editeur" textFill="#dda15e">
+      <Label layoutX="22.0" layoutY="307.0" prefHeight="18.0" prefWidth="55.0" text="Editeur" textFill="#dda15e">
          <font>
             <Font name="Eras Medium ITC" size="14.0" />
          </font>

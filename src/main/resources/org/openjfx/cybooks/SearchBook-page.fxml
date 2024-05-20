@@ -31,7 +31,7 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="220.0" text="Rechercher un livre" textFill="#fefae0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="243.0" text="Rechercher un livre" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="23.0" />
                            </font>
@@ -42,7 +42,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="705.0">
                            <children>
-                              <JFXButton fx:id="FilterSearchButton" prefHeight="37.0" prefWidth="194.0" ripplerFill="#283618" style="-fx-background-color: #606C38; -fx-background-radius: 10;" text="Filter la recherche" textFill="#fefae0">
+                              <JFXButton fx:id="FilterSearchButton" prefHeight="38.0" prefWidth="221.0" ripplerFill="#283618" style="-fx-background-color: #606C38; -fx-background-radius: 10;" text="Filtrer la recherche" textFill="#fefae0">
                                  <graphic>
                                     <FontAwesomeIconView fill="#283618" glyphName="FILTER" size="26">
                                        <cursor>

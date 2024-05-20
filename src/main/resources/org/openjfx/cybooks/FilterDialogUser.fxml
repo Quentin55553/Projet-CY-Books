@@ -75,7 +75,7 @@
          </font>
       </Label>
       <TextField fx:id="EmailField" layoutX="107.0" layoutY="210.0" />
-      <Label layoutX="22.0" layoutY="255.0" prefHeight="18.0" prefWidth="67.0" text="Téléphone" textFill="#dda15e">
+      <Label layoutX="22.0" layoutY="255.0" prefHeight="18.0" prefWidth="76.0" text="Téléphone" textFill="#dda15e">
          <font>
             <Font name="Eras Medium ITC" size="14.0" />
          </font>
@@ -87,17 +87,17 @@
          </font>
       </Label>
       <TextField fx:id="AddressField" layoutX="107.0" layoutY="300.0" prefHeight="25.0" prefWidth="211.0" />
-      <Label layoutX="22.0" layoutY="345.0" prefHeight="18.0" prefWidth="211.0" text="Nombre d'emprunt(s) supérieur à" textFill="#dda15e">
+      <Label layoutX="22.0" layoutY="345.0" prefHeight="18.0" prefWidth="254.0" text="Nombre d'emprunt(s) supérieur à" textFill="#dda15e" AnchorPane.leftAnchor="24.0">
          <font>
             <Font name="Eras Medium ITC" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="LoanSuppField" layoutX="245.0" layoutY="342.0" prefHeight="25.0" prefWidth="76.0" />
-      <Label layoutX="24.0" layoutY="390.0" prefHeight="18.0" prefWidth="211.0" text="Nombre d'emprunt(s) inférieur à" textFill="#dda15e">
+      <TextField fx:id="LoanSuppField" layoutX="269.0" layoutY="342.0" prefHeight="25.0" prefWidth="76.0" AnchorPane.leftAnchor="270.0" />
+      <Label layoutX="24.0" layoutY="390.0" prefHeight="18.0" prefWidth="240.0" text="Nombre d'emprunt(s) inférieur à" textFill="#dda15e" AnchorPane.leftAnchor="24.0">
          <font>
             <Font name="Eras Medium ITC" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="LoanInfField" layoutX="245.0" layoutY="390.0" prefHeight="25.0" prefWidth="76.0" />
+      <TextField fx:id="LoanInfField" layoutX="245.0" layoutY="390.0" prefHeight="25.0" prefWidth="76.0" AnchorPane.leftAnchor="270.0" />
     </children>
 </AnchorPane>
