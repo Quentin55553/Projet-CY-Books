@@ -258,14 +258,20 @@ public class DBHandler {
     }
 
 
-    public static void addCustomer (String lastName, String firstName) {
+    public static void addCustomer (String firstname, String lastname, String tel, String email, String address) throws SQLException {
         createConnection();
 
         try {
-            statement.execute("INSERT INTO customers (`last_name`, `first_name`) VALUES ('" + lastName + "', '" + firstName + "')");
+            statement.execute("INSERT INTO customers (`last_name`, `first_name`, `tel`, `email`, `address`) VALUES ('" + lastname + "', '" + firstname + "', '" + tel + "', '" + email + "', '" + address + "')");
 
         } catch (SQLException e) {
-            System.out.println(e);
+            // Checks if MySQL indicates a unique constraint violation
+            if (e.getErrorCode() == 1062) {
+                throw new SQLException("Ce membre existe déjà");
+
+            } else {
+                throw new SQLException("Une erreur s'est produite");
+            }
         }
 
         closeConnection();
