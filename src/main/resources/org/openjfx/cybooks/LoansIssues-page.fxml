@@ -28,7 +28,7 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="346.0" text="Tous les problèmes d'emprunts" textFill="#fefae0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="270.0" text="Problèmes d'emprunts" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="23.0" />
                            </font>

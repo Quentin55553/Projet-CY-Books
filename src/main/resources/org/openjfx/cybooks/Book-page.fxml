@@ -43,7 +43,7 @@
                         <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <JFXButton maxWidth="-Infinity" prefHeight="32.0" prefWidth="160.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" text="Modifier le stock" textFill="#fefae0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <JFXButton maxWidth="-Infinity" prefHeight="34.0" prefWidth="164.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" text="Modifier le stock" textFill="#fefae0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <font>
                               <Font name="Eras Medium ITC" size="14.0" />
                            </font>

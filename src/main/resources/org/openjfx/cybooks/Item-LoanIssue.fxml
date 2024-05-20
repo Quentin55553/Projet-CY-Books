@@ -9,12 +9,12 @@
 
 <HBox alignment="CENTER" prefHeight="95.0" prefWidth="700.0" spacing="30.0" style="-fx-background-color: #DDA15E;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label prefHeight="16.0" prefWidth="136.0" text="date d'emprunt" />
+      <Label prefHeight="16.0" prefWidth="156.0" text="Date d'emprunt" />
       <Label prefHeight="18.0" prefWidth="151.0" text="ID membre" />
       <Label prefHeight="21.0" prefWidth="126.0" text="ID livre" />
       <Label prefHeight="21.0" prefWidth="126.0" text="Titre" />
-      <Label prefHeight="21.0" prefWidth="126.0" text="état" />
-      <JFXButton prefHeight="27.0" prefWidth="139.0" style="-fx-border-color: #606C38; -fx-border-radius: 10; -fx-border-width: 2;" text="Rendre" textFill="#606c38">
+      <Label prefHeight="21.0" prefWidth="126.0" text="Etat" />
+      <JFXButton prefHeight="33.0" prefWidth="149.0" style="-fx-border-color: #606C38; -fx-border-radius: 10; -fx-border-width: 2;" text="Rendre" textFill="#606c38">
          <font>
             <Font name="Eras Medium ITC" size="15.0" />
          </font>
