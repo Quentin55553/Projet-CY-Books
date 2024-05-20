@@ -54,7 +54,7 @@ public class LogInController {
             }
 
         } else {
-            errorLabel.setText("Identifiant et/ou mot de passe incorrect");
+            errorLabel.setText("Les deux champs ne doivent pas être vides");
         }
     }
 
