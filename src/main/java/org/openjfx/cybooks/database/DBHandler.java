@@ -88,9 +88,9 @@ public class DBHandler {
 
         try {
             res = statement.executeQuery("SELECT * FROM books WHERE id='" + id + "'");
-            if (res.getFetchSize() == 0)
+            if (!res.next())
                 throw new NoSuchElementException("No such book with id " + id + " in database");
-            res.next();
+
             book = new Book(id, res.getInt("quantity"), res.getInt("stock"));
 
 
@@ -104,15 +104,15 @@ public class DBHandler {
     }
 
 
-    public static List<Loan> getLoansByCustomer(int customer_id) throws NoSuchElementException {
+    public static List<Loan> getLoansByCustomer(int customer_id) {
         createConnection();
         ResultSet res;
         List<Loan> loans = new ArrayList<>();
 
         try {
             res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, expiration_date, completed FROM loans, books WHERE customer_id='" + customer_id + "' AND book_id=books.id");
-            if (res.getFetchSize() == 0)
-                throw new NoSuchElementException("No such loan with customer_id " + customer_id + " in database");
+
+
             while (res.next()) {
                 loans.add(new Loan(res.getInt("id"), res.getString("book_id"), customer_id, res.getDate("begin_date"), res.getDate("expiration_date"), res.getBoolean("completed")));
             }
@@ -127,7 +127,7 @@ public class DBHandler {
     }
 
 
-    public static List<Loan> getLoansByBookId(String bookId) throws NoSuchElementException {
+    public static List<Loan> getLoansByBookId(String bookId) {
         createConnection();
         ResultSet res;
         Loan loan;
@@ -135,8 +135,8 @@ public class DBHandler {
 
         try {
             res = statement.executeQuery("SELECT loans.id, customer_id, begin_date, expiration_date, completed FROM loans, books WHERE loans.book_id=books.id");
-            if (res.getFetchSize() == 0)
-                throw new NoSuchElementException("No such loan with bookId " + bookId + " in database");
+
+
             while (res.next()){
                 loan = new Loan(res.getInt("id"), bookId, res.getInt("customer_id"), res.getDate("begin_date"), res.getDate("expiration_date"), res.getBoolean("completed"));
                 loans.add(loan);
@@ -152,7 +152,7 @@ public class DBHandler {
     }
 
 
-    public static List<Loan> getLoans() throws NoSuchElementException {
+    public static List<Loan> getLoans() {
         createConnection();
         ResultSet res;
         Loan loan;
@@ -160,8 +160,6 @@ public class DBHandler {
 
         try {
             res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, expiration_date, completed FROM loans");
-            if (res.getFetchSize() == 0)
-                throw new NoSuchElementException("No loans in database");
 
             while (res.next()){
 
@@ -179,7 +177,7 @@ public class DBHandler {
     }
 
 
-    public static List<Customer> getCustomers(String name) throws NoSuchElementException {
+    public static List<Customer> getCustomers(String name) {
         createConnection();
         ResultSet res;
         Customer customer;
@@ -187,8 +185,6 @@ public class DBHandler {
 
         try {
             res = statement.executeQuery("SELECT * FROM customers WHERE last_name like '%" + name + "%'");
-            if (res.getFetchSize() == 0)
-                throw new NoSuchElementException("No such customer with name " + name + " in database");
             while (res.next()) {
                 customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"));
                 customers.add(customer);
@@ -204,7 +200,7 @@ public class DBHandler {
     }
 
 
-    public static List<Loan> getOngoingLoans () throws NoSuchElementException {
+    public static List<Loan> getOngoingLoans () {
         createConnection();
         ResultSet res;
         Loan loan;
@@ -212,8 +208,6 @@ public class DBHandler {
 
         try {
             res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, expiration_date, completed FROM loans WHERE completed='0'");
-            if (res.getFetchSize() == 0)
-                throw new NoSuchElementException("No ongoing loans in database");
 
             while (res.next()){
                 loan = new Loan(res.getInt("id"), res.getString("book_id"), res.getInt("customer_id"), res.getDate("begin_date"), res.getDate("expiration_date"), false);
@@ -278,21 +272,16 @@ public class DBHandler {
     }
 
 
-    public static void addLibrarian (String login, String lastName, String firstName, String password) throws SQLException {
+    public static void addLibrarian (String login, String lastName, String firstName, String password) {
         createConnection();
 
         try {
+
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             statement.execute("INSERT INTO librarians (`login`, `last_name`, `first_name`, `password`) VALUES ('" + login + "', '" + lastName + "', '" + firstName + "', '" + hashedPassword +"')");
 
         } catch (SQLException e) {
-            // Checks if MySQL indicates a unique constraint violation
-            if (e.getErrorCode() == 1062) {
-                throw new SQLException("Cet identifiant existe déjà");
-
-            } else {
-                throw new SQLException("Une erreur s'est produite");
-            }
+            System.out.println(e);
         }
 
         closeConnection();
@@ -422,15 +411,13 @@ public class DBHandler {
     }
 
 
-    public static List<Loan> getExpiredLoans() throws NoSuchElementException {
+    public static List<Loan> getExpiredLoans() {
         createConnection();
         ResultSet res;
         List<Loan> loans = new ArrayList<>();
 
         try {
             res = statement.executeQuery("SELECT * FROM loans WHERE expiration_date < CURRENT_DATE");
-            if (res.getFetchSize() == 0)
-                throw new NoSuchElementException("No expired loans in database in database");
 
             while (res.next()) {
                 boolean completed = (res.getInt("completed") != 0);
@@ -474,5 +461,76 @@ public class DBHandler {
         closeConnection();
 
         return librarian;
+    }
+
+    public static List<Customer> getCustomersByFilter(CustomerFilter filter) {
+        createConnection();
+        List<Customer> customers = new ArrayList<>();
+        ResultSet res;
+
+        int id = (filter.getId() != -1 ? filter.getId() : -1);
+        String firstName = (filter.getFirstName() != null ? filter.getFirstName() : "");
+        String lastName = (filter.getLastName() != null ? filter.getLastName() : "");
+        String email = (filter.getEmail() != null ? filter.getEmail() : "");
+        String tel = (filter.getTel() != null ? filter.getTel() : "");
+        String address = (filter.getAddress() != null ? filter.getAddress() : "");
+        int inf = filter.getInf();
+        int sup = filter.getSup();
+
+        String query = "SELECT * FROM customers WHERE ";
+
+
+        if (id >= 0)
+            query += "id='"+id+"'";
+        else {
+            query += "first_name LIKE '%" + firstName + "%' AND " +
+                    "last_name LIKE '%" + lastName + "%' AND " +
+                    "tel LIKE '%" + tel + "%' AND " +
+                    "email LIKE '%" + email + "%' AND " +
+                    "address LIKE '%" + address + "%'";
+
+            if (inf >= 0)
+                query += "AND id IN (SELECT customer_id FROM loans GROUP by customer_id HAVING COUNT(customer_id) < " + inf + ")";
+            if (sup >= 0)
+                query += "AND id IN (SELECT customer_id FROM loans GROUP by customer_id HAVING COUNT(customer_id) > " + sup + ")";
+        }
+
+        try {
+            res = statement.executeQuery(query);
+
+            while (res.next()) {
+                Customer customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"));
+                customers.add(customer);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+
+        closeConnection();
+        return customers;
+    }
+
+    public static List<Book> getBooksByFilter (BookFilter filter) {
+        createConnection();
+        List<Book> books = new ArrayList<>();
+        ResultSet res;
+
+        try {
+            res = statement.executeQuery("SELECT * from books WHERE id='"+ filter.getId() +"'");
+
+            while (res.next()) {
+                Book book = new Book(res.getString("id"), res.getInt("quantity"), res.getInt("stock"));
+                books.add(book);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        closeConnection();
+        return books;
     }
 }

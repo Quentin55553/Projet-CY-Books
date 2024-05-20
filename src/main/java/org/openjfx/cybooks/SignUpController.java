@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.openjfx.cybooks.database.DBHandler;
+import org.openjfx.cybooks.data.Core;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -63,7 +63,7 @@ public class SignUpController {
         if (isValidSignUp(enteredLogin, enteredPassword, confirmedPassword)) {
             // Go to login page
             try {
-                DBHandler.addLibrarian(enteredLogin, enteredLastname, enteredFirstname, enteredPassword);
+                Core.addLibrarian(enteredLogin, enteredLastname, enteredFirstname, enteredPassword);
                 main.showLogInScene();
 
             } catch (IOException e) {
