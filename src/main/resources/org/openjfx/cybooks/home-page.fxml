@@ -30,7 +30,7 @@
                         </ImageView>
                         <Pane layoutX="744.0" layoutY="13.0" AnchorPane.rightAnchor="14.0">
                            <children>
-                              <Label fx:id="IDLabel" layoutX="27.0" layoutY="5.0" text="Label" textFill="#fefae0">
+                              <Label layoutX="27.0" layoutY="5.0" text="Label" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="24.0" />
                                  </font>

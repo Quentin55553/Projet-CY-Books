@@ -115,7 +115,7 @@
                         <RowConstraints maxHeight="156.0" minHeight="10.0" prefHeight="156.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label prefHeight="18.0" prefWidth="309.0" text="ID" textAlignment="CENTER" textFill="#283618" GridPane.columnIndex="1">
+                        <Label prefHeight="18.0" prefWidth="309.0" text="ISBN" textAlignment="CENTER" textFill="#283618" GridPane.columnIndex="1">
                            <font>
                               <Font name="Eras Medium ITC" size="17.0" />
                            </font>
@@ -143,7 +143,7 @@
                   </GridPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="244.0" text="Information livre" textFill="#fefae0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="244.0" text="Informations livre" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="23.0" />
                            </font>
@@ -152,12 +152,6 @@
                   </StackPane>
                </children>
             </GridPane>
-            <Separator maxWidth="-Infinity" orientation="VERTICAL" prefHeight="50.0" visible="false" />
-            <JFXButton maxWidth="500.0" prefHeight="28.0" prefWidth="500.0" style="-fx-background-color: #283618;" text="Valider emprunt" textFill="#fefae0">
-               <font>
-                  <Font name="Eras Medium ITC" size="14.0" />
-               </font>
-            </JFXButton>
          </children>
       </VBox>
    </children>
