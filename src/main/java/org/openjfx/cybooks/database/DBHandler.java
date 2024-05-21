@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -468,12 +467,12 @@ public class DBHandler {
         List<Customer> customers = new ArrayList<>();
         ResultSet res;
 
-        int id = (filter.getId() != -1 ? filter.getId() : -1);
-        String firstName = (filter.getFirstName() != null ? filter.getFirstName() : "");
-        String lastName = (filter.getLastName() != null ? filter.getLastName() : "");
-        String email = (filter.getEmail() != null ? filter.getEmail() : "");
-        String tel = (filter.getTel() != null ? filter.getTel() : "");
-        String address = (filter.getAddress() != null ? filter.getAddress() : "");
+        int id = filter.getId();
+        String firstName = filter.getFirstName();
+        String lastName = filter.getLastName();
+        String email = filter.getEmail();
+        String tel = filter.getTel();
+        String address = filter.getAddress();
         int inf = filter.getInf();
         int sup = filter.getSup();
 
@@ -532,5 +531,22 @@ public class DBHandler {
 
         closeConnection();
         return books;
+    }
+
+    public static int getLoanCount(int customerId) throws NoSuchElementException {
+        createConnection();
+        ResultSet res;
+        int count = 0;
+        try {
+            res = statement.executeQuery("SELECT COUNT(*) AS c FROM loans WHERE customer_id=" + customerId);
+            if (res.next())
+                count = res.getInt("c");
+            else
+                throw new NoSuchElementException("No customer with id " + customerId);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        closeConnection();
+        return count;
     }
 }

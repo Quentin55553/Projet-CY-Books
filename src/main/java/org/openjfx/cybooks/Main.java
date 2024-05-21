@@ -80,7 +80,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         // Executes the database creation file
-        DBHandler.executeSQLFile(Paths.get("").toAbsolutePath().toString() + "/src/main/resources/org/openjfx/cybooks/database/CY-Books.sql");
+//        DBHandler.executeSQLFile(Paths.get("").toAbsolutePath().toString() + "/src/main/resources/org/openjfx/cybooks/database/CY-Books.sql");
 
         launch(args);
     }

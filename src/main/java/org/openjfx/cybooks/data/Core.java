@@ -1,5 +1,9 @@
 package org.openjfx.cybooks.data;
 
+import org.openjfx.cybooks.API.APIErrorException;
+import org.openjfx.cybooks.API.APIHandler;
+import org.openjfx.cybooks.API.QueryParameterException;
+import org.openjfx.cybooks.API.SearchResult;
 import org.openjfx.cybooks.database.BookFilter;
 import org.openjfx.cybooks.database.CustomerFilter;
 import org.openjfx.cybooks.database.DBHandler;
@@ -12,8 +16,47 @@ import java.util.*;
 public class Core {
 
     public static Book getBook(String id) throws NoSuchElementException {
-        Book book = DBHandler.getBook(id);
+        APIHandler API = new APIHandler();
+        String bookLink = "https://gallica.bnf.fr/ark:/" + id;
+        Book book = null;
+
+        try {
+            book = DBHandler.getBook(id);
+        } catch (NoSuchElementException e) {
+            // if the book doesn't exist in database, it may exist online
+            System.out.println(e.getMessage());
+            book = new Book(id, 0, 0);
+        }
+
+
+
         // get data from API
+        try {
+            API.generateQueryStandard("", "", "", bookLink, "", "", "");
+            API.exec();
+
+            if (API.getNumberOfResults() == 0) {
+                throw new NoSuchElementException("No such book on database or servers");
+            } else {
+
+                SearchResult result = API.getResults().get(0);
+                book.setTitle(result.getTitle());
+                book.setAuthors(result.getAuthors());
+                book.setDate(result.getDate());
+                book.setDescription(result.getDescription());
+                book.setLanguage(result.getLanguage());
+                book.setSubjects(result.getSubjects());
+                book.setImageLink(result.getImageLink());
+                book.setPublisher(result.getPublisher());
+            }
+
+        } catch (NoSuchElementException e) {
+            System.out.println(e.getMessage());
+        } catch (QueryParameterException e) {
+            System.out.println(e.getMessage());
+        } catch (APIErrorException e) {
+            System.out.println(e.getMessage());
+        }
         return book;
     }
 
@@ -23,8 +66,51 @@ public class Core {
 
     public static List<Book> getBooksByFilter(BookFilter filter) {
 
-        List<Book> list = DBHandler.getBooksByFilter(filter);
-        return list;
+        List<Book> list;
+        List<Book> APIList = new ArrayList<>();
+        List<SearchResult> results;
+        APIHandler API = new APIHandler();
+        String bookLink = "https://gallica.bnf.fr/ark:/" + filter.getId();
+        try {
+            API.generateQueryStandard(filter.getTitle(),
+                    filter.getAuthor(),
+                    filter.getDate(),
+                    bookLink,
+                    "", "",
+                    filter.getTheme());
+            API.exec();
+            results = API.getResults();
+            for (SearchResult s : results) {
+                APIList.add(new Book(s.getIdentifier(),
+                        s.getTitle(),
+                        s.getAuthors(),
+                        s.getDate(),
+                        s.getPublisher(),
+                        s.getLanguage(),
+                        s.getDescription(),
+                        s.getSubjects(),
+                        s.getImageLink()));
+            }
+
+        } catch (APIErrorException e) {
+            System.out.println(e.getMessage());
+        } catch (QueryParameterException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        for (Book b : APIList) {
+            try {
+                Book id = DBHandler.getBook(b.getId());
+                b.setStock(id.getStock());
+                b.setTotal(id.getTotal());
+            } catch (NoSuchElementException e) {
+                b.setStock(0);
+                b.setTotal(0);
+            }
+        }
+
+        return APIList;
     }
 
     public static List<Loan> getLoans(int customerId) throws NoSuchElementException {
@@ -107,6 +193,10 @@ public class Core {
 
     public static void addLibrarian (String login, String lastName, String firstName, String password) throws SQLException {
         DBHandler.addLibrarian(login, lastName, firstName, password);
+    }
+
+    public static int getLoanCount (int customerId) throws NoSuchElementException {
+        return DBHandler.getLoanCount(customerId);
     }
 
 

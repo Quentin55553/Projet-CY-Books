@@ -66,6 +66,42 @@ public class SearchResult {
         this.imageLink=imageLink;
     }
 
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public ArrayList<String> getAuthors() {
+        return authors;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public ArrayList<String> getSubjects() {
+        return subjects;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
     /**
      * Converts a SearchResult object to a String
      * @return The String representing the object
