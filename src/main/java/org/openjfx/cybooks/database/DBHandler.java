@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -185,7 +186,40 @@ public class DBHandler {
         try {
             res = statement.executeQuery("SELECT * FROM customers WHERE last_name like '%" + name + "%'");
             while (res.next()) {
-                customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"));
+                customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"), 0);
+                customers.add(customer);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        closeConnection();
+
+        return customers;
+    }
+
+
+    public static List<Customer> getAllCustomers() {
+        createConnection();
+        ResultSet res;
+        Customer customer;
+        ArrayList<Customer> customers = new ArrayList<>();
+
+        try {
+            res = statement.executeQuery("SELECT * FROM customers");
+
+            while (res.next()) {
+                customer = new Customer (
+                        res.getInt("id"),
+                        res.getString("first_name"),
+                        res.getString("last_name"),
+                        res.getString("tel"),
+                        res.getString("email"),
+                        res.getString("address"),
+                        // Insérer le nombre d'emprunts ici avec la méthode dédiée
+                        0
+                );
                 customers.add(customer);
             }
 
@@ -237,12 +271,12 @@ public class DBHandler {
     }
 
 
-    public static void addLoan (String book_id, int customer_id, String expirationDate) {
+    public static void addLoan (String book_id, int customer_id, Date expirationDate) {
         createConnection();
 
         try {
             statement.execute("INSERT INTO loans (book_id, customer_id, expiration_date) VALUES ('" + book_id + "', '" + customer_id + "', '" + expirationDate + "')");
-            statement.execute("UPDATE books SET stock=stock-1 WHERE id='" + book_id + "'");
+
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -275,7 +309,6 @@ public class DBHandler {
         createConnection();
 
         try {
-
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             statement.execute("INSERT INTO librarians (`login`, `last_name`, `first_name`, `password`) VALUES ('" + login + "', '" + lastName + "', '" + firstName + "', '" + hashedPassword +"')");
 
@@ -308,7 +341,7 @@ public class DBHandler {
 
         try {
             statement.execute("UPDATE loans SET completed='" + value + "' WHERE id='" + id + "'");
-            statement.execute("UPDATE books SET stock=stock+1 WHERE id=(SELECT book_id FROM loans WHERE id =" + id + ")");
+
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -317,7 +350,7 @@ public class DBHandler {
     }
 
 
-    public static void updateExpirationDate(String id, String expirationDate) {
+    public static void updateExpirationDate(String id, Date expirationDate) {
         createConnection();
 
         try {
@@ -467,12 +500,12 @@ public class DBHandler {
         List<Customer> customers = new ArrayList<>();
         ResultSet res;
 
-        int id = filter.getId();
-        String firstName = filter.getFirstName();
-        String lastName = filter.getLastName();
-        String email = filter.getEmail();
-        String tel = filter.getTel();
-        String address = filter.getAddress();
+        int id = (filter.getId() != -1 ? filter.getId() : -1);
+        String firstName = (filter.getFirstName() != null ? filter.getFirstName() : "");
+        String lastName = (filter.getLastName() != null ? filter.getLastName() : "");
+        String email = (filter.getEmail() != null ? filter.getEmail() : "");
+        String tel = (filter.getTel() != null ? filter.getTel() : "");
+        String address = (filter.getAddress() != null ? filter.getAddress() : "");
         int inf = filter.getInf();
         int sup = filter.getSup();
 
@@ -498,7 +531,7 @@ public class DBHandler {
             res = statement.executeQuery(query);
 
             while (res.next()) {
-                Customer customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"));
+                Customer customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"), 0);
                 customers.add(customer);
             }
 
@@ -531,22 +564,5 @@ public class DBHandler {
 
         closeConnection();
         return books;
-    }
-
-    public static int getLoanCount(int customerId) throws NoSuchElementException {
-        createConnection();
-        ResultSet res;
-        int count = 0;
-        try {
-            res = statement.executeQuery("SELECT COUNT(*) AS c FROM loans WHERE customer_id=" + customerId);
-            if (res.next())
-                count = res.getInt("c");
-            else
-                throw new NoSuchElementException("No customer with id " + customerId);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        closeConnection();
-        return count;
     }
 }
