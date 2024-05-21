@@ -23,19 +23,58 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                   <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="112.0" text="Membres" textFill="#fefae0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="244.0" text="Tous les membres" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="23.0" />
                            </font>
                         </Label>
                      </children>
                   </StackPane>
-                  <VBox fx:id="AllUsersVbox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="1" />
+                  <VBox fx:id="AllUsersVbox" prefHeight="200.0" prefWidth="990.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="2" />
+                  <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="1">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;">
+                           <children>
+                              <Separator prefHeight="16.0" prefWidth="62.0" visible="false" />
+                              <Label prefHeight="11.0" prefWidth="32.0" text="Nom" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Separator prefHeight="3.0" prefWidth="111.0" visible="false" />
+                              <Label prefHeight="10.0" prefWidth="53.0" text="Prénom" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Separator prefHeight="2.0" prefWidth="111.0" visible="false" />
+                              <Label prefHeight="6.0" prefWidth="17.0" text="ID" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Separator prefHeight="3.0" prefWidth="74.0" visible="false" />
+                              <Label prefHeight="13.0" prefWidth="124.0" text="Nombre d'emprunt" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Separator prefHeight="9.0" prefWidth="27.0" visible="false" />
+                              <Label text="Profil" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </StackPane>
                </children>
             </GridPane>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1000.0" spacing="10.0">
