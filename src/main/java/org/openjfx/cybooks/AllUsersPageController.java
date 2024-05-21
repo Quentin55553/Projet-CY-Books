@@ -1,6 +1,7 @@
 package org.openjfx.cybooks;
 
 import com.jfoenix.controls.JFXButton;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
 import javafx.event.ActionEvent;
@@ -11,8 +12,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import org.openjfx.cybooks.data.Customer;
+import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,34 +28,30 @@ import java.util.ResourceBundle;
 
 
 public class AllUsersPageController implements Initializable {
-
-    @FXML
-    AnchorPane AllUsersAnchorPane;
-
     @FXML
     private VBox AllUsersVbox;
     @FXML
     private FontAwesomeIconView ChevronLeft;
-
     @FXML
     private FontAwesomeIconView ChevronRight;
-
     private int currentPage = 0;
-    private int rowsPerPage = 10; // Valeur par défaut
-    private List<String> results;
+    private int rowsPerPage = 10;
+    private List<Customer> results;
 
+    @FXML
+    AnchorPane AllUsersAnchorPane;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         results = getResultsFromDatabase();
+
         try {
             showPage(0);
-            updateButtonStates(results.size() / rowsPerPage);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -66,47 +67,8 @@ public class AllUsersPageController implements Initializable {
     }
 
 
-    private List<String> getResultsFromDatabase() {
-        List<String> results = new ArrayList<>();
-
-        // test
-        results.add("apple");
-        results.add("banana");
-        results.add("cherry");
-        results.add("date");
-        results.add("elderberry");
-        results.add("fig");
-        results.add("grape");
-        results.add("honeydew");
-        results.add("kiwi");
-        results.add("lemon");
-        results.add("mango");
-        results.add("nectarine");
-        results.add("orange");
-        results.add("papaya");
-        results.add("quince");
-        results.add("raspberry");
-        results.add("strawberry");
-        results.add("tangerine");
-        results.add("ugli fruit");
-        results.add("vanilla bean");
-        results.add("watermelon");
-        results.add("xigua");
-        results.add("yellow passion fruit");
-        results.add("zucchini");
-        /*try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "your_username", "your_password");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM your_table");
-            while (resultSet.next()) {
-                results.add(resultSet.getString("your_column"));
-            }
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        return results;
+    private List<Customer> getResultsFromDatabase() {
+        return DBHandler.getAllCustomers();
     }
 
 
@@ -131,16 +93,30 @@ public class AllUsersPageController implements Initializable {
         for (int i = start; i < end; i++) {
             Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-AllUsers.fxml")));
 
-            if (node instanceof Parent){
-                Button button = (Button) ((Parent)node).lookup("#ProfilButton");
+            Customer customer = results.get(i);
 
-                if (button != null) {
-                    //set ID   (il faudrait mettre l'id du membre comme ça on appel la fonction pour la page spécifique)
-                    button.setId("ProfilButton"+i);
-                    // Set the onAction event handler for the button
-                    button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
-                }
+            Label idLabel = (Label) node.lookup("#IDLabel");
+            Label firstNameLabel = (Label) node.lookup("#FirstNameLabel");
+            Label lastNameLabel = (Label) node.lookup("#LastNameLabel");
+            Label telLabel = (Label) node.lookup("#TelLabel");
+            Label emailLabel = (Label) node.lookup("#EmailLabel");
+            Label addressLabel = (Label) node.lookup("#AddressLabel");
+            Label nbLoansLabel = (Label) node.lookup("#NbLoansLabel");
+            Button button = (Button) node.lookup("#ProfilButton");
+
+            idLabel.setText(String.valueOf(customer.getId()));
+            firstNameLabel.setText(customer.getFirstName());
+            lastNameLabel.setText(customer.getLastName());
+            telLabel.setText(customer.getTel());
+            emailLabel.setText(customer.getEmail());
+            addressLabel.setText(customer.getAddress());
+            nbLoansLabel.setText(String.valueOf(customer.getNbLoans()));
+
+            if (button != null) {
+                button.setId("ProfilButton" + customer.getId());
+                button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
             }
+
             AllUsersVbox.getChildren().add(node);
         }
 
