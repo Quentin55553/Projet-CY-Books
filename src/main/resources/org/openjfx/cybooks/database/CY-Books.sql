@@ -11,15 +11,15 @@ USE `CY-Books`;
 
 
 CREATE TABLE `books` (
-  `id` int(11) NOT NULL PRIMARY KEY,
+  `id` varchar(50) NOT NULL PRIMARY KEY,
   `quantity` int(11) DEFAULT 0,
   `stock` int(11) DEFAULT 0
 );
 
 
 INSERT INTO `books` (`id`, `quantity`, `stock`) VALUES
-(22784, 2, 0),
-(28737, 5, 4);
+('22784', 2, 0),
+('28737', 5, 4);
 
 
 -- -----------------------------------------------------------
@@ -62,7 +62,7 @@ INSERT INTO `librarians` (`last_name`, `first_name`, `login`, `password`) VALUES
 
 CREATE TABLE `loans` (
   `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `book_id` int(11) NOT NULL,
+  `book_id` varchar(50) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `begin_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `expiration_date` date NOT NULL,
