@@ -51,7 +51,7 @@ public class Core {
         DBHandler.addBook(id, stock, total);
     }
 
-    public static void addLoan(Book book, Customer customer, Date expirationDate) {
+    public static void addLoan(Book book, Customer customer, String expirationDate) {
         DBHandler.addLoan(book.getId(), customer.getId(), expirationDate);
     }
 
@@ -70,7 +70,7 @@ public class Core {
         DBHandler.updateLoan(id, completed);
     }
 
-    public static void updateLoanExpirationDate(String id, Date expirationDate) {
+    public static void updateLoanExpirationDate(String id, String expirationDate) {
         DBHandler.updateExpirationDate(id, expirationDate);
     }
 

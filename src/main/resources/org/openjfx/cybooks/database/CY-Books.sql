@@ -19,7 +19,7 @@ CREATE TABLE `books` (
 
 INSERT INTO `books` (`id`, `quantity`, `stock`) VALUES
 (22784, 2, 0),
-(28737, 5, 2);
+(28737, 5, 4);
 
 
 -- -----------------------------------------------------------
@@ -64,7 +64,7 @@ CREATE TABLE `loans` (
   `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
-  `begin_date` date NOT NULL DEFAULT current_timestamp(),
+  `begin_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `expiration_date` date NOT NULL,
   `completed` tinyint(1) DEFAULT 0,
   KEY `book_id` (`book_id`),

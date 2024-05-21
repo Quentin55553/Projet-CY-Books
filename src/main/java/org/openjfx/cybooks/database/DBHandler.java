@@ -238,12 +238,12 @@ public class DBHandler {
     }
 
 
-    public static void addLoan (String book_id, int customer_id, Date expirationDate) {
+    public static void addLoan (String book_id, int customer_id, String expirationDate) {
         createConnection();
 
         try {
             statement.execute("INSERT INTO loans (book_id, customer_id, expiration_date) VALUES ('" + book_id + "', '" + customer_id + "', '" + expirationDate + "')");
-
+            statement.execute("UPDATE books SET stock=stock-1 WHERE id='" + book_id + "'");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -309,7 +309,7 @@ public class DBHandler {
 
         try {
             statement.execute("UPDATE loans SET completed='" + value + "' WHERE id='" + id + "'");
-
+            statement.execute("UPDATE books SET stock=stock+1 WHERE id=(SELECT book_id FROM loans WHERE id =" + id + ")");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -318,7 +318,7 @@ public class DBHandler {
     }
 
 
-    public static void updateExpirationDate(String id, Date expirationDate) {
+    public static void updateExpirationDate(String id, String expirationDate) {
         createConnection();
 
         try {
