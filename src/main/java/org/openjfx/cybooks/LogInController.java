@@ -50,7 +50,7 @@ public class LogInController {
         if (!login.isEmpty() && !password.isEmpty()) {
             if (isValidCredentials(login, password)) {
                 // Go to home page
-                main.showHomeScene();
+                main.showHomeScene(login);
             }
 
         } else {

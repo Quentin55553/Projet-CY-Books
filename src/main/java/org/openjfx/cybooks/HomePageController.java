@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -20,6 +21,8 @@ import java.util.ResourceBundle;
 
 
 public class HomePageController implements Initializable {
+    @FXML
+    private Label IDLabel;
     @FXML
     private JFXButton AddCustomerTopButton;
     @FXML
@@ -109,6 +112,10 @@ public class HomePageController implements Initializable {
     }
 
 
+    public void setLibrarianID(String id) {
+        IDLabel.setText(id);
+    }
+
     public void logoutClicked() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Déconnexion");
@@ -149,4 +156,6 @@ public class HomePageController implements Initializable {
         Center.getChildren().setAll(newCenter.getChildren());
         */
     }
+
+
 }

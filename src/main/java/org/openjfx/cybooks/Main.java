@@ -60,16 +60,21 @@ public class Main extends Application {
     }
 
 
-    public void showHomeScene() throws IOException {
+    public void showHomeScene(String id) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
         Parent root = loader.load();
         HomePageController controller = loader.getController();
         controller.setMain(this);
+        // Pass the librarian id to controller and set it
+        controller.setLibrarianID(id);
+
         // Makes the user able to resize the window
         primaryStage.setResizable(true);
 
         primaryStage.setScene(new Scene(root, 1300, 800));
         primaryStage.show();
+        // Log
+        System.out.println("connected to : "+id);
     }
 
 
