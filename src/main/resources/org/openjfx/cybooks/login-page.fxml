@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onKeyPressed="#loginClicked" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.LogInController">
+<AnchorPane maxHeight="470" maxWidth="550" onKeyPressed="#loginClicked" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.LogInController">
    <children>
       <HBox prefHeight="470.0" prefWidth="550.0">
          <children>
