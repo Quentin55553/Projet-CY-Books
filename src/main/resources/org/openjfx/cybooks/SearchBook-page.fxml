@@ -19,14 +19,15 @@
    <children>
       <VBox alignment="CENTER" layoutX="28.0" layoutY="68.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
-            <GridPane alignment="BOTTOM_CENTER" prefHeight="609.0" prefWidth="1000.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: #BC6C25;">
+            <GridPane alignment="TOP_CENTER" prefHeight="609.0" prefWidth="1000.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: #BC6C25;">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="66.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="15.0" prefHeight="15.0" valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="372.0" prefHeight="400.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
@@ -61,7 +62,45 @@
                         </HBox>
                      </children>
                   </StackPane>
-                  <VBox fx:id="BooksVbox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="2" />
+                  <VBox fx:id="BooksVbox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="3" />
+                  <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="2">
+                     <children>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="1010.0" spacing="30.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;">
+                           <children>
+                              <Label prefHeight="16.0" prefWidth="136.0" text="Titre" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="18.0" prefWidth="151.0" text="Auteur" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="21.0" prefWidth="126.0" text="Genre" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="21.0" prefWidth="126.0" text="ISBN" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="21.0" prefWidth="126.0" text="Stock" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Livre" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </StackPane>
                </children>
             </GridPane>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1000.0" spacing="10.0">
