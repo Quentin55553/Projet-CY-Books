@@ -75,22 +75,6 @@
                               <Font name="Eras Medium ITC" size="18.0" />
                            </font>
                         </CustomTextField>
-                        <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="469.0" text="Téléphone" textAlignment="CENTER" textFill="#283618" GridPane.columnIndex="2" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="Eras Medium ITC" size="17.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="15.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <CustomTextField fx:id="telField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer téléphone" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-                           <font>
-                              <Font name="Eras Medium ITC" size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="15.0" />
-                           </GridPane.margin>
-                        </CustomTextField>
                         <Label prefHeight="22.0" prefWidth="258.0" text="Email" textAlignment="CENTER" textFill="#283618" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <font>
                               <Font name="Eras Medium ITC" size="17.0" />
@@ -100,6 +84,22 @@
                            </padding>
                         </Label>
                         <CustomTextField fx:id="emailField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer email" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="Eras Medium ITC" size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </CustomTextField>
+                        <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="469.0" text="Téléphone" textAlignment="CENTER" textFill="#283618" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Eras Medium ITC" size="17.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <CustomTextField fx:id="telField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer téléphone" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Eras Medium ITC" size="18.0" />
                            </font>
@@ -123,12 +123,12 @@
                               <Insets left="15.0" />
                            </GridPane.margin>
                         </CustomTextField>
-                        <Label fx:id="errorLabel" prefHeight="29.0" prefWidth="287.0" textFill="#f80000" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                        <Label fx:id="errorLabel" prefHeight="29.0" prefWidth="287.0" textFill="#f80000" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <font>
                               <Font size="10.0" />
                            </font>
                         </Label>
-                        <Label fx:id="confirmationLabel" prefHeight="29.0" prefWidth="287.0" textFill="#019a15" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <Label fx:id="confirmationLabel" prefHeight="29.0" prefWidth="287.0" textFill="#019a15" GridPane.columnIndex="3" GridPane.rowIndex="6">
                            <font>
                               <Font size="14.0" />
                            </font>
