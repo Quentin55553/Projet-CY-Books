@@ -16,7 +16,7 @@
       <Label fx:id="EmailLabel" prefHeight="16.0" prefWidth="186.0" text="Email" />
       <Label fx:id="AddressLabel" prefHeight="16.0" prefWidth="191.0" text="Adresse" />
       <Label fx:id="NbLoansLabel" prefHeight="24.0" prefWidth="44.0" text="Nombre d'emprunt" />
-      <Button fx:id="ProfilButton" mnemonicParsing="false" style="-fx-background-color: none;">
+      <Button fx:id="ProfileButton" mnemonicParsing="false" style="-fx-background-color: none;">
          <graphic>
             <FontAwesomeIconView fill="#606c38" glyphName="SEARCH" selectionFill="#fefae0" selectionStart="0" size="19">
                <cursor>
