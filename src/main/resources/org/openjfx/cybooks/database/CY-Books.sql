@@ -47,9 +47,8 @@ CREATE TABLE `librarians` (
   `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `last_name` varchar(50) NOT NULL,
   `first_name` varchar(50) NOT NULL,
-  `login` varchar(50) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  UNIQUE KEY `login` (`login`)
+  `login` varchar(50) UNIQUE NOT NULL,
+  `password` varchar(100) NOT NULL
 );
 
 
