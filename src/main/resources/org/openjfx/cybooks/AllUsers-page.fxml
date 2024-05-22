@@ -29,7 +29,7 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="244.0" text="Tous les membres" textFill="#fefae0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="244.0" text="Membres" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="23.0" />
                            </font>
@@ -39,34 +39,46 @@
                   <VBox fx:id="AllUsersVbox" prefHeight="200.0" prefWidth="990.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="2" />
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="1">
                      <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;">
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="1026.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;">
                            <children>
-                              <Separator prefHeight="16.0" prefWidth="62.0" visible="false" />
-                              <Label prefHeight="11.0" prefWidth="32.0" text="Nom" textFill="#fefae0">
+                              <Separator prefHeight="16.0" prefWidth="10.0" visible="false" />
+                              <Label prefHeight="18.0" prefWidth="16.0" text="ID" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Separator prefHeight="3.0" prefWidth="111.0" visible="false" />
-                              <Label prefHeight="10.0" prefWidth="53.0" text="Prénom" textFill="#fefae0">
+                              <Separator prefHeight="20.0" prefWidth="15.0" visible="false" />
+                              <Label prefHeight="18.0" prefWidth="44.0" text="Nom" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Separator prefHeight="2.0" prefWidth="111.0" visible="false" />
-                              <Label prefHeight="6.0" prefWidth="17.0" text="ID" textFill="#fefae0">
+                              <Separator prefHeight="14.0" prefWidth="72.0" visible="false" />
+                              <Label prefHeight="18.0" prefWidth="57.0" text="Prénom" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Separator prefHeight="3.0" prefWidth="74.0" visible="false" />
-                              <Label prefHeight="13.0" prefWidth="124.0" text="Nombre d'emprunt" textFill="#fefae0">
+                              <Separator prefHeight="17.0" prefWidth="74.0" visible="false" />
+                              <Label prefHeight="18.0" prefWidth="79.0" text="Téléphone" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Separator prefHeight="9.0" prefWidth="27.0" visible="false" />
-                              <Label text="Profil" textFill="#fefae0">
+                              <Separator prefHeight="19.0" prefWidth="62.0" visible="false" />
+                              <Label prefHeight="18.0" prefWidth="105.0" text="Email" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Separator prefHeight="20.0" prefWidth="60.0" visible="false" />
+                              <Label text="Adresse" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Separator prefHeight="20.0" prefWidth="103.0" visible="false" />
+                              <Label text="Emprunts" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
