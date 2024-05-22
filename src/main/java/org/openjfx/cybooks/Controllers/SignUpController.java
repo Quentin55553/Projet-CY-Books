@@ -1,10 +1,11 @@
-package org.openjfx.cybooks;
+package org.openjfx.cybooks.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.openjfx.cybooks.Main;
 import org.openjfx.cybooks.data.Core;
 
 import java.io.IOException;

@@ -1,12 +1,10 @@
-package org.openjfx.cybooks;
+package org.openjfx.cybooks.Controllers;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -17,14 +15,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class AllLoansController implements Initializable {
+public class LoanIssuesPageControler implements Initializable {
 
 
     @FXML
-    AnchorPane AllLoansAnchorPane;
+    AnchorPane LoanIssuesAnchorPane;
 
     @FXML
-    private VBox AllLoansVbox;
+    private VBox LoanIssuesVbox;
     @FXML
     private FontAwesomeIconView ChevronLeft;
 
@@ -100,15 +98,15 @@ public class AllLoansController implements Initializable {
         }
 
         currentPage = page;
-        AllLoansVbox.getChildren().clear();
+        LoanIssuesVbox.getChildren().clear();
 
         int start = page * rowsPerPage;
         int end = Math.min(start + rowsPerPage, results.size());
 
 
         for (int i = start; i < end; i++) {
-            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-Loan.fxml")));
-            AllLoansVbox.getChildren().add(node);
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-Loan.fxml")));
+            LoanIssuesVbox.getChildren().add(node);
         }
         System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
         updateButtonStates(totalPages);
@@ -117,38 +115,6 @@ public class AllLoansController implements Initializable {
     private void updateButtonStates(int totalPages) {
         ChevronLeft.setVisible(currentPage > 0);
         ChevronRight.setVisible(currentPage < totalPages - 1);
-    }
-
-
-    @FXML
-    private void handleButtonClick(String id) {
-        System.out.println(id);
-        try {
-            // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Profil-page.fxml"));
-            Parent parent = AllLoansAnchorPane.getParent();
-
-            if (parent instanceof AnchorPane) {
-                AnchorPane center = (AnchorPane) parent;
-
-                AnchorPane newCenter = loader.load();
-                // Set the size constraints of the new AnchorPane
-                newCenter.setPrefSize(center.getWidth(), center.getHeight());
-
-                AnchorPane.setTopAnchor(newCenter, 0.0);
-                AnchorPane.setLeftAnchor(newCenter, 210.0);
-                AnchorPane.setBottomAnchor(newCenter, 0.0);
-                AnchorPane.setRightAnchor(newCenter, 210.0);
-
-                // Replace the embedded node with the new one
-                center.getChildren().setAll(newCenter);
-            } else {
-                System.err.println("Parent is not an instance of AnchorPane");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
 

@@ -11,13 +11,13 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#signUpClicked" prefHeight="470.0" prefWidth="550.0" style="-fx-background-color: #FEFAE0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.SignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#signUpClicked" prefHeight="470.0" prefWidth="550.0" style="-fx-background-color: #FEFAE0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.SignUpController">
    <children>
       <AnchorPane prefHeight="85.0" prefWidth="550.0" style="-fx-background-color: #606C38;">
          <children>
             <ImageView fitHeight="72.0" fitWidth="154.0" layoutX="5.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@img/Cy-books-full.png" />
+                  <Image url="@../img/Cy-books-full.png" />
                </image>
             </ImageView>
             <Line endX="-44.26670837402344" endY="-23.93332862854004" layoutX="219.0" layoutY="45.0" startX="-44.26670837402344" startY="18.200000762939453" stroke="WHITE" strokeWidth="2.0" />

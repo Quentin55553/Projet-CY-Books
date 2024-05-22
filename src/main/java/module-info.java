@@ -11,4 +11,6 @@ module org.openjfx.cybooks {
 
     opens org.openjfx.cybooks to javafx.fxml;
     exports org.openjfx.cybooks;
+    exports org.openjfx.cybooks.Controllers;
+    opens org.openjfx.cybooks.Controllers to javafx.fxml;
 }

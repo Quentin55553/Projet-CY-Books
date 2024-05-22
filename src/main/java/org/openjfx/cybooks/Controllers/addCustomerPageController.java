@@ -1,10 +1,11 @@
-package org.openjfx.cybooks;
+package org.openjfx.cybooks.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import org.controlsfx.control.textfield.CustomTextField;
+import org.openjfx.cybooks.Main;
 import org.openjfx.cybooks.database.*;
 
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package org.openjfx.cybooks;
+package org.openjfx.cybooks.Controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.openjfx.cybooks.Main;
 
 import java.io.IOException;
 import java.net.URL;
@@ -98,17 +99,17 @@ public class HomePageController implements Initializable {
         });
 
         // top and left menu buttons
-        AddCustomerTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addCustomer-page.fxml"));
-        AddCustomerLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addCustomer-page.fxml"));
-        AddLoanTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
-        AddLoanLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/addLoan-page.fxml"));
-        SearchUserLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/SearchUser-page.fxml"));
-        SearchUserTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/SearchUser-page.fxml"));
-        SearchBookLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/SearchBook-page.fxml"));
-        SearchBookTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/SearchBook-page.fxml"));
-        AllUsersButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/AllUsers-page.fxml"));
-        AllLoansButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/AllLoans-page.fxml"));
-        LoansIssuesButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/LoansIssues-page.fxml"));
+        AddCustomerTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/addCustomer-page.fxml"));
+        AddCustomerLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/addCustomer-page.fxml"));
+        AddLoanTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/addLoan-page.fxml"));
+        AddLoanLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/addLoan-page.fxml"));
+        SearchUserLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/SearchUser-page.fxml"));
+        SearchUserTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/SearchUser-page.fxml"));
+        SearchBookLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/SearchBook-page.fxml"));
+        SearchBookTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/SearchBook-page.fxml"));
+        AllUsersButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/AllUsers-page.fxml"));
+        AllLoansButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/AllLoans-page.fxml"));
+        LoansIssuesButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/LoansIssues-page.fxml"));
     }
 
 

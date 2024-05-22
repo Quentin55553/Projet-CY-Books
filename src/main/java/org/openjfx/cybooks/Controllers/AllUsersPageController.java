@@ -1,16 +1,12 @@
-package org.openjfx.cybooks;
-
-import com.jfoenix.controls.JFXButton;
+package org.openjfx.cybooks.Controllers;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -21,7 +17,6 @@ import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -91,7 +86,7 @@ public class AllUsersPageController implements Initializable {
         int end = Math.min(start + rowsPerPage, results.size());
 
         for (int i = start; i < end; i++) {
-            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-AllUsers.fxml")));
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-AllUsers.fxml")));
 
             Customer customer = results.get(i);
 
@@ -137,7 +132,7 @@ public class AllUsersPageController implements Initializable {
 
         try {
             // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Profil-page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Profile-page.fxml"));
             Parent parent = AllUsersAnchorPane.getParent();
 
             if (parent instanceof AnchorPane) {

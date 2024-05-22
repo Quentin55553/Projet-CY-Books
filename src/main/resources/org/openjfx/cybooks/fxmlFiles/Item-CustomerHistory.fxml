@@ -14,7 +14,7 @@
             <Insets left="5.0" />
          </HBox.margin>
          <image>
-            <Image url="@img/book_cover.jpg" />
+            <Image url="@../img/book_cover.jpg" />
          </image>
       </ImageView>
       <Label text="Titre" />

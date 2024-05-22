@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="470" maxWidth="550" onKeyPressed="#loginClicked" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.LogInController">
+<AnchorPane maxHeight="470" maxWidth="550" onKeyPressed="#loginClicked" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.LogInController">
    <children>
       <HBox prefHeight="470.0" prefWidth="550.0">
          <children>
@@ -20,7 +20,7 @@
                <children>
                   <ImageView fitHeight="71.0" fitWidth="204.0" layoutX="11.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/Cy-books-full.png" />
+                        <Image url="@../img/Cy-books-full.png" />
                      </image>
                   </ImageView>
                   <Line endX="81.5" layoutX="108.0" layoutY="281.0" startX="-78.0" stroke="WHITE" strokeWidth="2.0" />

@@ -53,7 +53,7 @@
                         </JFXButton>
                         <ImageView fitHeight="295.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                            <image>
-                              <Image url="@img/book_cover.jpg" />
+                              <Image url="@../img/book_cover.jpg" />
                            </image>
                            <GridPane.margin>
                               <Insets right="4.0" />

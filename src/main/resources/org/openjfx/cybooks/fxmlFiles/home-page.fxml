@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.HomePageController">
+<BorderPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.HomePageController">
    <top>
       <AnchorPane>
          <children>
@@ -25,7 +25,7 @@
                      <children>
                         <ImageView fitHeight="39.0" fitWidth="118.0" layoutX="8.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/Cy-books-full.png" />
+                              <Image url="@../img/Cy-books-full.png" />
                            </image>
                         </ImageView>
                         <Pane layoutX="744.0" layoutY="13.0" AnchorPane.rightAnchor="14.0">
@@ -37,7 +37,7 @@
                               </Label>
                               <ImageView fx:id="logout" fitHeight="18.0" fitWidth="16.0" layoutX="226.0" layoutY="11.0" onMouseClicked="#logoutClicked" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/sign-out-alt.png" />
+                                    <Image url="@../img/icons/sign-out-alt.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -48,7 +48,7 @@
                               </ImageView>
                               <ImageView fitHeight="21.0" fitWidth="20.0" layoutX="4.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/user.png" />
+                                    <Image url="@../img/icons/user.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -71,7 +71,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/books.png" />
+                                    <Image url="@../img/icons/books.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" contrast="-0.73" hue="0.01" saturation="0.27" />
@@ -89,7 +89,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/user-add.png" />
+                                    <Image url="@../img/icons/user-add.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -107,7 +107,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/member-search.png" />
+                                    <Image url="@../img/icons/member-search.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -125,7 +125,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/calendar-plus.png" />
+                                    <Image url="@../img/icons/calendar-plus.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -170,7 +170,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/books.png" />
+                                    <Image url="@../img/icons/books.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -191,7 +191,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/user-add.png" />
+                                    <Image url="@../img/icons/user-add.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -212,7 +212,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/member-search.png" />
+                                    <Image url="@../img/icons/member-search.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -233,7 +233,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/users-alt.png" />
+                                    <Image url="@../img/icons/users-alt.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -254,7 +254,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/calendar-plus.png" />
+                                    <Image url="@../img/icons/calendar-plus.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -275,7 +275,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/calendar-clock.png" />
+                                    <Image url="@../img/icons/calendar-clock.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />
@@ -296,7 +296,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@img/icons/calendar-exclamation.png" />
+                                    <Image url="@../img/icons/calendar-exclamation.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="1.0" />

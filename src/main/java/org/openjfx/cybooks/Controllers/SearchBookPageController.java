@@ -1,4 +1,4 @@
-package org.openjfx.cybooks;
+package org.openjfx.cybooks.Controllers;
 
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -22,17 +22,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class SearchUserPageController implements Initializable {
+public class SearchBookPageController implements Initializable {
 
 
 
     @FXML
-    private AnchorPane SearchUsersAnchorPane;
+    private AnchorPane SearchBookAnchorPane;
     @FXML
     private JFXButton FilterSearchButton;
 
     @FXML
-    private VBox UsersVbox;
+    private VBox BooksVbox;
     @FXML
     private FontAwesomeIconView ChevronLeft;
 
@@ -111,24 +111,24 @@ public class SearchUserPageController implements Initializable {
         }
 
         currentPage = page;
-        UsersVbox.getChildren().clear();
+        BooksVbox.getChildren().clear();
 
         int start = page * rowsPerPage;
         int end = Math.min(start + rowsPerPage, results.size());
 
 
         for (int i = start; i < end; i++) {
-            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-AllUsers.fxml")));
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-Book.fxml")));
             if (node instanceof Parent){
-                Button button = (Button) ((Parent)node).lookup("#ProfilButton");
+                Button button = (Button) ((Parent)node).lookup("#BookButton");
                 if (button != null) {
                     //set ID   (il faudrait mettre l'id du livre comme ça on appel la fonction pour la page spécifique)
-                    button.setId("ProfilButton"+i);
+                    button.setId("BookButton"+i);
                     // Set the onAction event handler for the button
                     button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
                 }
             }
-            UsersVbox.getChildren().add(node);
+            BooksVbox.getChildren().add(node);
         }
         System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
         updateButtonStates(totalPages);
@@ -146,8 +146,8 @@ public class SearchUserPageController implements Initializable {
         System.out.println(id);
         try {
             // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Profil-page.fxml"));
-            Parent parent = SearchUsersAnchorPane.getParent();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Book-page.fxml"));
+            Parent parent = SearchBookAnchorPane.getParent();
 
             if (parent instanceof AnchorPane) {
                 AnchorPane center = (AnchorPane) parent;
@@ -175,7 +175,7 @@ public class SearchUserPageController implements Initializable {
     private void openFilterDialog(ActionEvent event) {
         try {
             // Load the FXML file for the dialog
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FilterDialogUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/FilterDialogBook.fxml"));
             Parent root = loader.load();
 
             // Create a new stage for the dialog

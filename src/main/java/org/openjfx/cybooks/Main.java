@@ -6,11 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.openjfx.cybooks.Controllers.HomePageController;
+import org.openjfx.cybooks.Controllers.LogInController;
+import org.openjfx.cybooks.Controllers.SignUpController;
 import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.sql.SQLInput;
 import java.util.Objects;
 
 
@@ -35,7 +37,7 @@ public class Main extends Application {
 
 
     public void showSignUpScene() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("signup-page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxmlFiles/signup-page.fxml"));
         Parent root = loader.load();
         SignUpController controller = loader.getController();
         controller.setMain(this);
@@ -48,7 +50,7 @@ public class Main extends Application {
 
 
     public void showLogInScene() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login-page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxmlFiles/login-page.fxml"));
         Parent root = loader.load();
         LogInController controller = loader.getController();
         controller.setMain(this);
@@ -61,7 +63,7 @@ public class Main extends Application {
 
 
     public void showHomeScene(String id) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("home-page.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxmlFiles/home-page.fxml"));
         Parent root = loader.load();
         HomePageController controller = loader.getController();
         controller.setMain(this);

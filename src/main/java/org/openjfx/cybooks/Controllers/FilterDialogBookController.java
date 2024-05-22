@@ -1,4 +1,4 @@
-package org.openjfx.cybooks;
+package org.openjfx.cybooks.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

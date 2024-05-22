@@ -1,4 +1,4 @@
-package org.openjfx.cybooks;
+package org.openjfx.cybooks.Controllers;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
@@ -16,14 +16,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class LoanIssuesPageControler implements Initializable {
+public class AllLoansController implements Initializable {
 
 
     @FXML
-    AnchorPane LoanIssuesAnchorPane;
+    AnchorPane AllLoansAnchorPane;
 
     @FXML
-    private VBox LoanIssuesVbox;
+    private VBox AllLoansVbox;
     @FXML
     private FontAwesomeIconView ChevronLeft;
 
@@ -99,15 +99,15 @@ public class LoanIssuesPageControler implements Initializable {
         }
 
         currentPage = page;
-        LoanIssuesVbox.getChildren().clear();
+        AllLoansVbox.getChildren().clear();
 
         int start = page * rowsPerPage;
         int end = Math.min(start + rowsPerPage, results.size());
 
 
         for (int i = start; i < end; i++) {
-            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-Loan.fxml")));
-            LoanIssuesVbox.getChildren().add(node);
+            Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-Loan.fxml")));
+            AllLoansVbox.getChildren().add(node);
         }
         System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
         updateButtonStates(totalPages);
@@ -116,6 +116,38 @@ public class LoanIssuesPageControler implements Initializable {
     private void updateButtonStates(int totalPages) {
         ChevronLeft.setVisible(currentPage > 0);
         ChevronRight.setVisible(currentPage < totalPages - 1);
+    }
+
+
+    @FXML
+    private void handleButtonClick(String id) {
+        System.out.println(id);
+        try {
+            // Load the new FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Profil-page.fxml"));
+            Parent parent = AllLoansAnchorPane.getParent();
+
+            if (parent instanceof AnchorPane) {
+                AnchorPane center = (AnchorPane) parent;
+
+                AnchorPane newCenter = loader.load();
+                // Set the size constraints of the new AnchorPane
+                newCenter.setPrefSize(center.getWidth(), center.getHeight());
+
+                AnchorPane.setTopAnchor(newCenter, 0.0);
+                AnchorPane.setLeftAnchor(newCenter, 210.0);
+                AnchorPane.setBottomAnchor(newCenter, 0.0);
+                AnchorPane.setRightAnchor(newCenter, 210.0);
+
+                // Replace the embedded node with the new one
+                center.getChildren().setAll(newCenter);
+            } else {
+                System.err.println("Parent is not an instance of AnchorPane");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

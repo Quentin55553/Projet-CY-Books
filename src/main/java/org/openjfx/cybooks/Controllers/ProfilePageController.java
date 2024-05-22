@@ -1,4 +1,4 @@
-package org.openjfx.cybooks;
+package org.openjfx.cybooks.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-public class ProfilPageController implements Initializable {
+public class ProfilePageController implements Initializable {
     @FXML
     private VBox CustomerHistory;
 
@@ -24,7 +24,7 @@ public class ProfilPageController implements Initializable {
 
         for (int i = 0; i < nodes.length; i++) {
             try {
-                nodes[i] = (Node) FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Item-CustomerHistory.fxml")));
+                nodes[i] = (Node) FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-CustomerHistory.fxml")));
                 CustomerHistory.getChildren().add(nodes[i]);
                 
             } catch (IOException e) {
