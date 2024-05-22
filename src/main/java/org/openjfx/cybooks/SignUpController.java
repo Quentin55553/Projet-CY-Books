@@ -60,7 +60,7 @@ public class SignUpController {
         String enteredPassword = password.getText();
         String confirmedPassword = password2.getText();
 
-        if (isValidSignUp(enteredLogin, enteredPassword, confirmedPassword)) {
+        if (isValidSignUp(enteredLogin, enteredLastname, enteredFirstname, enteredPassword, confirmedPassword)) {
             // Go to login page
             try {
                 Core.addLibrarian(enteredLogin, enteredLastname, enteredFirstname, enteredPassword);
@@ -74,13 +74,13 @@ public class SignUpController {
             }
 
         } else {
-            errorLabel.setText("    L'identifiant et le mot de passe doivent avoir au moins \n1 caractère et les deux mots de passe doivent être identiques");
+            errorLabel.setText("Tous les champs doivent avoir au moins 1 caractère \n et les deux mots de passe doivent être identiques");
         }
     }
 
 
-    private boolean isValidSignUp(String login, String password, String confirmedPassword) {
+    private boolean isValidSignUp(String login, String lastname, String firstname, String password, String confirmedPassword) {
         // Assuming a valid sign up requires a unique login and matching passwords
-        return !login.isEmpty() && !password.isEmpty() && password.equals(confirmedPassword);
+        return !login.isEmpty() && !lastname.isEmpty() && !firstname.isEmpty() && !password.isEmpty() && password.equals(confirmedPassword);
     }
 }
