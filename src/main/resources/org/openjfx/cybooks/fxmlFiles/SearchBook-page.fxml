@@ -41,7 +41,7 @@
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="1">
                      <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="29.0" prefWidth="705.0">
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="38.0" prefWidth="884.0">
                            <children>
                               <JFXButton fx:id="FilterSearchButton" prefHeight="38.0" prefWidth="221.0" ripplerFill="#283618" style="-fx-background-color: #606C38; -fx-background-radius: 10;" text="Filtrer la recherche" textFill="#fefae0">
                                  <graphic>
