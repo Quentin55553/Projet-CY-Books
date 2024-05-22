@@ -24,6 +24,29 @@ public class Loan {
         this.completed = completed;
     }
 
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public Date getBeginDate() {
+        return beginDate;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public boolean hasExpired() {
         return expired;
