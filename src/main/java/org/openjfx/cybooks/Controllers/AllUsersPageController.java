@@ -97,7 +97,7 @@ public class AllUsersPageController implements Initializable {
             Label emailLabel = (Label) node.lookup("#EmailLabel");
             Label addressLabel = (Label) node.lookup("#AddressLabel");
             Label nbLoansLabel = (Label) node.lookup("#NbLoansLabel");
-            Button button = (Button) node.lookup("#ProfilButton");
+            Button button = (Button) node.lookup("#ProfileButton");
 
             idLabel.setText(String.valueOf(customer.getId()));
             firstNameLabel.setText(customer.getFirstName());
@@ -107,15 +107,13 @@ public class AllUsersPageController implements Initializable {
             addressLabel.setText(customer.getAddress());
             nbLoansLabel.setText(String.valueOf(customer.getLoanCount()));
 
-            if (button != null) {
-                button.setId("ProfilButton" + customer.getId());
-                button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
-            }
+
+            button.setId("ProfileButton" + customer.getId());
+            button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
 
             AllUsersVbox.getChildren().add(node);
         }
 
-        System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
         updateButtonStates(totalPages);
     }
 
@@ -128,8 +126,6 @@ public class AllUsersPageController implements Initializable {
 
     @FXML
     private void handleButtonClick(String id) {
-        System.out.println(id);
-
         try {
             // Load the new FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Profile-page.fxml"));
