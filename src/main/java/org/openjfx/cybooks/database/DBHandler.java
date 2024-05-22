@@ -291,7 +291,7 @@ public class DBHandler {
         } catch (SQLException e) {
             // Checks if MySQL indicates a unique constraint violation
             if (e.getErrorCode() == 1062) {
-                throw new SQLException("Ce membre existe déjà");
+                throw new SQLException("L'email et/ou le numéro de téléphone est déjà utilisé");
 
             } else {
                 throw new SQLException("Une erreur s'est produite");
@@ -302,7 +302,7 @@ public class DBHandler {
     }
 
 
-    public static void addLibrarian (String login, String lastName, String firstName, String password) {
+    public static void addLibrarian (String login, String lastName, String firstName, String password) throws SQLException {
         createConnection();
 
         try {
@@ -311,7 +311,13 @@ public class DBHandler {
             statement.execute("INSERT INTO librarians (`login`, `last_name`, `first_name`, `password`) VALUES ('" + login + "', '" + lastName + "', '" + firstName + "', '" + hashedPassword +"')");
 
         } catch (SQLException e) {
-            System.out.println(e);
+            // Checks if MySQL indicates a unique constraint violation
+            if (e.getErrorCode() == 1062) {
+                throw new SQLException("Ce login est déjà utilisé");
+
+            } else {
+                throw new SQLException("Une erreur s'est produite");
+            }
         }
 
         closeConnection();
