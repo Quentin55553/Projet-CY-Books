@@ -119,7 +119,7 @@ public class APIHandler {
                 if(andNeeded){
                     this.query+="%20and%20";
                 }
-                this.query+="dc.creator%20any%20"+normalizedAuthor;
+                this.query+="dc.creator%20all%20"+normalizedAuthor;
                 andNeeded=true;
             }
             if(!date.equals("")){
