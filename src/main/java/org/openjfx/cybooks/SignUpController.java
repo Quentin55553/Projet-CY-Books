@@ -74,13 +74,13 @@ public class SignUpController {
             }
 
         } else {
-            errorLabel.setText("L'identifiant doit être unique et avoir au moins 1 caractère \n     et les deux mots de passe doivent être identiques");
+            errorLabel.setText("    L'identifiant et le mot de passe doivent avoir au moins \n1 caractère et les deux mots de passe doivent être identiques");
         }
     }
 
 
     private boolean isValidSignUp(String login, String password, String confirmedPassword) {
         // Assuming a valid sign up requires a unique login and matching passwords
-        return !login.isEmpty() && password.equals(confirmedPassword);
+        return !login.isEmpty() && !password.isEmpty() && password.equals(confirmedPassword);
     }
 }
