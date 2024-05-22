@@ -12,7 +12,7 @@
       <Label prefHeight="16.0" prefWidth="136.0" text="Titre" />
       <Label prefHeight="18.0" prefWidth="151.0" text="Auteur" />
       <Label prefHeight="21.0" prefWidth="126.0" text="Genre" />
-      <Label prefHeight="21.0" prefWidth="126.0" text="ISBN" />
+      <Label prefHeight="21.0" prefWidth="126.0" text="ID" />
       <Label prefHeight="21.0" prefWidth="126.0" text="Stock" />
       <Button fx:id="BookButton" mnemonicParsing="false" style="-fx-background-color: none;">
          <graphic>
