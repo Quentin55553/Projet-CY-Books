@@ -76,7 +76,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 1300, 800));
         primaryStage.show();
         // Log
-        System.out.println("connected to : "+id);
+        System.out.println("Connected to: " + id);
     }
 
 
