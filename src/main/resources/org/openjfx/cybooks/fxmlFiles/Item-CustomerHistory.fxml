@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="950.0" spacing="100.0" style="-fx-background-color: #DDA15E;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -17,10 +19,17 @@
             <Image url="@../img/book_cover.jpg" />
          </image>
       </ImageView>
-      <Label text="Titre" />
-      <Label text="Auteur" />
-      <Label text="Genre" />
-      <Label text="Date emprunt" />
-      <JFXButton text="Rendu / Pas rendu" />
+      <Label fx:id="title" text="Titre" />
+      <Label fx:id="author" text="Auteur" />
+      <Label fx:id="genre" text="Genre" />
+      <Label fx:id="loanDate" text="Date emprunt" />
+      <JFXButton fx:id="loanCompleted" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #606C38; -fx-border-radius: 10; -fx-border-width: 2;" text="Rendu/Pas rendu" textFill="#606c38">
+         <font>
+            <Font name="Eras Medium ITC" size="15.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="#606c38" glyphName="REPLY" />
+         </graphic>
+      </JFXButton>
    </children>
 </HBox>

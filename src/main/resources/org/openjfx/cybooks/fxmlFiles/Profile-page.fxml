@@ -48,7 +48,7 @@
                                     <Font name="Eras Medium ITC" size="17.0" />
                                  </font>
                               </Label>
-                              <Text fill="#283618" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom membre" wrappingWidth="265.13671875">
+                              <Text fx:id="lastname" fill="#283618" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom membre" wrappingWidth="265.13671875">
                                  <font>
                                     <Font name="Eras Medium ITC" size="17.0" />
                                  </font>
@@ -61,7 +61,7 @@
                                     <Font name="Eras Medium ITC" size="17.0" />
                                  </font>
                               </Label>
-                              <Text fill="#283618" strokeType="OUTSIDE" strokeWidth="0.0" text="Prénom membre" wrappingWidth="269.13671875">
+                              <Text fx:id="firstname" fill="#283618" strokeType="OUTSIDE" strokeWidth="0.0" text="Prénom membre" wrappingWidth="269.13671875">
                                  <font>
                                     <Font name="Eras Medium ITC" size="17.0" />
                                  </font>
