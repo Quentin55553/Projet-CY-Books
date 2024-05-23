@@ -71,6 +71,7 @@ public class ProfilePageController implements Initializable {
                 Label genreLabel = (Label) node.lookup("#genre");
                 Label loanDateLabel = (Label) node.lookup("#loanDate");
                 JFXButton completedButton = (JFXButton) node.lookup("#loanCompleted");
+                JFXButton notCompletedButton = (JFXButton) node.lookup("#loanNotCompleted");
 
                 APIHandler api = new APIHandler();
                 api.generateQueryStandard("", "", "", loan.getBookId(), "", "", "");
@@ -91,8 +92,10 @@ public class ProfilePageController implements Initializable {
                 loanDateLabel.setText(loan.getBeginDate());
 
                 completedButton.setId("CompletedLoanButton" + loan.getId());
-                updateCompletedButtonText(completedButton, loan.isCompleted());
-                completedButton.setOnAction(actionEvent -> toggleLoanButtonClick(loan));
+                notCompletedButton.setId("NotCompletedLoanButton" + loan.getId());
+                setButtonVisibility(completedButton, notCompletedButton, loan.isCompleted());
+                completedButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton));
+                notCompletedButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton));
 
                 CustomerHistory.getChildren().add(node);
 
@@ -104,33 +107,23 @@ public class ProfilePageController implements Initializable {
     }
 
 
-    private void toggleLoanButtonClick(Loan loan) {
+    private void toggleLoanStatus(Loan loan, JFXButton completedButton, JFXButton notCompletedButton) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Changement du statut de l'emprunt");
         alert.setHeaderText("Changer le statut de l'emprunt");
-        alert.setContentText("Voulez-vous changer le statut de l'empurnt ?");
+        alert.setContentText("Voulez-vous changer le statut de l'emprunt ?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             loan.setCompleted(!loan.isCompleted());
             DBHandler.updateLoan(loan.getId(), loan.isCompleted());
-
-            for (Node node : CustomerHistory.getChildren()) {
-                if (node.lookup("#CompletedLoanButton" + loan.getId()) != null) {
-                    JFXButton completedButton = (JFXButton) node.lookup("#CompletedLoanButton" + loan.getId());
-                    updateCompletedButtonText(completedButton, loan.isCompleted());
-                }
-            }
+            setButtonVisibility(completedButton, notCompletedButton, loan.isCompleted());
         }
     }
 
 
-    private void updateCompletedButtonText(JFXButton button, boolean isCompleted) {
-        if (isCompleted) {
-            button.setText("Rendu");
-
-        } else {
-            button.setText("Pas rendu");
-        }
+    private void setButtonVisibility(JFXButton completedButton, JFXButton notCompletedButton, boolean isCompleted) {
+        completedButton.setVisible(isCompleted);
+        notCompletedButton.setVisible(!isCompleted);
     }
 }
