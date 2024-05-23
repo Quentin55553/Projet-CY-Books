@@ -101,9 +101,12 @@ public class Core {
 
         for (Book b : APIList) {
             try {
-                Book id = DBHandler.getBook(b.getId());
-                b.setStock(id.getStock());
-                b.setTotal(id.getTotal());
+                String id = b.getId();
+                id = id.replace("https://gallica.bnf.fr/ark:/", "");
+                id = id.replace("/date", "");
+                Book dbBook = DBHandler.getBook(id);
+                b.setStock(dbBook.getStock());
+                b.setTotal(dbBook.getTotal());
             } catch (NoSuchElementException e) {
                 b.setStock(0);
                 b.setTotal(0);

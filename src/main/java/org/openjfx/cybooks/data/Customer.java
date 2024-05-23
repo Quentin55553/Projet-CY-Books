@@ -17,14 +17,14 @@ public class Customer {
     private int loanCount;
 
 
-    public Customer(int id, String firstName, String lastName, String tel, String email, String address) throws NoSuchElementException {
+    public Customer(int id, String firstName, String lastName, String tel, String email, String address, int loanCount) throws NoSuchElementException {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.tel = tel;
         this.email = email;
         this.address = address;
-        this.loanCount = Core.getLoanCount(id);
+        this.loanCount = loanCount;
     }
 
     public int getId() {

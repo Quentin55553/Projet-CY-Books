@@ -186,7 +186,7 @@ public class DBHandler {
         try {
             res = statement.executeQuery("SELECT * FROM customers WHERE last_name like '%" + name + "%'");
             while (res.next()) {
-                customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"));
+                customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"), res.getInt("loan_count"));
                 customers.add(customer);
             }
 
@@ -216,7 +216,8 @@ public class DBHandler {
                         res.getString("last_name"),
                         res.getString("tel"),
                         res.getString("email"),
-                        res.getString("address")
+                        res.getString("address"),
+                        res.getInt("loan_count")
                 );
                 customers.add(customer);
             }
@@ -275,6 +276,7 @@ public class DBHandler {
         try {
             statement.execute("INSERT INTO loans (book_id, customer_id, expiration_date) VALUES ('" + book_id + "', '" + customer_id + "', '" + expirationDate + "')");
             statement.execute("UPDATE books SET stock=stock-1 WHERE id='" + book_id + "'");
+            statement.execute("UPDATE customers SET loan_count=loan_count+1 WHERE id='" + customer_id + "'");
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -569,7 +571,7 @@ public class DBHandler {
             res = statement.executeQuery(query);
 
             while (res.next()) {
-                Customer customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"));
+                Customer customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"), res.getInt("loan_count"));
                 customers.add(customer);
             }
 
@@ -609,7 +611,7 @@ public class DBHandler {
         ResultSet res;
         int count = 0;
         try {
-            res = statement.executeQuery("SELECT COUNT(*) AS c FROM loans WHERE customer_id=" + customerId);
+            res = statement.executeQuery("SELECT loan_count FROM customers WHERE id=" + customerId);
             if (res.next())
                 count = res.getInt("c");
             else
