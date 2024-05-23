@@ -1,6 +1,7 @@
 package org.openjfx.cybooks.Controllers;
 
 import com.jfoenix.controls.JFXButton;
+import org.openjfx.cybooks.API.APIErrorException;
 import org.openjfx.cybooks.API.APIHandler;
 import org.openjfx.cybooks.API.QueryParameterException;
 import org.openjfx.cybooks.API.SearchResult;
@@ -61,6 +62,9 @@ public class ProfilePageController implements Initializable {
 
 
     private void loadCustomerHistory() {
+        APIHandler api = new APIHandler();
+        List <SearchResult> results;
+
         for (Loan loan : loans) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-CustomerHistory.fxml"));
@@ -74,9 +78,9 @@ public class ProfilePageController implements Initializable {
                 JFXButton notCompletedButton = (JFXButton) node.lookup("#notCompletedLoan");
                 JFXButton lateButton = (JFXButton) node.lookup("#lateLoan");
 
-                APIHandler api = new APIHandler();
                 api.generateQueryStandard("", "", "", loan.getBookId(), "", "", "");
-                List <SearchResult> results = api.getResults();
+                api.exec();
+                results = api.getResults();
 
                 if (api.getNumberOfResults() >= 1) {
                     titleLabel.setText(results.get(0).getTitle());
@@ -104,9 +108,8 @@ public class ProfilePageController implements Initializable {
 
                 CustomerHistory.getChildren().add(node);
 
-            } catch (IOException | QueryParameterException e) {
+            } catch (IOException | QueryParameterException | APIErrorException e) {
                 e.printStackTrace();
-
             }
         }
     }
