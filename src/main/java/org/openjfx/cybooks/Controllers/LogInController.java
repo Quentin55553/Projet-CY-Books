@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import org.openjfx.cybooks.Main;
 import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.database.DBHandler;
-import org.openjfx.cybooks.database.IncorrectPasswordException;
+import org.openjfx.cybooks.UserInput.IncorrectPasswordException;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
