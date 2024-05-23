@@ -152,7 +152,8 @@ public class CommandLineHandler {
 
     /**
      * This command line method is used to print random books on the terminal.
-     * The random factor is the release date, which year is selected at random at each call of the method
+     * The random factor for the search is chosen randomly between date, title, subject, author, publisher.
+     * It between 1 and 3 books to not overload the terminal view.
      */
     private static void consultBooks() {
         try {
@@ -400,6 +401,10 @@ public class CommandLineHandler {
         }
     }
 
+    /**
+     * This method is used to automatically add a book found by the API to our database.
+     * @param sr The SearchResult object found brought by an APIHandler object.
+     */
     public static void addNewBookAuto(SearchResult sr){
         String identifier=sr.getIdentifier();
         try{
