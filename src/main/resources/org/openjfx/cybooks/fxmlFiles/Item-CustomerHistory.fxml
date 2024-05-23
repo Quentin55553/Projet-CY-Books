@@ -7,6 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="950.0" spacing="100.0" style="-fx-background-color: #DDA15E;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
@@ -23,13 +24,25 @@
       <Label fx:id="author" text="Auteur" />
       <Label fx:id="genre" text="Genre" />
       <Label fx:id="loanDate" text="Date emprunt" />
-      <JFXButton fx:id="loanCompleted" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #606C38; -fx-border-radius: 10; -fx-border-width: 2;" text="Rendu/Pas rendu" textFill="#606c38">
-         <font>
-            <Font name="Eras Medium ITC" size="15.0" />
-         </font>
-         <graphic>
-            <FontAwesomeIconView fill="#606c38" glyphName="REPLY" />
-         </graphic>
-      </JFXButton>
+      <StackPane prefHeight="95.0" prefWidth="165.0">
+         <children>
+            <JFXButton fx:id="loanNotCompleted" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #a94442; -fx-border-radius: 10; -fx-border-width: 2;" text="Pas rendu" textFill="#a94442" visible="false">
+               <font>
+                  <Font name="Eras Medium ITC" size="15.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="#a94442" glyphName="REPLY" text="" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="loanCompleted" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #606C38; -fx-border-radius: 10; -fx-border-width: 2;" text="Rendu" textFill="#606c38" visible="false">
+               <font>
+                  <Font name="Eras Medium ITC" size="15.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="#606c38" glyphName="CHECK" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </StackPane>
    </children>
 </HBox>

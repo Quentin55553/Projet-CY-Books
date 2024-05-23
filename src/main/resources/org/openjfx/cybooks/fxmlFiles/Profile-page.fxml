@@ -73,7 +73,7 @@
                         </HBox>
                         <ScrollPane prefHeight="509.0" prefWidth="956.0" style="-fx-background-color: #DDA15E;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                            <content>
-                              <VBox fx:id="CustomerHistory" prefHeight="435.0" prefWidth="954.0" />
+                              <VBox fx:id="CustomerHistory" prefHeight="435.0" prefWidth="954.0" style="-fx-background-color: #DDA15E;" />
                            </content>
                         </ScrollPane>
                         <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="923.0" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
