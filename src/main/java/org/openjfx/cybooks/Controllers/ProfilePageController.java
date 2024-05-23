@@ -70,8 +70,9 @@ public class ProfilePageController implements Initializable {
                 Label authorLabel = (Label) node.lookup("#author");
                 Label genreLabel = (Label) node.lookup("#genre");
                 Label loanDateLabel = (Label) node.lookup("#loanDate");
-                JFXButton completedButton = (JFXButton) node.lookup("#loanCompleted");
-                JFXButton notCompletedButton = (JFXButton) node.lookup("#loanNotCompleted");
+                JFXButton completedButton = (JFXButton) node.lookup("#completedLoan");
+                JFXButton notCompletedButton = (JFXButton) node.lookup("#notCompletedLoan");
+                JFXButton lateButton = (JFXButton) node.lookup("#lateLoan");
 
                 APIHandler api = new APIHandler();
                 api.generateQueryStandard("", "", "", loan.getBookId(), "", "", "");
@@ -91,11 +92,15 @@ public class ProfilePageController implements Initializable {
 
                 loanDateLabel.setText(loan.getBeginDate());
 
-                completedButton.setId("CompletedLoanButton" + loan.getId());
-                notCompletedButton.setId("NotCompletedLoanButton" + loan.getId());
-                setButtonVisibility(completedButton, notCompletedButton, loan.isCompleted());
-                completedButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton));
-                notCompletedButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton));
+                completedButton.setId("completedLoanButton" + loan.getId());
+                notCompletedButton.setId("notCompletedLoanButton" + loan.getId());
+                lateButton.setId("lateLoanButton" + loan.getId());
+
+                setButtonVisibility(completedButton, notCompletedButton, lateButton, loan.isCompleted(), loan.hasExpired());
+
+                completedButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton, lateButton));
+                notCompletedButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton, lateButton));
+                lateButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton, lateButton));
 
                 CustomerHistory.getChildren().add(node);
 
@@ -107,23 +112,48 @@ public class ProfilePageController implements Initializable {
     }
 
 
-    private void toggleLoanStatus(Loan loan, JFXButton completedButton, JFXButton notCompletedButton) {
+    private void toggleLoanStatus(Loan loan, JFXButton completedButton, JFXButton notCompletedButton, JFXButton lateButton) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
+
         alert.setTitle("Changement du statut de l'emprunt");
-        alert.setHeaderText("Changer le statut de l'emprunt");
+
+        if (!loan.isCompleted()) {
+            alert.setHeaderText("Inscrire comme rendu");
+
+        } else {
+            if (loan.hasExpired()) {
+                if (loan.isCompleted()) {
+                    alert.setHeaderText("Inscrire comme en retard");
+                }
+
+            } else {
+                if (loan.isCompleted()) {
+                    alert.setHeaderText("Inscrire comme non rendu");
+                }
+            }
+        }
+
         alert.setContentText("Voulez-vous changer le statut de l'emprunt ?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             loan.setCompleted(!loan.isCompleted());
             DBHandler.updateLoan(loan.getId(), loan.isCompleted());
-            setButtonVisibility(completedButton, notCompletedButton, loan.isCompleted());
+            setButtonVisibility(completedButton, notCompletedButton, lateButton, loan.isCompleted(), loan.hasExpired());
         }
     }
 
 
-    private void setButtonVisibility(JFXButton completedButton, JFXButton notCompletedButton, boolean isCompleted) {
-        completedButton.setVisible(isCompleted);
-        notCompletedButton.setVisible(!isCompleted);
+    private void setButtonVisibility(JFXButton completedButton, JFXButton notCompletedButton, JFXButton lateButton, boolean isCompleted, boolean hasExpired) {
+        if (hasExpired) {
+            completedButton.setVisible(isCompleted);
+            notCompletedButton.setVisible(false);
+            lateButton.setVisible(!isCompleted);
+
+        } else {
+            completedButton.setVisible(isCompleted);
+            notCompletedButton.setVisible(!isCompleted);
+            lateButton.setVisible(false);
+        }
     }
 }
