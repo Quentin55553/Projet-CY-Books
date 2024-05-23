@@ -129,6 +129,10 @@ public class AllLoansController implements Initializable {
                     // update button
                     isLateButton.setVisible(false);
                     isReturnedButton.setVisible(true);
+                    // prevents user from interacting with it
+                    isReturnedButton.setDisable(true);
+                    // normal opacity
+                    isReturnedButton.setOpacity(1.0);
                 });
             }
             else{
@@ -139,6 +143,10 @@ public class AllLoansController implements Initializable {
                     // update button
                     ReturnButton.setVisible(false);
                     isReturnedButton.setVisible(true);
+                    // prevents user from interacting with it
+                    isReturnedButton.setDisable(true);
+                    // normal opacity
+                    isReturnedButton.setOpacity(1.0);
                 });
             }
 
