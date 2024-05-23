@@ -38,31 +38,36 @@
                      </children>
                   </StackPane>
                   <VBox fx:id="AllLoansVbox" prefHeight="200.0" prefWidth="990.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="2" />
-                  <StackPane style="-fx-background-color: #DDA15E;" GridPane.rowIndex="1">
+                  <StackPane prefWidth="990.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="1">
                      <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="1034.0" spacing="30.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;">
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1060.0" prefHeight="25.0" prefWidth="700.0" spacing="30.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" StackPane.alignment="CENTER">
                            <children>
-                              <Label prefHeight="18.0" prefWidth="165.0" text="Date d'emprunt" textFill="#fefae0">
+                              <Label prefHeight="18.0" prefWidth="134.0" text="Date d'emprunt" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="18.0" prefWidth="151.0" text="ID membre" textFill="#fefae0">
+                              <Label prefHeight="18.0" prefWidth="134.0" text="Date d'expiration" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="21.0" prefWidth="126.0" text="ID livre" textFill="#fefae0">
+                              <Label prefHeight="18.0" prefWidth="133.0" text="ID membre" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="21.0" prefWidth="126.0" text="Titre" textFill="#fefae0">
+                              <Label prefHeight="21.0" prefWidth="136.0" text="ID livre" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Label maxWidth="990.0" prefHeight="21.0" prefWidth="126.0" text="Etat" textFill="#fefae0">
+                              <Label prefHeight="21.0" prefWidth="185.0" text="Titre" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label maxWidth="990.0" prefHeight="21.0" prefWidth="151.0" text="Etat" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
@@ -79,7 +84,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1000.0" spacing="10.0">
                <children>
                   <FontAwesomeIconView fx:id="ChevronLeft" fill="#606c38" glyphName="CHEVRON_LEFT" onMouseClicked="#Previous" size="30" />
-                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: #606C38;">
+                  <Separator fx:id="Separator" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: #606C38;">
                      <effect>
                         <MotionBlur angle="59.29" radius="7.78" />
                      </effect>
