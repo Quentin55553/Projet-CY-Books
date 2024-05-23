@@ -293,7 +293,7 @@ public class APIHandler {
         }
         // In case one of the predefined methods goes wrong
         catch(Exception e){
-            throw new APIErrorException("There was an error during parsing of the results",501);
+            throw new APIErrorException("There was an error during parsing of the API results",501);
         }
     }
 
@@ -356,7 +356,7 @@ public class APIHandler {
                     String language;
                     String type;
                     String description;
-                    String imageLink = "No information provided";
+                    String imageLink = "[N/A]";
                     ArrayList<String> subjects = new ArrayList<String>();
                     ArrayList<String> authors = new ArrayList<String>();
 
@@ -388,7 +388,7 @@ public class APIHandler {
                             if (titlesList.getLength() > 0) {
                                 title = titlesList.item(0).getTextContent();
                             } else {
-                                title = "No title provided";
+                                title = "[N/A]";
                             }
 
                             // AUTHORS
@@ -398,7 +398,7 @@ public class APIHandler {
                                     authors.add(authorsList.item(j).getTextContent());
                                 }
                             } else {
-                                authors.add("Unknown author");
+                                authors.add("N/A");
                             }
 
                             // DATE
@@ -406,7 +406,7 @@ public class APIHandler {
                             if (datesList.getLength() > 0) {
                                 date = datesList.item(0).getTextContent();
                             } else {
-                                date = "No date provided";
+                                date = "[N/A]";
                             }
 
                             // IDENTIFIER
@@ -414,7 +414,7 @@ public class APIHandler {
                             if (identifiersList.getLength() > 0) {
                                 identifier = identifiersList.item(0).getTextContent();
                             } else {
-                                identifier = "No identifier provided";
+                                identifier = "[N/A]";
                             }
 
                             // TYPE
@@ -422,7 +422,7 @@ public class APIHandler {
                             if (doctypesList.getLength() > 0) {
                                 publisher = doctypesList.item(0).getTextContent();
                             } else {
-                                publisher = "No information provided";
+                                publisher = "[N/A]";
                             }
 
                             // SUBJECTS
@@ -432,7 +432,7 @@ public class APIHandler {
                                     subjects.add(subjectsList.item(j).getTextContent());
                                 }
                             } else {
-                                subjects.add("Unspecified subject");
+                                subjects.add("N/A");
                             }
 
                             // DESCRIPTION
@@ -440,7 +440,7 @@ public class APIHandler {
                             if (descriptionsList.getLength() > 0) {
                                 description = descriptionsList.item(0).getTextContent();
                             } else {
-                                description = "No description provided";
+                                description = "[N/A]";
                             }
 
                             // LANGUAGE
@@ -448,7 +448,7 @@ public class APIHandler {
                             if (languagesList.getLength() > 0) {
                                 language = languagesList.item(0).getTextContent();
                             } else {
-                                language = "No language provided";
+                                language = "[N/A]";
                             }
 
                             // IMAGE LINK
@@ -460,7 +460,7 @@ public class APIHandler {
                                 if (languagesList.getLength() > 0) {
                                     imageLink = thumbnailsList.item(0).getTextContent();
                                 } else {
-                                    imageLink = "No information provided";
+                                    imageLink = "[N/A]";
                                 }
                             }
 
@@ -479,7 +479,7 @@ public class APIHandler {
             // Reset the attributes
             this.numberOfResults=0;
             this.results=new ArrayList<SearchResult>();
-            throw new APIErrorException("There was an error during parsing of the results",501);
+            throw new APIErrorException("There was an error during parsing of the API results",501);
         }
     }
 
@@ -526,6 +526,18 @@ public class APIHandler {
             else if(currentChar==')'){
                 normalizedString+="%29";
             }
+            else if(currentChar=='['){
+                normalizedString+="%5B";
+            }
+            else if(currentChar==']'){
+                normalizedString+="%5D";
+            }
+            else if(currentChar=='{'){
+                normalizedString+="%7B";
+            }
+            else if(currentChar=='}'){
+                normalizedString+="%7D";
+            }
             else if(currentChar==':'){
                 normalizedString+="%3A";
             }
@@ -541,14 +553,17 @@ public class APIHandler {
             else if(currentChar=='è' || currentChar=='È'){
                 normalizedString+="%C3%A8";
             }
+            else if(currentChar=='ê' || currentChar=='Ê'){
+                normalizedString+="%C3%AA";
+            }
             else if(currentChar=='ù' || currentChar=='Ù'){
                 normalizedString+="%C3%B9";
             }
             else if(currentChar=='à' || currentChar=='À'){
                 normalizedString+="%C3%A0";
             }
-            else if(currentChar=='ê' || currentChar=='Ê'){
-                normalizedString+="%C3%AA";
+            else if(currentChar=='â' || currentChar=='Â'){
+                normalizedString+="%C3%A2";
             }
             else if(currentChar=='ô' || currentChar=='Ô'){
                 normalizedString+="%C3%B4";
@@ -556,8 +571,38 @@ public class APIHandler {
             else if(currentChar=='ç' || currentChar=='Ç'){
                 normalizedString+="%C3%A7";
             }
+            else if(currentChar=='ï' || currentChar=='Ï'){
+                normalizedString+="%C3%AF";
+            }
+            else if(currentChar=='î' || currentChar=='Î'){
+                normalizedString+="%C3%AE";
+            }
             else if(currentChar=='&'){
                 normalizedString+="%26";
+            }
+            else if(currentChar==','){
+                normalizedString+="%2C";
+            }
+            else if(currentChar=='%'){
+                normalizedString+="%25";
+            }
+            else if(currentChar=='#'){
+                normalizedString+="%23";
+            }
+            else if(currentChar=='€'){
+                normalizedString+="%E2%82%AC";
+            }
+            else if(currentChar=='$'){
+                normalizedString+="%24";
+            }
+            else if(currentChar=='!'){
+                normalizedString+="%21";
+            }
+            else if(currentChar=='?'){
+                normalizedString+="%3F";
+            }
+            else if(currentChar=='='){
+                normalizedString+="%3D";
             }
             else{
                 // If the character is not in the above cases, this means the string contains forbidden symbols
