@@ -88,11 +88,10 @@ public class ProfilePageController implements Initializable {
                     genreLabel.setText("N/A");
                 }
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                loanDateLabel.setText(dateFormat.format(loan.getBeginDate()));
+                loanDateLabel.setText(loan.getBeginDate());
 
                 completedButton.setId("CompletedLoanButton" + loan.getId());
-                updateCompletedButtonText(completedButton, loan.getCompleted());
+                updateCompletedButtonText(completedButton, loan.isCompleted());
                 completedButton.setOnAction(actionEvent -> toggleLoanButtonClick(loan));
 
                 CustomerHistory.getChildren().add(node);
@@ -113,15 +112,13 @@ public class ProfilePageController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            loan.setCompleted(!loan.getCompleted());
-            DBHandler.updateLoan(loan.getId(), loan.getCompleted());
-
-            System.out.println(loan.getCompleted());
+            loan.setCompleted(!loan.isCompleted());
+            DBHandler.updateLoan(loan.getId(), loan.isCompleted());
 
             for (Node node : CustomerHistory.getChildren()) {
                 if (node.lookup("#CompletedLoanButton" + loan.getId()) != null) {
                     JFXButton completedButton = (JFXButton) node.lookup("#CompletedLoanButton" + loan.getId());
-                    updateCompletedButtonText(completedButton, loan.getCompleted());
+                    updateCompletedButtonText(completedButton, loan.isCompleted());
                 }
             }
         }
