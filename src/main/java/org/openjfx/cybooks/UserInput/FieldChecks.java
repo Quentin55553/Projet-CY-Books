@@ -1,8 +1,18 @@
 package org.openjfx.cybooks.UserInput;
 
+
+/**
+ * This class' goal is to manage the user's inputs, not allowing them to enter invalid symbols and values in the app's fields
+ */
 public class FieldChecks {
 
 
+    /**
+     * This method verifies a 'firstname' field. Only unaccentuated letters are allowed
+     * @param firstname The String to check
+     * @return true if the String is valid
+     * @throws IncorrectFirstnameException If the String is invalid
+     */
     public static boolean isValidFirstname(String firstname) throws IncorrectFirstnameException {
         String format = "[a-zA-Z]+";
         String newFirstname = firstname.trim();
@@ -19,6 +29,12 @@ public class FieldChecks {
     }
 
 
+    /**
+     * This method verifies a 'lastname' field. Only unaccentuated letters are allowed
+     * @param lastname The String to check
+     * @return true if the String is valid
+     * @throws IncorrectLastnameException If the String is invalid
+     */
     public static boolean isValidLastname(String lastname) throws IncorrectLastnameException {
         String format = "[a-zA-Z]+";
         String newLastname = lastname.trim();
@@ -35,6 +51,12 @@ public class FieldChecks {
     }
 
 
+    /**
+     * This method verifies a 'phone number' field. Exactly 10 numbers need to be written, the first one being 0
+     * @param tel The String to check
+     * @return true if the String is valid
+     * @throws IncorrectPhoneNumberException If the String is invalid
+     */
     public static boolean isValidPhoneNumber(String tel) throws IncorrectPhoneNumberException {
         String format = "^(0[1-9])\\d{8}$";
         String newTel = tel.trim();
@@ -51,6 +73,12 @@ public class FieldChecks {
     }
 
 
+    /**
+     * This method verifies an 'email' field. Needs to be of the form XXXX@YYY.ZZZ
+     * @param email The String to check
+     * @return true if the String is valid
+     * @throws IncorrectEmailException If the String is invalid
+     */
     public static boolean isValidEmail(String email) throws IncorrectEmailException {
         String format = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
         String newEmail = email.trim();
@@ -67,6 +95,12 @@ public class FieldChecks {
     }
 
 
+    /**
+     * This method verifies if an 'adress' field is valid. A number followed by a road / avenue / boulevard name need to be written
+     * @param address The String to check
+     * @return true if the String is valid
+     * @throws IncorrectAddressException If the String is invalid
+     */
     public static boolean isValidAddress(String address) throws IncorrectAddressException {
         String newAddress = address.trim();
 
@@ -85,6 +119,16 @@ public class FieldChecks {
         return true;
     }
 
+    /**
+     * This method verifies all the fields needed to create a new user in the database
+     * @param firstname Only unaccentuated letters are allowed
+     * @param lastname Only unaccentuated letters are allowed
+     * @param telephone Exactly 10 numbers need to be written, the first one being 0
+     * @param email Needs to be of the form XXXX@YYY.ZZZ
+     * @param address A number followed by the road / avenue / boulevard name
+     * @return true if all fields are correct
+     * @throws IncorrectFieldException If one of the verifications fails
+     */
     public static boolean isValidCustomer(String firstname, String lastname, String telephone, String email, String address) throws IncorrectFieldException {
         return isValidFirstname(firstname) && isValidLastname(lastname) && isValidPhoneNumber(telephone) && isValidEmail(email) && isValidAddress(address);
     }
