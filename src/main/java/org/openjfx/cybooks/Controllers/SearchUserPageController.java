@@ -130,7 +130,7 @@ public class SearchUserPageController implements Initializable {
 
 
                 button.setId("ProfileButton" + customer.getId());
-                button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
+                button.setOnAction(actionEvent -> handleButtonClick(customer));
             }
             UsersVbox.getChildren().add(node);
         }
@@ -146,8 +146,7 @@ public class SearchUserPageController implements Initializable {
 
 
     @FXML
-    private void handleButtonClick(String id) {
-        System.out.println(id);
+    private void handleButtonClick(Customer customer) {
         try {
             // Load the new FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Profile-page.fxml"));
@@ -167,6 +166,9 @@ public class SearchUserPageController implements Initializable {
 
                 // Replace the embedded node with the new one
                 center.getChildren().setAll(newCenter);
+
+                ProfilePageController controller = loader.getController();
+                controller.setButtonCustomer(customer);
             } else {
                 System.err.println("Parent is not an instance of AnchorPane");
             }
