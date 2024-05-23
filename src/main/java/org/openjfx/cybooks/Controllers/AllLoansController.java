@@ -118,7 +118,7 @@ public class AllLoansController implements Initializable {
                 // normal opacity
                 isReturnedButton.setOpacity(1.0);
             }
-            else if(loan.isExpired()){
+            else if(loan.hasExpired()){
                 // hide return button
                 ReturnButton.setVisible(false);
                 // show is late button
