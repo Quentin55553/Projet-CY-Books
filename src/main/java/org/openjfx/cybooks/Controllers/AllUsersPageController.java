@@ -107,13 +107,13 @@ public class AllUsersPageController implements Initializable {
             addressLabel.setText(customer.getAddress());
             nbLoansLabel.setText(String.valueOf(customer.getLoanCount()));
 
-
             button.setId("ProfileButton" + customer.getId());
-            button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
+            button.setOnAction(actionEvent -> handleButtonClick(customer));
 
             AllUsersVbox.getChildren().add(node);
         }
 
+        System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
         updateButtonStates(totalPages);
     }
 
@@ -125,7 +125,7 @@ public class AllUsersPageController implements Initializable {
 
 
     @FXML
-    private void handleButtonClick(String id) {
+    private void handleButtonClick(Customer customer) {
         try {
             // Load the new FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Profile-page.fxml"));
@@ -133,8 +133,8 @@ public class AllUsersPageController implements Initializable {
 
             if (parent instanceof AnchorPane) {
                 AnchorPane center = (AnchorPane) parent;
-
                 AnchorPane newCenter = loader.load();
+
                 // Set the size constraints of the new AnchorPane
                 newCenter.setPrefSize(center.getWidth(), center.getHeight());
 
@@ -145,6 +145,9 @@ public class AllUsersPageController implements Initializable {
 
                 // Replace the embedded node with the new one
                 center.getChildren().setAll(newCenter);
+
+                ProfilePageController controller = loader.getController();
+                controller.setButtonCustomer(customer);
 
             } else {
                 System.err.println("Parent is not an instance of AnchorPane");
