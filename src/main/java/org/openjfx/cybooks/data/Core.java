@@ -7,7 +7,7 @@ import org.openjfx.cybooks.API.SearchResult;
 import org.openjfx.cybooks.database.BookFilter;
 import org.openjfx.cybooks.database.CustomerFilter;
 import org.openjfx.cybooks.database.DBHandler;
-import org.openjfx.cybooks.database.IncorrectPasswordException;
+import org.openjfx.cybooks.UserInput.IncorrectPasswordException;
 
 import java.sql.SQLException;
 import java.util.*;
