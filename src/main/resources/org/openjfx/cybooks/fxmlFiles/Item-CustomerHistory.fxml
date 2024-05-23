@@ -26,20 +26,28 @@
       <Label fx:id="loanDate" text="Date emprunt" />
       <StackPane prefHeight="95.0" prefWidth="165.0">
          <children>
-            <JFXButton fx:id="loanNotCompleted" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #a94442; -fx-border-radius: 10; -fx-border-width: 2;" text="Pas rendu" textFill="#a94442" visible="false">
+            <JFXButton fx:id="notCompletedLoan" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #ffd700; -fx-border-radius: 10; -fx-border-width: 2;" text="Rendre" textFill="GOLD" visible="false">
                <font>
                   <Font name="Eras Medium ITC" size="15.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView fill="#a94442" glyphName="REPLY" text="" />
+                  <FontAwesomeIconView fill="GOLD" glyphName="REPLY" text="" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="loanCompleted" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #606C38; -fx-border-radius: 10; -fx-border-width: 2;" text="Rendu" textFill="#606c38" visible="false">
+            <JFXButton fx:id="completedLoan" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #606C38; -fx-border-radius: 10; -fx-border-width: 2;" text="Rendu" textFill="#606c38" visible="false">
                <font>
                   <Font name="Eras Medium ITC" size="15.0" />
                </font>
                <graphic>
                   <FontAwesomeIconView fill="#606c38" glyphName="CHECK" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="lateLoan" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #A94442; -fx-border-radius: 10; -fx-border-width: 2;" text="Retard" textFill="#a94442" visible="false">
+               <font>
+                  <Font name="Eras Medium ITC" size="15.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="#a94442" glyphName="WARNING" />
                </graphic>
             </JFXButton>
          </children>
