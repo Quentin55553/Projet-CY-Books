@@ -112,13 +112,13 @@ public class LoanIssuesPageControler implements Initializable {
             ReturnButton.setVisible(false);
             // show is late button
             isLateButton.setVisible(true);
-            // set buttons's action
+            // set button's action
             isLateButton.setOnAction(event -> {
                 Core.updateLoan(loan.getId(),true);
                 // update button
                 isLateButton.setVisible(false);
                 isReturnedButton.setVisible(true);
-                // if the loan is completed it should not be showing so we update the page
+                // if the loan is completed it should not be showing, so we update the page
                 refreshResults();
             });
             LoanIssuesVbox.getChildren().add(node);

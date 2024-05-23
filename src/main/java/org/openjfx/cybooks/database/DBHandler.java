@@ -504,33 +504,65 @@ public class DBHandler {
         List<Customer> customers = new ArrayList<>();
         ResultSet res;
 
-        int id = filter.getId();
+        Integer id = filter.getId();
         String firstName = filter.getFirstName();
         String lastName = filter.getLastName();
         String email = filter.getEmail();
         String tel = filter.getTel();
         String address = filter.getAddress();
-        int inf = filter.getInf();
-        int sup = filter.getSup();
+        Integer inf = filter.getInf();
+        Integer sup = filter.getSup();
 
-        String query = "SELECT * FROM customers WHERE ";
+        /*
+        String query = "SELECT * FROM customers WHERE";
 
-
-        if (id >= 0)
+        if (id != null)
             query += "id='"+id+"'";
-
-        else {
-            query += "first_name LIKE '%" + firstName + "%' AND " +
+        }
+        query += "first_name LIKE '%" + firstName + "%' AND " +
                     "last_name LIKE '%" + lastName + "%' AND " +
                     "tel LIKE '%" + tel + "%' AND " +
                     "email LIKE '%" + email + "%' AND " +
                     "address LIKE '%" + address + "%'";
 
-            if (inf >= 0)
-                query += "AND id IN (SELECT customer_id FROM loans GROUP by customer_id HAVING COUNT(customer_id) < " + inf + ")";
-            if (sup >= 0)
-                query += "AND id IN (SELECT customer_id FROM loans GROUP by customer_id HAVING COUNT(customer_id) > " + sup + ")";
+         if (inf != null)
+             query += "AND id IN (SELECT customer_id FROM loans GROUP by customer_id HAVING COUNT(customer_id) < " + inf + ")";
+         if (sup != null)
+             query += "AND id IN (SELECT customer_id FROM loans GROUP by customer_id HAVING COUNT(customer_id) > " + sup + ")";*/
+
+        List<String> conditions = new ArrayList<>();
+
+        // Check if any filtering conditions are specified
+        if(id !=null){
+            conditions.add("id = " + id);
         }
+        if (firstName != null && !firstName.isEmpty()) {
+            conditions.add("first_name LIKE '%" + firstName + "%'");
+        }
+        if (lastName != null && !lastName.isEmpty()) {
+            conditions.add("last_name LIKE '%" + lastName + "%'");
+        }
+        if (email != null && !email.isEmpty()) {
+            conditions.add("email LIKE '%" + email + "%'");
+        }
+        if (tel != null && !tel.isEmpty()) {
+            conditions.add("tel LIKE '%" + tel + "%'");
+        }
+        if (address != null && !address.isEmpty()) {
+            conditions.add("address LIKE '%" + address + "%'");
+        }
+        if (inf != null) {
+            conditions.add("id IN (SELECT customer_id FROM loans GROUP BY customer_id HAVING COUNT(customer_id) < " + inf + ")");
+        }
+        if (sup != null) {
+            conditions.add("id IN (SELECT customer_id FROM loans GROUP BY customer_id HAVING COUNT(customer_id) > " + sup + ")");
+        }
+
+        String query = "SELECT * FROM customers";
+        if (!conditions.isEmpty()) {
+            query += " WHERE " + String.join(" AND ", conditions);
+        }
+
 
         try {
             res = statement.executeQuery(query);

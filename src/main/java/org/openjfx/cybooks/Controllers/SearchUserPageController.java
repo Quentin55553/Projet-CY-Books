@@ -10,10 +10,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.openjfx.cybooks.data.Customer;
+import org.openjfx.cybooks.database.CustomerFilter;
+import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +35,8 @@ public class SearchUserPageController implements Initializable {
     private AnchorPane SearchUsersAnchorPane;
     @FXML
     private JFXButton FilterSearchButton;
-
+    @FXML
+    private javafx.scene.control.Separator Separator;
     @FXML
     private VBox UsersVbox;
     @FXML
@@ -41,11 +47,15 @@ public class SearchUserPageController implements Initializable {
 
     private int currentPage = 0;
     private int rowsPerPage = 10; // Valeur par défaut
-    private List<String> results;
+    private List<Customer> results;
+    private static CustomerFilter filter;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        results = getResultsFromDatabase();
+        // initialize filter with empty fields, so it shows all the users
+        filter = new CustomerFilter("","",null, "", "", "", null, null);
+        System.out.println(filter);
+        results = getResultsFromDatabase(filter);
 
         FilterSearchButton.setOnAction(this::openFilterDialog);
 
@@ -58,6 +68,7 @@ public class SearchUserPageController implements Initializable {
 
     }
 
+
     @FXML
     private void Previous() throws IOException {
         showPage(currentPage - 1);
@@ -69,34 +80,8 @@ public class SearchUserPageController implements Initializable {
     }
 
 
-    private List<String> getResultsFromDatabase() {
-        List<String> results = new ArrayList<>();
-
-        // test
-        results.add("apple");
-        results.add("banana");
-        results.add("cherry");
-        results.add("date");
-        results.add("elderberry");
-        results.add("fig");
-        results.add("grape");
-        results.add("honeydew");
-        results.add("kiwi");
-        results.add("lemon");
-        results.add("mango");
-        results.add("nectarine");
-        results.add("orange");
-        results.add("papaya");
-        results.add("quince");
-        results.add("raspberry");
-        results.add("strawberry");
-        results.add("tangerine");
-        results.add("ugli fruit");
-        results.add("vanilla bean");
-        results.add("watermelon");
-        results.add("xigua");
-        results.add("yellow passion fruit");
-        results.add("zucchini");
+    private List<Customer> getResultsFromDatabase(CustomerFilter filter) {
+        results = DBHandler.getCustomersByFilter(filter);
         return results;
     }
 
@@ -109,6 +94,9 @@ public class SearchUserPageController implements Initializable {
         if (page < 0 || page > results.size() / rowsPerPage) {
             return;
         }
+        if ( getTotalPages() <= 1 ){
+            Separator.setVisible(false);
+        }
 
         currentPage = page;
         UsersVbox.getChildren().clear();
@@ -120,13 +108,29 @@ public class SearchUserPageController implements Initializable {
         for (int i = start; i < end; i++) {
             Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-AllUsers.fxml")));
             if (node instanceof Parent){
-                Button button = (Button) ((Parent)node).lookup("#ProfilButton");
-                if (button != null) {
-                    //set ID   (il faudrait mettre l'id du livre comme ça on appel la fonction pour la page spécifique)
-                    button.setId("ProfilButton"+i);
-                    // Set the onAction event handler for the button
-                    button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
-                }
+
+                Customer customer = results.get(i);
+
+                Label idLabel = (Label) node.lookup("#IDLabel");
+                Label firstNameLabel = (Label) node.lookup("#FirstNameLabel");
+                Label lastNameLabel = (Label) node.lookup("#LastNameLabel");
+                Label telLabel = (Label) node.lookup("#TelLabel");
+                Label emailLabel = (Label) node.lookup("#EmailLabel");
+                Label addressLabel = (Label) node.lookup("#AddressLabel");
+                Label nbLoansLabel = (Label) node.lookup("#NbLoansLabel");
+                Button button = (Button) node.lookup("#ProfileButton");
+
+                idLabel.setText(String.valueOf(customer.getId()));
+                firstNameLabel.setText(customer.getFirstName());
+                lastNameLabel.setText(customer.getLastName());
+                telLabel.setText(customer.getTel());
+                emailLabel.setText(customer.getEmail());
+                addressLabel.setText(customer.getAddress());
+                nbLoansLabel.setText(String.valueOf(customer.getLoanCount()));
+
+
+                button.setId("ProfileButton" + customer.getId());
+                button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
             }
             UsersVbox.getChildren().add(node);
         }
@@ -172,11 +176,19 @@ public class SearchUserPageController implements Initializable {
 
     }
 
+    @FXML
     private void openFilterDialog(ActionEvent event) {
         try {
             // Load the FXML file for the dialog
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/FilterDialogUser.fxml"));
             Parent root = loader.load();
+
+            // Get the controller instance from the loader
+            FilterDialogUserController dialogController = loader.getController();
+            // Pass the reference to this SearchUserPageController
+            dialogController.setSearchUserPageController(this);
+            // Pass the filter to the dialog controller
+            dialogController.setFilter(filter);
 
             // Create a new stage for the dialog
             Stage dialogStage = new Stage();
@@ -191,6 +203,21 @@ public class SearchUserPageController implements Initializable {
             // Show the dialog and wait until it is closed
             dialogStage.showAndWait();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void refreshSearchResults(CustomerFilter updatedFilter) {
+        System.out.println("Filter applied : " + updatedFilter);
+        // Update filter with the new one
+        filter = updatedFilter;
+
+        // Refresh the search results
+        results = getResultsFromDatabase(filter);
+        try {
+            showPage(0);
+            updateButtonStates(results.size() / rowsPerPage);
         } catch (IOException e) {
             e.printStackTrace();
         }
