@@ -2,11 +2,10 @@ package org.openjfx.cybooks.CommandLine;
 
 import org.openjfx.cybooks.API.APIHandler;
 import org.openjfx.cybooks.API.SearchResult;
-import org.openjfx.cybooks.data.Book;
-import org.openjfx.cybooks.data.Customer;
-import org.openjfx.cybooks.data.Librarian;
-import org.openjfx.cybooks.data.Loan;
+import org.openjfx.cybooks.UserInput.FieldChecks;
+import org.openjfx.cybooks.data.*;
 import org.openjfx.cybooks.database.DBHandler;
+import org.openjfx.cybooks.UserInput.IncorrectFieldException;
 
 import java.nio.file.Paths;
 import java.util.*;
@@ -458,8 +457,13 @@ public class CommandLineHandler {
             email = sc.nextLine();
             Colors.printlnWhite("Entrez son adresse :");
             adress = sc.nextLine();
-            Colors.printlnCyan("Ajout du membre " + firstname + " " + lastname + " aux adhérents.");
-            DBHandler.addCustomer(firstname,lastname,phone,email,adress);
+            if(FieldChecks.isValidCustomer(firstname,lastname,phone,email,adress)){
+                Colors.printlnCyan("Ajout du membre " + firstname + " " + lastname + " aux adhérents.");
+                DBHandler.addCustomer(firstname,lastname,phone,email,adress);
+            }
+        }
+        catch (IncorrectFieldException e){
+            Colors.printlnRed("Erreur : "+ e.getMessage());
         }
         catch(Exception e){
             Colors.printlnRed("Une erreur est survenue.");
