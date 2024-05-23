@@ -66,38 +66,74 @@ public class SearchResult {
         this.imageLink=imageLink;
     }
 
+    /**
+     * Getter for the identifier attribute
+     * @return The document's identifier (String)
+     */
     public String getIdentifier(){
         return this.identifier;
     }
 
+    /**
+     * Getter for the title attribute
+     * @return The document's title (String)
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Getter for the date attribute
+     * @return The document's release date (String)
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     * Getter for the authors attribute
+     * @return The document's authors (ArrayList<String>)
+     */
     public ArrayList<String> getAuthors() {
         return authors;
     }
 
+    /**
+     * Getter for the subjects attribute
+     * @return The document's subjects (ArrayList<String>)
+     */
     public ArrayList<String> getSubjects() {
         return subjects;
     }
 
+    /**
+     * Getter for the image link attribute
+     * @return The document's image link (String)
+     */
     public String getImageLink() {
         return imageLink;
     }
 
+    /**
+     * Getter for the description attribute
+     * @return The document's description (String)
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Getter for the publisher attribute
+     * @return The document's publisher (String)
+     */
     public String getPublisher() {
         return publisher;
     }
 
+    /**
+     * Getter for the language attribute
+     * @return The document's language (String)
+     */
     public String getLanguage() {
         return language;
     }
