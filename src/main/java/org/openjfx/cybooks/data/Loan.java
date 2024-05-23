@@ -37,16 +37,20 @@ public class Loan {
         return toStringDate(beginDate);
     }
 
-    public boolean getCompleted() {
-        return completed;
-    }
-
     public int getCustomerId() {
         return customerId;
     }
 
     public String getExpirationDate() {
         return toStringDate(expirationDate);
+    }
+
+    public boolean hasExpired() {
+        return expired;
+    }
+
+    public boolean isCompleted() {
+        return completed;
     }
 
     public void setDuration (Date date) {
@@ -61,14 +65,6 @@ public class Loan {
     public String toStringDate(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);
-    }
-
-    public boolean hasExpired() {
-        return expired;
-    }
-
-    public boolean isCompleted() {
-        return completed;
     }
 
     @Override
