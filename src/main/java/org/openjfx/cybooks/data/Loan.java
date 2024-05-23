@@ -1,5 +1,6 @@
 package org.openjfx.cybooks.data;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -32,18 +33,21 @@ public class Loan {
         return bookId;
     }
 
-    public Date getBeginDate() {
-        return beginDate;
+    public String getBeginDate() {
+        return toStringDate(beginDate);
     }
 
     public boolean getCompleted() {
         return completed;
     }
 
-    public boolean hasExpired() {
-        return expired;
+    public int getCustomerId() {
+        return customerId;
     }
 
+    public String getExpirationDate() {
+        return toStringDate(expirationDate);
+    }
 
     public void setDuration (Date date) {
         this.expirationDate = date;
@@ -54,6 +58,18 @@ public class Loan {
         this.completed = completed;
     }
 
+    public String toStringDate(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(date);
+    }
+
+    public boolean hasExpired() {
+        return expired;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
 
     @Override
     public boolean equals(Object o) {
