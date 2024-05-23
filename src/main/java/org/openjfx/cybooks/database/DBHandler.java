@@ -1,5 +1,6 @@
 package org.openjfx.cybooks.database;
 
+import org.openjfx.cybooks.UserInput.IncorrectPasswordException;
 import org.openjfx.cybooks.data.Book;
 import org.openjfx.cybooks.data.Customer;
 import org.openjfx.cybooks.data.Librarian;
