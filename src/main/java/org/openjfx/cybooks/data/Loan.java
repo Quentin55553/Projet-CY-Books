@@ -1,6 +1,5 @@
 package org.openjfx.cybooks.data;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,39 +14,6 @@ public class Loan {
     private boolean expired;
 
 
-    public String toStringDate(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return formatter.format(date);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public String getBookId() {
-        return bookId;
-    }
-
-    public String getBeginDate() {
-        return toStringDate(beginDate);
-    }
-
-    public String getExpirationDate() {
-        return toStringDate(expirationDate);
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public boolean hasExpired() {
-        return expired;
-    }
-
     public Loan(int id, String bookId, int customerId, Date beginDate, Date expirationDate, boolean completed) {
         this.id = id;
         this.bookId = bookId;
@@ -58,10 +24,34 @@ public class Loan {
         this.completed = completed;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public Date getBeginDate() {
+        return beginDate;
+    }
+
+    public boolean getCompleted() {
+        return completed;
+    }
+
+    public boolean hasExpired() {
+        return expired;
+    }
+
 
     public void setDuration (Date date) {
         this.expirationDate = date;
         this.expired = expirationDate.before(new Date());
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
 
@@ -82,7 +72,7 @@ public class Loan {
 
     public String toString () {
         return "id : " + id
-            + "\nID: " + bookId
+            + "\nISBN: " + bookId
             + "\ncustomer: " + customerId
             + "\nbegin date: " + beginDate
             + "\nexpiration date: " + expirationDate
