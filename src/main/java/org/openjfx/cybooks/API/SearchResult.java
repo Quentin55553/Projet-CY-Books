@@ -66,20 +66,32 @@ public class SearchResult {
         this.imageLink=imageLink;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public String getIdentifier(){
+        return this.identifier;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public String getDate() {
+        return date;
+    }
+
     public ArrayList<String> getAuthors() {
         return authors;
     }
 
-    public String getDate() {
-        return date;
+    public ArrayList<String> getSubjects() {
+        return subjects;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getPublisher() {
@@ -88,18 +100,6 @@ public class SearchResult {
 
     public String getLanguage() {
         return language;
-    }
-
-    public ArrayList<String> getSubjects() {
-        return subjects;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getImageLink() {
-        return imageLink;
     }
 
     /**
