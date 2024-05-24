@@ -1,5 +1,6 @@
 package org.openjfx.cybooks.Controllers;
 
+import com.google.protobuf.StringValue;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
@@ -10,10 +11,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.openjfx.cybooks.data.Book;
+import org.openjfx.cybooks.database.BookFilter;
+import org.openjfx.cybooks.database.CustomerFilter;
+import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +37,8 @@ public class SearchBookPageController implements Initializable {
     private AnchorPane SearchBookAnchorPane;
     @FXML
     private JFXButton FilterSearchButton;
-
+    @FXML
+    private Separator Separator;
     @FXML
     private VBox BooksVbox;
     @FXML
@@ -40,12 +48,16 @@ public class SearchBookPageController implements Initializable {
     private FontAwesomeIconView ChevronRight;
 
     private int currentPage = 0;
-    private int rowsPerPage = 10; // Valeur par défaut
-    private List<String> results;
+    private int rowsPerPage = 10;
+    private List<Book> results;
+    private static BookFilter filter;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        results = getResultsFromDatabase();
+        // initialize filter with empty fields for books in the library, this ensures that not too much books are showing
+        filter = new BookFilter("","","", "", null, "", true);
+        System.out.println(filter);
+        results = getResultsFromDatabase(filter);
 
         FilterSearchButton.setOnAction(this::openFilterDialog);
 
@@ -69,34 +81,8 @@ public class SearchBookPageController implements Initializable {
     }
 
 
-    private List<String> getResultsFromDatabase() {
-        List<String> results = new ArrayList<>();
-
-        // test
-        results.add("apple");
-        results.add("banana");
-        results.add("cherry");
-        results.add("date");
-        results.add("elderberry");
-        results.add("fig");
-        results.add("grape");
-        results.add("honeydew");
-        results.add("kiwi");
-        results.add("lemon");
-        results.add("mango");
-        results.add("nectarine");
-        results.add("orange");
-        results.add("papaya");
-        results.add("quince");
-        results.add("raspberry");
-        results.add("strawberry");
-        results.add("tangerine");
-        results.add("ugli fruit");
-        results.add("vanilla bean");
-        results.add("watermelon");
-        results.add("xigua");
-        results.add("yellow passion fruit");
-        results.add("zucchini");
+    private List<Book> getResultsFromDatabase(BookFilter filter) {
+        results = DBHandler.getBooksByFilter(filter);
         return results;
     }
 
@@ -109,6 +95,9 @@ public class SearchBookPageController implements Initializable {
         if (page < 0 || page > results.size() / rowsPerPage) {
             return;
         }
+        if ( getTotalPages() <= 1 ){
+            Separator.setVisible(false);
+        }
 
         currentPage = page;
         BooksVbox.getChildren().clear();
@@ -120,13 +109,31 @@ public class SearchBookPageController implements Initializable {
         for (int i = start; i < end; i++) {
             Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-Book.fxml")));
             if (node instanceof Parent){
+
+                Book book = results.get(i);
+
+                Label titleLabel = (Label) node.lookup("#titleLabel");
+                Label authorLabel = (Label) node.lookup("#authorLabel");
+                Label editorLabel = (Label) node.lookup("#editorLabel");
+                Label subjectLabel = (Label) node.lookup("#subjectLabel");
+                Label IDLabel = (Label) node.lookup("#IDLabel");
+                Label stockLabel = (Label) node.lookup("#stockLabel");
                 Button button = (Button) ((Parent)node).lookup("#BookButton");
-                if (button != null) {
-                    //set ID   (il faudrait mettre l'id du livre comme ça on appel la fonction pour la page spécifique)
-                    button.setId("BookButton"+i);
-                    // Set the onAction event handler for the button
-                    button.setOnAction(actionEvent -> handleButtonClick(button.getId()));
+
+                titleLabel.setText(String.valueOf(book.getTitle()));
+                StringBuilder authors = new StringBuilder();
+                for (String author : book.getAuthors()){
+                    authors.append(author);
                 }
+                authorLabel.setText(authors.toString());
+                editorLabel.setText(book.getPublisher());
+                StringBuilder subjects = new StringBuilder();
+                for (String subject : book.getSubjects()){
+                    authors.append(subject);
+                }
+                subjectLabel.setText(subjects.toString());
+                IDLabel.setText(book.getId());
+                stockLabel.setText(String.valueOf(book.getStock()));
             }
             BooksVbox.getChildren().add(node);
         }
@@ -142,8 +149,7 @@ public class SearchBookPageController implements Initializable {
 
 
     @FXML
-    private void handleButtonClick(String id) {
-        System.out.println(id);
+    private void handleButtonClick(Book book) {
         try {
             // Load the new FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Book-page.fxml"));
@@ -163,6 +169,9 @@ public class SearchBookPageController implements Initializable {
 
                 // Replace the embedded node with the new one
                 center.getChildren().setAll(newCenter);
+
+                BookPageController bookPageController = loader.getController();
+                bookPageController.setButtonBook(book);
             } else {
                 System.err.println("Parent is not an instance of AnchorPane");
             }
@@ -178,6 +187,13 @@ public class SearchBookPageController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/FilterDialogBook.fxml"));
             Parent root = loader.load();
 
+            // Get the controller instance from the loader
+            FilterDialogBookController dialogController = loader.getController();
+            // Pass the reference to this SearchUserPageController
+            dialogController.setSearchBookPageController(this);
+            // Pass the filter to the dialog controller
+            dialogController.setFilter(filter);
+
             // Create a new stage for the dialog
             Stage dialogStage = new Stage();
             dialogStage.setScene(new Scene(root));
@@ -191,6 +207,21 @@ public class SearchBookPageController implements Initializable {
             // Show the dialog and wait until it is closed
             dialogStage.showAndWait();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void refreshSearchResults(BookFilter updatedFilter) {
+        System.out.println("Filter applied : " + updatedFilter);
+        // Update filter with the new one
+        filter = updatedFilter;
+
+        // Refresh the search results
+        results = getResultsFromDatabase(filter);
+        try {
+            showPage(0);
+            updateButtonStates(results.size() / rowsPerPage);
         } catch (IOException e) {
             e.printStackTrace();
         }

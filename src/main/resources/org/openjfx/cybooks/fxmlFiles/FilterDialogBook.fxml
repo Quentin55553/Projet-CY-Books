@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -9,7 +10,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.ToggleSwitch?>
 
 <AnchorPane prefHeight="447.0" prefWidth="363.0" style="-fx-background-color: FEFAE0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.FilterDialogBookController">
     <children>
@@ -37,7 +37,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 </JFXButton>
-                <JFXButton style="-fx-background-color: #283618; -fx-background-radius: 10;" text="Sauvegarder" textFill="#fefae0">
+                <JFXButton onAction="#saveNewFilter" style="-fx-background-color: #283618; -fx-background-radius: 10;" text="Sauvegarder" textFill="#fefae0">
                     <font>
                         <Font name="Eras Medium ITC" size="14.0" />
                     </font>
@@ -82,8 +82,7 @@
          </font>
       </Label>
       <TextField fx:id="IdField" layoutX="90.0" layoutY="257.0" />
-      <ToggleSwitch fx:id="InLibraryToggle" layoutX="236.0" layoutY="357.0" />
-      <Label layoutX="22.0" layoutY="357.0" prefHeight="18.0" prefWidth="215.0" text="Que ceux dans la bibliothèque" textFill="#dda15e">
+      <Label layoutX="22.0" layoutY="357.0" prefHeight="18.0" prefWidth="215.0" text="Dans la bibliothèque" textFill="#dda15e">
          <font>
             <Font name="Eras Medium ITC" size="14.0" />
          </font>
@@ -94,5 +93,6 @@
          </font>
       </Label>
       <TextField fx:id="EditorField" layoutX="90.0" layoutY="307.0" />
+      <JFXToggleButton fx:id="inLibraryToggle" layoutX="152.0" layoutY="338.0" prefHeight="57.0" prefWidth="77.0" textOverrun="CLIP" toggleColor="#bc6c25" toggleLineColor="#dda15e" unToggleLineColor="#e1ddc6" />
     </children>
 </AnchorPane>

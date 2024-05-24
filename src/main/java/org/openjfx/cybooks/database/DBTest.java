@@ -16,7 +16,7 @@ public class DBTest {
         List<Loan> loans = new ArrayList<>();
         List<Customer> customers = new ArrayList<>();
         CustomerFilter customerFilter = new CustomerFilter(null, null, -1, null, null, null, 10, 2);
-        BookFilter bookFilter = new BookFilter("", "", "", "", "12148/bpt6k33646735", "");
+        //BookFilter bookFilter = new BookFilter("", "", "", "", "12148/bpt6k33646735", "");
 
         try {
 
@@ -26,7 +26,7 @@ public class DBTest {
 //            Book book = Core.getBook("12148/bpt6k33646735");
 //            books.add(book);
 
-            books = Core.getBooksByFilter(bookFilter);
+            //books = Core.getBooksByFilter(bookFilter);
 
 
 

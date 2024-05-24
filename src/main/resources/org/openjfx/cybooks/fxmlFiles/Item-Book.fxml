@@ -7,13 +7,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox alignment="CENTER" prefHeight="95.0" prefWidth="700.0" spacing="30.0" style="-fx-background-color: #DDA15E;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER" prefHeight="95.0" prefWidth="700.0" spacing="20.0" style="-fx-background-color: #DDA15E;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label prefHeight="16.0" prefWidth="136.0" text="Titre" />
-      <Label prefHeight="18.0" prefWidth="151.0" text="Auteur" />
-      <Label prefHeight="21.0" prefWidth="126.0" text="Genre" />
-      <Label prefHeight="21.0" prefWidth="126.0" text="ID" />
-      <Label prefHeight="21.0" prefWidth="126.0" text="Stock" />
+      <Label fx:id="titleLabel" prefHeight="18.0" prefWidth="150.0" text="Titre" />
+      <Label fx:id="authorLabel" prefHeight="18.0" prefWidth="151.0" text="Auteur" />
+      <Label fx:id="editorLabel" prefHeight="22.0" prefWidth="154.0" text="Editeur" />
+      <Label fx:id="subjectLabel" prefHeight="22.0" prefWidth="126.0" text="Genre" />
+      <Label fx:id="IDLabel" prefHeight="22.0" prefWidth="130.0" text="ID" />
+      <Label fx:id="stockLabel" prefHeight="22.0" prefWidth="92.0" text="Stock" />
       <Button fx:id="BookButton" mnemonicParsing="false" style="-fx-background-color: none;">
          <graphic>
             <FontAwesomeIconView fill="#606c38" glyphName="BOOK" selectionStart="0" size="18">
