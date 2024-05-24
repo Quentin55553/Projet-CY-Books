@@ -10,40 +10,76 @@ import javafx.scene.Node;
 import org.openjfx.cybooks.database.BookFilter;
 
 
+/**
+ * Controller class for the page that allows the user to filter their search of a book
+ */
 public class FilterDialogBookController {
 
+    /**
+     * Author field for the search filtering
+     */
     @FXML
     private TextField AutorField;
 
+    /**
+     * Publisher field for the search filtering
+     */
     @FXML
     private TextField EditorField;
 
+    /**
+     * Identifier field for the search filtering
+     */
     @FXML
     private TextField IdField;
 
+    /**
+     * Button used to search only for books present in the SQL tables
+     */
     @FXML
     private JFXToggleButton inLibraryToggle;
 
+    /**
+     * Subject field for the search filtering
+     */
     @FXML
     private TextField SubjectField;
 
+    /**
+     * Title field for the search filtering
+     */
     @FXML
     private TextField TitleField;
 
+    /**
+     * Year field for the search filtering
+     */
     @FXML
     private TextField YearField;
 
+    /**
+     * BookFilter object used for the search filtering
+     */
     private BookFilter filter;
 
+    /**
+     * A SearchBookPageController associated with the dialog box
+     */
     private SearchBookPageController searchBookPageController;
 
-    // Setter method for searchBookPageController
+    /**
+     * Setter for the searchBookPageController attribute
+     * @param controller The new controller object (SearchBookPageController)
+     */
     public void setSearchBookPageController(SearchBookPageController controller) {
         this.searchBookPageController = controller;
     }
 
 
-
+    /**
+     * Setter for the book filter attribute
+     * @param filter The new BookFilter attribute
+     */
     public void setFilter(BookFilter filter) {
         this.filter = filter;
         // Initialize fields with current filter state
@@ -58,6 +94,9 @@ public class FilterDialogBookController {
     }
 
 
+    /**
+     * Method used to make the book search controller use the book filter attribute of an object
+     */
     @FXML
     public void saveNewFilter(){
         // Update filter with inputs fields
@@ -69,7 +108,7 @@ public class FilterDialogBookController {
         filter.setDatabaseOnly(inLibraryToggle.isSelected());
         filter.setId(IdField.getText().trim());
 
-        // Notify SearchUserPageController about the updated filter
+        // Notify SearchBookPageController about the updated filter
         searchBookPageController.refreshSearchResults(filter);
 
         // Close the dialog
@@ -77,6 +116,10 @@ public class FilterDialogBookController {
         stage.close();
     }
 
+    /**
+     * This method is used to close the dialog window
+     * @param actionEvent The event that occurs and makes the window close
+     */
     @FXML
     public void closeDialog(ActionEvent actionEvent) {
         // Close the dialog
@@ -84,6 +127,10 @@ public class FilterDialogBookController {
         stage.close();
     }
 
+    /**
+     * This method is used to reset the fields of the filtering
+     * @param actionEvent The event that occurs and makes the fields reset
+     */
     @FXML
     public void reset(ActionEvent actionEvent) {
         AutorField.clear();

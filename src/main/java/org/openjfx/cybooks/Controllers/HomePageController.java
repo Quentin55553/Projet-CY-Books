@@ -21,58 +21,124 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * Controller class for the home page of the app
+ */
 public class HomePageController implements Initializable {
+    /**
+     * Label used to show the user's ID
+     */
     @FXML
     protected Label IDLabel;
+    /**
+     * Icon used to tavel to the librarianAccountPage
+     */
     @FXML
     private ImageView librarianAccount;
+    /**
+     * Button used to travel to the AddCustomer page
+     */
     @FXML
     private JFXButton AddCustomerTopButton;
+    /**
+     * Button used to travel to the AddCustomer page
+     */
     @FXML
     private JFXButton AddCustomerLeftButton;
+    /**
+     * Button used to travel to the AddLoan page
+     */
     @FXML
     private JFXButton AddLoanLeftButton;
+    /**
+     * Button used to travel to the AddLoan page
+     */
     @FXML
     private JFXButton AddLoanTopButton;
+    /**
+     * Button used to travel to the SearchUser page
+     */
     @FXML
     private JFXButton SearchUserLeftButton;
+    /**
+     * Button used to travel to the SearchUser page
+     */
     @FXML
     private JFXButton SearchUserTopButton;
+    /**
+     * Button used to travel to the SearchBook page
+     */
     @FXML
     private JFXButton SearchBookLeftButton;
+    /**
+     * Button used to travel to the SearchBook page
+     */
     @FXML
     private JFXButton SearchBookTopButton;
+    /**
+     * Button used to travel to the AllUsers page
+     */
     @FXML
     private JFXButton AllUsersButton;
+    /**
+     * Button used to travel to the AllLoans page
+     */
     @FXML
     private JFXButton AllLoansButton;
+    /**
+     * Button used to travel to the LoanIssues page
+     */
     @FXML
     private JFXButton LoansIssuesButton;
 
+    /**
+     * The center of the page
+     */
     @FXML
     public AnchorPane Center;
+    /**
+     * The logo
+     */
     @FXML
     private JFXHamburger MenuHamb;
+    /**
+     * The menu sidebar
+     */
     @FXML
     private AnchorPane Menuside;
+    /**
+     * Reference to the main application
+     */
     private Main main;
 
 
-    // Default constructor
+    /**
+     * Default constructor of the HomePageController class
+     */
     public HomePageController() {
     }
 
 
+    /**
+     * Setter for the main attribute
+     * @param main Reference to the main application
+     */
     public void setMain(Main main) {
         this.main = main;
     }
 
-
+    /**
+     * Setter for the primary stage attribute
+     * @param primaryStage The main container
+     */
     public void setPrimaryStage(Stage primaryStage) {
     }
 
-
+    /**
+     * This method handles the sliding of the menu when the logo is clicked and sets up each button's action
+     * @param url Not used
+     * @param resourceBundle Not used
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Hide menu
@@ -118,10 +184,18 @@ public class HomePageController implements Initializable {
     }
 
 
+    /**
+     * This method is used to set the text of the ID label on the view
+     * @param id The ID to show (String)
+     */
     public void setLibrarianID(String id) {
         IDLabel.setText(id);
     }
 
+    /**
+     * This method is used when the user clicks on the 'disconnect' button
+     * @throws IOException If an error occurs when showing the login page again
+     */
     public void logoutClicked() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Déconnexion");
@@ -134,6 +208,11 @@ public class HomePageController implements Initializable {
     }
 
 
+    /**
+     * This method is called to change the view of the page.
+     * It uses changeCenter() for that
+     * @param fxmlFile The new fxml file to use
+     */
     public void handleChangeCenter(String fxmlFile) {
         try {
             // Call the changeCenter method with the specified path
@@ -145,6 +224,11 @@ public class HomePageController implements Initializable {
     }
 
 
+    /**
+     * This method is used to change the view of the page
+     * @param fxmlFile The new fxml file to use
+     * @throws IOException If loading of the file fails
+     */
     public void changeCenter(String fxmlFile) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         AnchorPane newCenter = loader.load();
