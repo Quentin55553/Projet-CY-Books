@@ -27,29 +27,64 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the customer search page
+ */
 public class SearchUserPageController implements Initializable {
 
-
-
+    /**
+     * Anchor pane for the view of the search
+     */
     @FXML
     private AnchorPane SearchUsersAnchorPane;
+    /**
+     * Button used by the user if they want to filter their search
+     */
     @FXML
     private JFXButton FilterSearchButton;
+    /**
+     * Line to organize the view
+     */
     @FXML
     private javafx.scene.control.Separator Separator;
+    /**
+     * View of the found customers
+     */
     @FXML
     private VBox UsersVbox;
+    /**
+     * Icon that can take the user to the previous page of the results
+     */
     @FXML
     private FontAwesomeIconView ChevronLeft;
-
+    /**
+     * Icon that can take the user to the next page of the results
+     */
     @FXML
     private FontAwesomeIconView ChevronRight;
 
+    /**
+     * Value of the current page of the results (0 at first because we are on the first page)
+     */
     private int currentPage = 0;
-    private int rowsPerPage = 10; // Valeur par défaut
+    /**
+     * Number of results for one results page
+     */
+    private int rowsPerPage = 10;
+    /**
+     * List of results for the search (Customer objects)
+     */
     private List<Customer> results;
+    /**
+     * CustomerFilter object used for the search filtering
+     */
     private static CustomerFilter filter;
 
+    /**
+     * This method handles the first arrival on the page, with an empty filter search
+     * @param url Not used
+     * @param resourceBundle Not used
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // initialize filter with empty fields, so it shows all the users
@@ -69,26 +104,49 @@ public class SearchUserPageController implements Initializable {
     }
 
 
+    /**
+     * Method called on the left arrow click to go to the previous page of the results
+     * @throws IOException If an error occurs during the page transition
+     */
     @FXML
     private void Previous() throws IOException {
         showPage(currentPage - 1);
     }
 
+    /**
+     * Method called on the right arrow click to go to the next page of the results
+     * @throws IOException If an error occurs during the page transition
+     */
     @FXML
     private void Next() throws IOException {
         showPage(currentPage + 1);
     }
 
 
+    /**
+     * This method is used to get the results of a filtered customer search using a CustomerFilter object
+     * It puts the results in the results attribute
+     * @param filter The CustomerFilter to use
+     * @return Also returns the results found
+     */
     private List<Customer> getResultsFromDatabase(CustomerFilter filter) {
         results = DBHandler.getCustomersByFilter(filter);
         return results;
     }
 
+    /**
+     * This method is used to get the number of pages for the view from a number of found results (results attribute)
+     * @return The number of pages needed to show the all of the results attribute
+     */
     private int getTotalPages() {
         return (results.size() + rowsPerPage - 1) / rowsPerPage;
     }
 
+    /**
+     * This method is called to show the page number 'page' of the results of the Customer search
+     * @param page The page to show
+     * @throws IOException If there is an error during the page transition
+     */
     private void showPage(int page) throws IOException {
         int totalPages = getTotalPages();
         if (page < 0 || page > results.size() / rowsPerPage) {
@@ -138,13 +196,22 @@ public class SearchUserPageController implements Initializable {
         updateButtonStates(totalPages);
     }
 
+    /**
+     * This method is used to make the arrows visible or not depending on the current page
+     * Left arrow is not visible at first page, right is not at the last page
+     * @param totalPages Number of total pages
+     */
     private void updateButtonStates(int totalPages) {
         ChevronLeft.setVisible(currentPage > 0);
         ChevronRight.setVisible(currentPage < totalPages - 1);
     }
 
 
-
+    /**
+     * This method is used to handle a click on a customer
+     * It will show the profile page of the selected customer
+     * @param customer The clicked customer (Customer)
+     */
     @FXML
     private void handleButtonClick(Customer customer) {
         try {
@@ -178,6 +245,10 @@ public class SearchUserPageController implements Initializable {
 
     }
 
+    /**
+     * This method is called to show the dialog page used for the search filtering
+     * @param event The event that makes the dialog page open
+     */
     @FXML
     private void openFilterDialog(ActionEvent event) {
         try {
@@ -210,6 +281,10 @@ public class SearchUserPageController implements Initializable {
         }
     }
 
+    /**
+     * This method is called to refresh the search results, getting new results from the database using a CustomerFilter object
+     * @param updatedFilter The filter to use
+     */
     public void refreshSearchResults(CustomerFilter updatedFilter) {
         System.out.println("Filter applied : " + updatedFilter);
         // Update filter with the new one
