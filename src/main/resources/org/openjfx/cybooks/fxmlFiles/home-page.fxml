@@ -30,7 +30,7 @@
                         </ImageView>
                         <Pane layoutX="744.0" layoutY="13.0" AnchorPane.rightAnchor="14.0">
                            <children>
-                              <Label fx:id="IDLabel" layoutX="27.0" layoutY="5.0" text="Label" textFill="#fefae0">
+                              <Label fx:id="IDLabel" layoutX="32.0" layoutY="5.0" text="Label" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="24.0" />
                                  </font>
@@ -46,7 +46,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </ImageView>
-                              <ImageView fx:id="librarianAccount" fitHeight="26.0" fitWidth="25.0" layoutX="1.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="librarianAccount" fitHeight="26.0" fitWidth="25.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../img/icons/user.png" />
                                  </image>

@@ -16,6 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.openjfx.cybooks.Main;
+import org.openjfx.cybooks.data.Librarian;
+import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +28,7 @@ import java.util.ResourceBundle;
  */
 public class HomePageController implements Initializable {
     /**
-     * Label used to show the user's ID
+     * Label used to show the librarian's ID
      */
     @FXML
     protected Label IDLabel;
@@ -110,7 +112,10 @@ public class HomePageController implements Initializable {
      * Reference to the main application
      */
     private Main main;
+    private static Librarian librarian;
 
+
+    protected Librarian connectedLibrarian;
 
     /**
      * Default constructor of the HomePageController class
@@ -128,10 +133,14 @@ public class HomePageController implements Initializable {
     }
 
     /**
-     * Setter for the primary stage attribute
-     * @param primaryStage The main container
+     * Setter for the connectedLibrarian attribute and set the text of the librarian label
+     * @param librarian Reference to the connected librarian
      */
-    public void setPrimaryStage(Stage primaryStage) {
+    public void setLibrarian(Librarian librarian) {
+        this.connectedLibrarian = librarian;
+        if (IDLabel != null) {
+            IDLabel.setText(Character.toUpperCase(librarian.getFirstName().charAt(0))+librarian.getFirstName().substring(1) + " " + Character.toUpperCase(librarian.getLastName().charAt(0)) + ". ");
+        }
     }
 
     /**
@@ -185,12 +194,14 @@ public class HomePageController implements Initializable {
 
 
     /**
-     * This method is used to set the text of the ID label on the view
+     * This function passes the librarian info
      * @param id The ID to show (String)
      */
-    public void setLibrarianID(String id) {
-        IDLabel.setText(id);
+    public Librarian AccesLibrarian(String id) {
+        return DBHandler.getLibrarian(id);
     }
+
+
 
     /**
      * This method is used when the user clicks on the 'disconnect' button
@@ -240,12 +251,16 @@ public class HomePageController implements Initializable {
         AnchorPane.setBottomAnchor(newCenter, 0.0);
         AnchorPane.setRightAnchor(newCenter, 210.0);
 
-        Center.getChildren().setAll(newCenter);
-        /*
-        // Transfer children from newCenter to Center
-        Center.getChildren().setAll(newCenter.getChildren());
-        */
-    }
 
+        // Exception when we call the librarian account page we need to pass the connected librarian
+        if(fxmlFile.equals("/org/openjfx/cybooks/fxmlFiles/LibrarianAccount-page.fxml")){
+            // Get the controller instance from FXMLLoader
+            LibrarianAccountPageController controller = loader.getController();
+            controller.setLibrarian(connectedLibrarian);
+        }
+
+
+        Center.getChildren().setAll(newCenter);
+    }
 
 }

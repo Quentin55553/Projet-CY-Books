@@ -502,6 +502,51 @@ public class DBHandler {
         return librarian;
     }
 
+
+    public static Librarian getLibrarian(String login) {
+
+        createConnection();
+        ResultSet res;
+        Librarian librarian = null;
+
+        try {
+            res = statement.executeQuery("SELECT * FROM librarians WHERE login='" + login + "'");
+            if (res.next()) {
+                librarian = new Librarian(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        closeConnection();
+
+        return librarian;
+
+    }
+
+    public static String getLibrarianLogin(Librarian librarian) {
+        createConnection();
+        ResultSet res;
+        String login = null;
+
+        try {
+            String query = "SELECT login FROM librarians WHERE id=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, String.valueOf(librarian.getId()));
+            res = statement.executeQuery();
+
+            if (res.next()) {
+                login = res.getString("login");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            closeConnection();
+        }
+
+        return login;
+    }
+
     public static List<Customer> getCustomersByFilter(CustomerFilter filter) {
         createConnection();
         List<Customer> customers = new ArrayList<>();

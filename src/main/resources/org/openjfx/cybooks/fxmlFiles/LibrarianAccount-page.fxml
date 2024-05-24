@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
@@ -15,22 +14,21 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import org.controlsfx.control.textfield.CustomTextField?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.LibrarianAccountPageController">
    <children>
       <VBox alignment="CENTER" layoutX="28.0" layoutY="68.0" maxHeight="-Infinity" prefHeight="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
-            <GridPane alignment="BOTTOM_CENTER" maxWidth="1200.0" prefHeight="609.0" prefWidth="1000.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: #BC6C25;">
+            <GridPane alignment="BOTTOM_CENTER" maxWidth="1200.0" minWidth="-Infinity" prefHeight="609.0" prefWidth="1000.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: #BC6C25;">
                <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                  <ColumnConstraints hgrow="SOMETIMES" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints prefHeight="361.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="512.0" prefWidth="990.0" style="-fx-background-color: DDA15E;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <VBox alignment="TOP_CENTER" prefHeight="512.0" prefWidth="990.0" style="-fx-background-color: DDA15E;" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <children>
                         <Group>
                            <children>
@@ -38,75 +36,52 @@
                               <FontAwesomeIconView fill="#fefae0" glyphName="USER_ALT" layoutX="-39.0" layoutY="33.0" size="90" text="" wrappingWidth="77.42856979370117" />
                            </children>
                         </Group>
-                        <GridPane alignment="CENTER" prefHeight="90.0" prefWidth="894.0" style="-fx-border-color: #283618; -fx-border-insets: -10; -fx-border-width: 2; -fx-border-style: solid inside; -fx-border-radius: 5;" vgap="10.0">
+                        <GridPane alignment="CENTER" style="-fx-border-color: #283618; -fx-border-insets: -10; -fx-border-width: 2; -fx-border-style: solid inside; -fx-border-radius: 5;" vgap="10.0" VBox.vgrow="NEVER">
                           <columnConstraints>
-                            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="300.0" />
-                            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="300.0" />
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="150.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="20.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="20.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="20.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefWidth="128.0">
+                              <HBox alignment="CENTER_LEFT" fillHeight="false" maxWidth="-Infinity" prefHeight="39.0" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                                  <children>
-                                    <Label contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="51.0" text="Nom :" textAlignment="CENTER" textFill="#283618">
+                                    <Label contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="51.0" text="Nom :" textAlignment="CENTER" textFill="#283618" underline="true">
                                        <font>
                                           <Font name="Eras Medium ITC" size="17.0" />
                                        </font>
                                     </Label>
-                                    <Text fx:id="lastname" fill="#283618" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom libraire" wrappingWidth="265.13671875">
+                                    <Text fx:id="lastname" fill="#283618" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom libraire" wrappingWidth="322.13671875">
                                        <font>
                                           <Font name="Eras Medium ITC" size="17.0" />
                                        </font>
                                     </Text>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
+                              <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                                  <children>
-                                    <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="77.0" text="Prénom :" textAlignment="CENTER" textFill="#283618">
+                                    <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="77.0" text="Prénom :" textAlignment="CENTER" textFill="#283618" underline="true">
                                        <font>
                                           <Font name="Eras Medium ITC" size="17.0" />
                                        </font>
                                     </Label>
-                                    <Text fx:id="firstname" fill="#283618" strokeType="OUTSIDE" strokeWidth="0.0" text="Prénom libraire" wrappingWidth="269.13671875">
+                                    <Text fx:id="firstname" fill="#283618" strokeType="OUTSIDE" strokeWidth="0.0" text="Prénom libraire" wrappingWidth="296.13671875">
                                        <font>
                                           <Font name="Eras Medium ITC" size="17.0" />
                                        </font>
                                     </Text>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="55.0" prefWidth="703.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                              <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="43.0" prefWidth="150.0" GridPane.halignment="CENTER">
                                  <children>
-                                    <Label contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="106.0" text="Mot de passe:" textAlignment="CENTER" textFill="#283618">
+                                    <Label contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="94.0" text="Identifiant :" textAlignment="CENTER" textFill="#283618" underline="true">
                                        <font>
                                           <Font name="Eras Medium ITC" size="17.0" />
                                        </font>
                                     </Label>
-                                    <CustomTextField fx:id="password" accessibleRole="PASSWORD_FIELD" prefHeight="17.0" prefWidth="179.0" style="-fx-background-color: none;" text="*******************">
-                                       <font>
-                                          <Font name="Eras Medium ITC" size="14.0" />
-                                       </font>
-                                    </CustomTextField>
-                                    <JFXButton prefHeight="22.0" prefWidth="76.0" text="Voir" textFill="#283618">
-                                       <graphic>
-                                          <FontAwesomeIconView fx:id="seePasswordButton" fill="#283618" glyphName="EYE" size="14" />
-                                       </graphic>
-                                       <font>
-                                          <Font name="Eras Light ITC" size="12.0" />
-                                       </font>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="55.0" prefWidth="703.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="94.0" text="Identifiant :" textAlignment="CENTER" textFill="#283618">
-                                       <font>
-                                          <Font name="Eras Medium ITC" size="17.0" />
-                                       </font>
-                                    </Label>
-                                    <Text fx:id="login" fill="#283618" strokeType="OUTSIDE" strokeWidth="0.0" text="Identifiant libraire" wrappingWidth="265.13671875">
+                                    <Text fx:id="login" fill="#283618" strokeType="OUTSIDE" strokeWidth="0.0" text="Identifiant libraire" wrappingWidth="276.13671875">
                                        <font>
                                           <Font name="Eras Medium ITC" size="17.0" />
                                        </font>
@@ -118,7 +93,7 @@
                               </HBox>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="10.0" left="175.0" right="175.0" top="75.0" />
+                              <Insets bottom="10.0" left="300.0" right="300.0" top="75.0" />
                            </VBox.margin>
                         </GridPane>
                      </children>

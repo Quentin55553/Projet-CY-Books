@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import org.openjfx.cybooks.Controllers.HomePageController;
 import org.openjfx.cybooks.Controllers.LogInController;
 import org.openjfx.cybooks.Controllers.SignUpController;
+import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;
@@ -67,8 +68,10 @@ public class Main extends Application {
         Parent root = loader.load();
         HomePageController controller = loader.getController();
         controller.setMain(this);
-        // Pass the librarian id to controller and set it
-        controller.setLibrarianID(id);
+
+        // Pass the librarian id to controller
+        Librarian librarian = controller.AccesLibrarian(id);
+        controller.setLibrarian(librarian);
 
         // Makes the user able to resize the window
         primaryStage.setResizable(true);
