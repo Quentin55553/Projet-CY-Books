@@ -86,43 +86,6 @@ public class Core {
         if (filter.isEmpty())
             return getAllBooks();
 
-//        if (filter.isEmpty()) {
-//            list = DBHandler.getAllBooks();
-//
-//            for (Book book : list) {
-//                bookLink = "https://gallica.bnf.fr/ark:/" + book.getId();
-//
-//                // get data from API
-//                try {
-//                    API.generateQueryStandard("", "", "", bookLink, "", "", "");
-//                    API.exec();
-//
-//                    if (API.getNumberOfResults() == 0) {
-//                        throw new NoSuchElementException("No such book exists on servers");
-//                    } else {
-//
-//                        SearchResult result = API.getResults().get(0);
-//                        book.setTitle(result.getTitle());
-//                        book.setAuthors(result.getAuthors());
-//                        book.setDate(result.getDate());
-//                        book.setDescription(result.getDescription());
-//                        book.setLanguage(result.getLanguage());
-//                        book.setSubjects(result.getSubjects());
-//                        book.setImageLink(result.getImageLink());
-//                        book.setPublisher(result.getPublisher());
-//                    }
-//
-//                } catch (NoSuchElementException e) {
-//                    System.out.println(e.getMessage());
-//                } catch (QueryParameterException e) {
-//                    System.out.println(e.getMessage());
-//                } catch (APIErrorException e) {
-//                    System.out.println(e.getMessage());
-//                }
-//            }
-//            return list;
-//        }
-
 
         if (!Objects.equals(filter.getId(), ""))
             bookLink = "https://gallica.bnf.fr/ark:/" + filter.getId();
@@ -138,7 +101,10 @@ public class Core {
             API.exec();
             results = API.getResults();
             for (SearchResult s : results) {
-                APIList.add(new Book(s.getIdentifier(),
+                String bookId = s.getIdentifier();
+                bookId = bookId.replace("https://gallica.bnf.fr/ark:/", "");
+                bookId = bookId.replace("/date", "");
+                APIList.add(new Book(bookId,
                         s.getTitle(),
                         s.getAuthors(),
                         s.getDate(),
