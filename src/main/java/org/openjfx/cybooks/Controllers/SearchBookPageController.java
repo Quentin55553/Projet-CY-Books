@@ -1,6 +1,5 @@
 package org.openjfx.cybooks.Controllers;
 
-import com.google.protobuf.StringValue;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
@@ -19,7 +18,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.openjfx.cybooks.data.Book;
 import org.openjfx.cybooks.database.BookFilter;
-import org.openjfx.cybooks.database.CustomerFilter;
 import org.openjfx.cybooks.database.DBHandler;
 
 import java.io.IOException;

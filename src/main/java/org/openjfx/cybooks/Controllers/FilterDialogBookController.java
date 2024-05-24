@@ -7,11 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.Node;
-import org.controlsfx.control.ToggleSwitch;
 import org.openjfx.cybooks.database.BookFilter;
 
-
-import static org.openjfx.cybooks.Controllers.FilterDialogUserController.isInteger;
 
 public class FilterDialogBookController {
 
