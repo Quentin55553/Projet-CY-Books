@@ -19,10 +19,10 @@ import javafx.stage.Stage;
 import org.openjfx.cybooks.data.Book;
 import org.openjfx.cybooks.database.BookFilter;
 import org.openjfx.cybooks.database.DBHandler;
+import org.openjfx.cybooks.data.Core;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -53,7 +53,7 @@ public class SearchBookPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // initialize filter with empty fields for books in the library, this ensures that not too much books are showing
-        filter = new BookFilter("","","", "", null, "", true);
+        filter = new BookFilter("","","", "", "", "", true);
         System.out.println(filter);
         results = getResultsFromDatabase(filter);
 
@@ -80,7 +80,8 @@ public class SearchBookPageController implements Initializable {
 
 
     private List<Book> getResultsFromDatabase(BookFilter filter) {
-        results = DBHandler.getBooksByFilter(filter);
+        results = Core.getBooksByFilter(filter);
+        System.out.println(results);
         return results;
     }
 
