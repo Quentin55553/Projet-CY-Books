@@ -21,25 +21,56 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+
+/**
+ * Controller class for the page that allows the user to see all the expired loans
+ */
 public class LoanIssuesPageControler implements Initializable {
 
-
+    /**
+     * Anchor pane for the view of the loans
+     */
     @FXML
     AnchorPane LoanIssuesAnchorPane;
+    /**
+     * Line to organize the view
+     */
     @FXML
     private Separator Separator;
+    /**
+     * Container for the loans
+     */
     @FXML
     private VBox LoanIssuesVbox;
+    /**
+     * Icon that can take the user to the previous page of the loans
+     */
     @FXML
     private FontAwesomeIconView ChevronLeft;
-
+    /**
+     * Icon that can take the user to the next page of the loans
+     */
     @FXML
     private FontAwesomeIconView ChevronRight;
-
+    /**
+     * Value of the current page of the loans (0 at first because we are on the first page)
+     */
     private int currentPage = 0;
+    /**
+     * Number of loans for one page
+     */
     private int rowsPerPage = 10;
+    /**
+     * List of all the loans that are late
+     */
     private List<Loan> results;
 
+    /**
+     * Method called on arrival on the page
+     * The results are fetched from the database and loaded on the view
+     * @param url Not used
+     * @param resourceBundle Not used
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         results = getResultsFromDatabase();
@@ -51,26 +82,44 @@ public class LoanIssuesPageControler implements Initializable {
         }
 
     }
-
+    /**
+     * Method called on the left arrow click to go to the previous page of the loans
+     * @throws IOException If an error occurs during the page transition
+     */
     @FXML
     private void Previous() throws IOException {
         showPage(currentPage - 1);
     }
-
+    /**
+     * Method called on the right arrow click to go to the next page of the loans
+     * @throws IOException If an error occurs during the page transition
+     */
     @FXML
     private void Next() throws IOException {
         showPage(currentPage + 1);
     }
 
-
+    /**
+     * Method used to get all the loans that are late from the database
+     * @return A Loan List
+     */
     private List<Loan> getResultsFromDatabase() {
         return DBHandler.getExpiredLoans();
     }
 
+    /**
+     * This method is used to get the number of pages for the view from a number of results (results attribute)
+     * @return The number of pages needed to show the all of the results attribute
+     */
     private int getTotalPages() {
         return (results.size() + rowsPerPage - 1) / rowsPerPage;
     }
 
+    /**
+     * This method is called to show the page number 'page' of the loans
+     * @param page The page to show
+     * @throws IOException If there is an error during the page transition
+     */
     private void showPage(int page) throws IOException {
         int totalPages = getTotalPages();
         if (page < 0 || page > results.size() / rowsPerPage) {
@@ -127,6 +176,9 @@ public class LoanIssuesPageControler implements Initializable {
         updateButtonStates(totalPages);
     }
 
+    /**
+     * This method is called to refresh the results (just getting a new set of results from the database)
+     */
     private void refreshResults() {
         results = getResultsFromDatabase();
         try {
@@ -136,6 +188,11 @@ public class LoanIssuesPageControler implements Initializable {
         }
     }
 
+    /**
+     * This method is used to make the arrows visible or not depending on the current page
+     * Left arrow is not visible at first page, right is not at the last page
+     * @param totalPages Number of total pages
+     */
     private void updateButtonStates(int totalPages) {
         ChevronLeft.setVisible(currentPage > 0);
         ChevronRight.setVisible(currentPage < totalPages - 1);
