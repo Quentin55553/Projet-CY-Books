@@ -36,7 +36,7 @@ public class Core {
             API.exec();
 
             if (API.getNumberOfResults() == 0) {
-                throw new NoSuchElementException("No such book on database or servers");
+                throw new NoSuchElementException("No such book on servers");
             } else {
 
                 SearchResult result = API.getResults().get(0);
@@ -64,6 +64,17 @@ public class Core {
         return DBHandler.getCustomersByFilter(filter);
     }
 
+
+    public static List<Book> getAllBooks () {
+        List<Book> books = new ArrayList<>();
+        List<Book> DBBooks = DBHandler.getAllBooks();
+
+        for (Book b : DBBooks) {
+            books.add(Core.getBook(b.getId()));
+        }
+        return books;
+    }
+
     public static List<Book> getBooksByFilter(BookFilter filter) {
 
         List<Book> list = new ArrayList<>();
@@ -72,43 +83,45 @@ public class Core {
         APIHandler API = new APIHandler();
         String bookLink = "";
 
+        if (filter.isEmpty())
+            return getAllBooks();
 
-        if (filter.isEmpty()) {
-            list = DBHandler.getAllBooks();
-
-            for (Book book : list) {
-                bookLink = "https://gallica.bnf.fr/ark:/" + book.getId();
-
-                // get data from API
-                try {
-                    API.generateQueryStandard("", "", "", bookLink, "", "", "");
-                    API.exec();
-
-                    if (API.getNumberOfResults() == 0) {
-                        throw new NoSuchElementException("No such book exists on servers");
-                    } else {
-
-                        SearchResult result = API.getResults().get(0);
-                        book.setTitle(result.getTitle());
-                        book.setAuthors(result.getAuthors());
-                        book.setDate(result.getDate());
-                        book.setDescription(result.getDescription());
-                        book.setLanguage(result.getLanguage());
-                        book.setSubjects(result.getSubjects());
-                        book.setImageLink(result.getImageLink());
-                        book.setPublisher(result.getPublisher());
-                    }
-
-                } catch (NoSuchElementException e) {
-                    System.out.println(e.getMessage());
-                } catch (QueryParameterException e) {
-                    System.out.println(e.getMessage());
-                } catch (APIErrorException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-            return list;
-        }
+//        if (filter.isEmpty()) {
+//            list = DBHandler.getAllBooks();
+//
+//            for (Book book : list) {
+//                bookLink = "https://gallica.bnf.fr/ark:/" + book.getId();
+//
+//                // get data from API
+//                try {
+//                    API.generateQueryStandard("", "", "", bookLink, "", "", "");
+//                    API.exec();
+//
+//                    if (API.getNumberOfResults() == 0) {
+//                        throw new NoSuchElementException("No such book exists on servers");
+//                    } else {
+//
+//                        SearchResult result = API.getResults().get(0);
+//                        book.setTitle(result.getTitle());
+//                        book.setAuthors(result.getAuthors());
+//                        book.setDate(result.getDate());
+//                        book.setDescription(result.getDescription());
+//                        book.setLanguage(result.getLanguage());
+//                        book.setSubjects(result.getSubjects());
+//                        book.setImageLink(result.getImageLink());
+//                        book.setPublisher(result.getPublisher());
+//                    }
+//
+//                } catch (NoSuchElementException e) {
+//                    System.out.println(e.getMessage());
+//                } catch (QueryParameterException e) {
+//                    System.out.println(e.getMessage());
+//                } catch (APIErrorException e) {
+//                    System.out.println(e.getMessage());
+//                }
+//            }
+//            return list;
+//        }
 
 
         if (!Objects.equals(filter.getId(), ""))
@@ -142,12 +155,7 @@ public class Core {
             System.out.println(e.getMessage());
         }
 
-
-
-
         for (Book b : APIList) {
-//            System.out.println(b);
-//            System.out.println("------------------------------");
             try {
                 String id = b.getId();
                 id = id.replace("https://gallica.bnf.fr/ark:/", "");
@@ -157,18 +165,14 @@ public class Core {
                 b.setTotal(dbBook.getTotal());
                 list.add(b);
             } catch (NoSuchElementException e) {
-                System.out.println("nsee");
-                if (filter.isDatabaseOnly()) {
-                    APIList.remove(b);
-
-                } else {
+                if (!filter.isDatabaseOnly()) {
                     b.setStock(0);
                     b.setTotal(0);
                     list.add(b);
-                }
+                } else
+                    System.out.println("Some books couldn't be found online");
             }
         }
-        System.out.println(list);
         return list;
     }
 

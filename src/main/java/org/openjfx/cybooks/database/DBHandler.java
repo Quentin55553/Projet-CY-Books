@@ -468,7 +468,6 @@ public class DBHandler {
         }
 
         closeConnection();
-        System.out.println(loans);
 
         return loans;
     }

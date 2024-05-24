@@ -16,15 +16,9 @@ public class DBTest {
         List<Loan> loans = new ArrayList<>();
         List<Customer> customers = new ArrayList<>();
         CustomerFilter customerFilter = new CustomerFilter("", "", -1, "", "", "", 10, 2);
-        BookFilter bookFilter = new BookFilter("politique", "", "", "", "", "", true);
+        BookFilter bookFilter = new BookFilter("", "", "", "", "", "", false);
 
         try {
-
-//            Core.addBook("12148/bpt6k33646735", 5, 5);
-
-
-//            Book book = Core.getBook("12148/bpt6k33646735");
-//            books.add(book);
 
             books = Core.getBooksByFilter(bookFilter);
 
