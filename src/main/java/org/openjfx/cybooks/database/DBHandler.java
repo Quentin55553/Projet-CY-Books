@@ -456,7 +456,7 @@ public class DBHandler {
         List<Loan> loans = new ArrayList<>();
 
         try {
-            res = statement.executeQuery("SELECT * FROM loans WHERE expiration_date < CURRENT_DATE");
+            res = statement.executeQuery("SELECT * FROM loans WHERE completed = 0 AND expiration_date < CURRENT_DATE");
 
             while (res.next()) {
                 boolean completed = (res.getInt("completed") != 0);
@@ -468,6 +468,7 @@ public class DBHandler {
         }
 
         closeConnection();
+        System.out.println(loans);
 
         return loans;
     }
