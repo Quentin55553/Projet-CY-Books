@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -23,7 +24,9 @@ import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
     @FXML
-    private Label IDLabel;
+    protected Label IDLabel;
+    @FXML
+    private ImageView librarianAccount;
     @FXML
     private JFXButton AddCustomerTopButton;
     @FXML
@@ -97,6 +100,8 @@ public class HomePageController implements Initializable {
             transition.setRate(-1);
             transition.play();
         });
+        // account button
+        librarianAccount.setOnMouseClicked(actionevent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/LibrarianAccount-page.fxml"));
 
         // top and left menu buttons
         AddCustomerTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/addCustomer-page.fxml"));
