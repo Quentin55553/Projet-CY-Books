@@ -11,8 +11,6 @@ public class BookFilter {
     private String date;
     private String id;
     private String editor;
-    private Boolean inLibrary;
-
     private boolean databaseOnly;
 
     public BookFilter(String title, String author, String theme, String date, String id, String editor, boolean databaseOnly) {
@@ -23,7 +21,6 @@ public class BookFilter {
         this.id = id;
         this.editor = editor;
         this.databaseOnly = databaseOnly;
-        this.inLibrary = inLibrary;
     }
 
     public String getTitle() {
@@ -50,9 +47,7 @@ public class BookFilter {
         return editor;
     }
 
-    public boolean isDatabaseOnly() {
-        return databaseOnly;
-    }
+    public boolean isDatabaseOnly() {return databaseOnly;}
 
     public boolean isEmpty() {
         return Objects.equals(title, "")
@@ -62,8 +57,6 @@ public class BookFilter {
                 && Objects.equals(id, "")
                 && Objects.equals(editor, "");
     }
-
-    public Boolean isInLibrary() {return inLibrary;}
 
     public void setTitle(String title) {
         this.title = title;
@@ -89,16 +82,8 @@ public class BookFilter {
         this.editor = editor;
     }
 
-    public void setInLibrary(Boolean inLibrary) {
-        this.inLibrary = inLibrary;
-    }
-
-    public static boolean IsInLibrary(Book book) {
-        Book bookRes = DBHandler.getBook(book.getId());
-        if(bookRes == null){
-            return false;
-        }
-        return true;
+    public void setDatabaseOnly(boolean databaseOnly) {
+        this.databaseOnly = databaseOnly;
     }
 
     @Override
@@ -140,7 +125,7 @@ public class BookFilter {
         } else {
             sb.append(", editor=unspecified");
         }
-        sb.append(", inLibrary=").append(inLibrary);
+        sb.append(", databaseOnly=").append(databaseOnly);
         sb.append('}');
         return sb.toString();
     }

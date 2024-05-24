@@ -50,7 +50,7 @@ public class FilterDialogBookController {
         TitleField.setText(filter.getTitle());
         AutorField.setText(filter.getAuthor());
         EditorField.setText(filter.getEditor());
-        inLibraryToggle.setSelected(filter.isInLibrary());
+        inLibraryToggle.setSelected(filter.isDatabaseOnly());
         SubjectField.setText(filter.getTheme());
         YearField.setText(filter.getDate());
         // Assuming Integer fields
@@ -66,7 +66,7 @@ public class FilterDialogBookController {
         filter.setTheme(SubjectField.getText().trim());
         filter.setDate(YearField.getText().trim());
         filter.setEditor(EditorField.getText().trim());
-        filter.setInLibrary(inLibraryToggle.isSelected());
+        filter.setDatabaseOnly(inLibraryToggle.isSelected());
         filter.setId(IdField.getText().trim());
 
         // Notify SearchUserPageController about the updated filter
