@@ -243,24 +243,30 @@ public class HomePageController implements Initializable {
     public void changeCenter(String fxmlFile) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         AnchorPane newCenter = loader.load();
-        // Set the size constraints of the new AnchorPane
-        newCenter.setPrefSize(Center.getPrefWidth(), Center.getPrefHeight());
-
-        AnchorPane.setTopAnchor(newCenter, 0.0);
-        AnchorPane.setLeftAnchor(newCenter, 210.0);
-        AnchorPane.setBottomAnchor(newCenter, 0.0);
-        AnchorPane.setRightAnchor(newCenter, 210.0);
-
-
         // Exception when we call the librarian account page we need to pass the connected librarian
         if(fxmlFile.equals("/org/openjfx/cybooks/fxmlFiles/LibrarianAccount-page.fxml")){
             // Get the controller instance from FXMLLoader
             LibrarianAccountPageController controller = loader.getController();
             controller.setLibrarian(connectedLibrarian);
+            // Set the size constraints of the new AnchorPane
+            newCenter.setPrefSize(Center.getPrefWidth(), Center.getPrefHeight());
+            AnchorPane.setTopAnchor(newCenter, 0.0);
+            AnchorPane.setLeftAnchor(newCenter, 90.0);
+            AnchorPane.setBottomAnchor(newCenter, 0.0);
+            AnchorPane.setRightAnchor(newCenter, 90.0);
+            Center.getChildren().setAll(newCenter);
         }
+        else {
+            // Set the size constraints of the new AnchorPane
+            newCenter.setPrefSize(Center.getPrefWidth(), Center.getPrefHeight());
 
+            AnchorPane.setTopAnchor(newCenter, 0.0);
+            AnchorPane.setLeftAnchor(newCenter, 210.0);
+            AnchorPane.setBottomAnchor(newCenter, 0.0);
+            AnchorPane.setRightAnchor(newCenter, 210.0);
 
-        Center.getChildren().setAll(newCenter);
+            Center.getChildren().setAll(newCenter);
+        }
     }
 
 }
