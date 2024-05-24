@@ -21,6 +21,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+
+/**
+ * Controller class for the page that allows the user to see all the expired loans
+ */
 public class LoanIssuesPageControler implements Initializable {
 
     /**
