@@ -1,5 +1,7 @@
 package org.openjfx.cybooks.API;
 
+import org.openjfx.cybooks.data.Core;
+
 import static java.lang.System.exit;
 
 public class ExempleUtilisationAPIHandler {
@@ -18,6 +20,10 @@ public class ExempleUtilisationAPIHandler {
             else {
                 for (int i = 0; i < API.getNumberOfResults(); i++) {
                     System.out.println(API.getResults().get(i));
+                    String id = API.getResults().get(i).getIdentifier();
+                    id = id.replace("https://gallica.bnf.fr/ark:/", "");
+                    id = id.replace("/date", "");
+                    Core.addBook(id, 5, 5);
                 }
             }
         }

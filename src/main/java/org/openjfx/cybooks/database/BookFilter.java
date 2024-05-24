@@ -2,6 +2,8 @@ package org.openjfx.cybooks.database;
 
 import org.openjfx.cybooks.data.Book;
 
+import java.util.Objects;
+
 public class BookFilter {
     private String title;
     private String author;
@@ -11,13 +13,16 @@ public class BookFilter {
     private String editor;
     private Boolean inLibrary;
 
-    public BookFilter(String title, String author, String theme, String date, String id, String editor, Boolean inLibrary) {
+    private boolean databaseOnly;
+
+    public BookFilter(String title, String author, String theme, String date, String id, String editor, boolean databaseOnly) {
         this.title = title;
         this.author = author;
         this.theme = theme;
         this.date = date;
         this.id = id;
         this.editor = editor;
+        this.databaseOnly = databaseOnly;
         this.inLibrary = inLibrary;
     }
 
@@ -43,6 +48,19 @@ public class BookFilter {
 
     public String getEditor() {
         return editor;
+    }
+
+    public boolean isDatabaseOnly() {
+        return databaseOnly;
+    }
+
+    public boolean isEmpty() {
+        return Objects.equals(title, "")
+                && Objects.equals(author, "")
+                && Objects.equals(theme, "")
+                && Objects.equals(date, "")
+                && Objects.equals(id, "")
+                && Objects.equals(editor, "");
     }
 
     public Boolean isInLibrary() {return inLibrary;}

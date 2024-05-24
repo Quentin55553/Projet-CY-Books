@@ -622,4 +622,24 @@ public class DBHandler {
         closeConnection();
         return count;
     }
+
+    public static List<Book> getAllBooks () {
+        createConnection();
+        List<Book> books = new ArrayList<>();
+        ResultSet res;
+
+        try {
+            res = statement.executeQuery("SELECT * from books");
+
+            while (res.next()) {
+                Book book = new Book(res.getString("id"), res.getInt("quantity"), res.getInt("stock"));
+                books.add(book);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        closeConnection();
+        return books;
+    }
 }

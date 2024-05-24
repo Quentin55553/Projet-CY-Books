@@ -15,8 +15,8 @@ public class DBTest {
         List<Book> books = new ArrayList<>();
         List<Loan> loans = new ArrayList<>();
         List<Customer> customers = new ArrayList<>();
-        CustomerFilter customerFilter = new CustomerFilter(null, null, -1, null, null, null, 10, 2);
-        //BookFilter bookFilter = new BookFilter("", "", "", "", "12148/bpt6k33646735", "");
+        CustomerFilter customerFilter = new CustomerFilter("", "", -1, "", "", "", 10, 2);
+        BookFilter bookFilter = new BookFilter("politique", "", "", "", "", "", true);
 
         try {
 
@@ -26,29 +26,21 @@ public class DBTest {
 //            Book book = Core.getBook("12148/bpt6k33646735");
 //            books.add(book);
 
-            //books = Core.getBooksByFilter(bookFilter);
+            books = Core.getBooksByFilter(bookFilter);
 
 
-
-
-
-
-
-
-
-
-
+            System.out.println(books.size());
 
              for (Book b : books) {
                System.out.println(b);
              }
 
-            for (Loan l : loans) {
-                System.out.println(l);
-            }
-             for (Customer c : customers) {
-                 System.out.println(c);
-             }
+//            for (Loan l : loans) {
+//                System.out.println(l);
+//            }
+//             for (Customer c : customers) {
+//                 System.out.println(c);
+//             }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -66,17 +66,61 @@ public class Core {
 
     public static List<Book> getBooksByFilter(BookFilter filter) {
 
-        List<Book> list;
+        List<Book> list = new ArrayList<>();
         List<Book> APIList = new ArrayList<>();
         List<SearchResult> results;
         APIHandler API = new APIHandler();
-        String bookLink = "https://gallica.bnf.fr/ark:/" + filter.getId();
+        String bookLink = "";
+
+
+        if (filter.isEmpty()) {
+            list = DBHandler.getAllBooks();
+
+            for (Book book : list) {
+                bookLink = "https://gallica.bnf.fr/ark:/" + book.getId();
+
+                // get data from API
+                try {
+                    API.generateQueryStandard("", "", "", bookLink, "", "", "");
+                    API.exec();
+
+                    if (API.getNumberOfResults() == 0) {
+                        throw new NoSuchElementException("No such book exists on servers");
+                    } else {
+
+                        SearchResult result = API.getResults().get(0);
+                        book.setTitle(result.getTitle());
+                        book.setAuthors(result.getAuthors());
+                        book.setDate(result.getDate());
+                        book.setDescription(result.getDescription());
+                        book.setLanguage(result.getLanguage());
+                        book.setSubjects(result.getSubjects());
+                        book.setImageLink(result.getImageLink());
+                        book.setPublisher(result.getPublisher());
+                    }
+
+                } catch (NoSuchElementException e) {
+                    System.out.println(e.getMessage());
+                } catch (QueryParameterException e) {
+                    System.out.println(e.getMessage());
+                } catch (APIErrorException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            return list;
+        }
+
+
+        if (!Objects.equals(filter.getId(), ""))
+            bookLink = "https://gallica.bnf.fr/ark:/" + filter.getId();
+
         try {
             API.generateQueryStandard(filter.getTitle(),
                     filter.getAuthor(),
                     filter.getDate(),
                     bookLink,
-                    "", "",
+                    filter.getEditor(),
+                    "",
                     filter.getTheme());
             API.exec();
             results = API.getResults();
@@ -99,7 +143,11 @@ public class Core {
         }
 
 
+
+
         for (Book b : APIList) {
+//            System.out.println(b);
+//            System.out.println("------------------------------");
             try {
                 String id = b.getId();
                 id = id.replace("https://gallica.bnf.fr/ark:/", "");
@@ -107,14 +155,24 @@ public class Core {
                 Book dbBook = DBHandler.getBook(id);
                 b.setStock(dbBook.getStock());
                 b.setTotal(dbBook.getTotal());
+                list.add(b);
             } catch (NoSuchElementException e) {
-                b.setStock(0);
-                b.setTotal(0);
+                System.out.println("nsee");
+                if (filter.isDatabaseOnly()) {
+                    APIList.remove(b);
+
+                } else {
+                    b.setStock(0);
+                    b.setTotal(0);
+                    list.add(b);
+                }
             }
         }
-
-        return APIList;
+        System.out.println(list);
+        return list;
     }
+
+
 
     public static List<Loan> getLoans(int customerId) throws NoSuchElementException {
         return DBHandler.getLoansByCustomer(customerId);
