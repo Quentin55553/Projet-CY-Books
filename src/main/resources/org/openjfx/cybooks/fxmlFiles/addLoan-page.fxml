@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.textfield.CustomTextField?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.addLoanPageController">
    <children>
       <VBox alignment="CENTER" layoutX="47.0" layoutY="50.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -55,7 +57,7 @@
                               <Insets left="15.0" />
                            </GridPane.margin>
                         </Label>
-                        <JFXButton maxWidth="500.0" prefHeight="28.0" prefWidth="500.0" style="-fx-background-color: #283618;" text="Rechercher" textFill="#fefae0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="checkCustomer" maxWidth="500.0" onAction="#checkCustomerFields" prefHeight="28.0" prefWidth="500.0" style="-fx-background-color: #283618;" text="Rechercher" textFill="#fefae0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Eras Medium ITC" size="14.0" />
                            </font>
@@ -63,22 +65,46 @@
                               <Insets left="15.0" right="50.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <CustomTextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer prénom" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <children>
+                              <HBox fx:id="okCustomer" alignment="CENTER" prefHeight="33.0" prefWidth="359.0" spacing="5.0" visible="false">
+                                 <children>
+                                    <FontAwesomeIconView fill="#606c38" glyphName="CHECK" size="28" />
+                                    <Label text="Membre trouvé avec succé" textFill="#606c38">
+                                       <font>
+                                          <Font name="Eras Demi ITC" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="errorCustomer" alignment="CENTER" prefHeight="33.0" prefWidth="359.0" spacing="5.0" visible="false">
+                                 <children>
+                                    <FontAwesomeIconView fill="#a94442" glyphName="CLOSE" size="28" />
+                                    <Label text="Membre introuvable" textFill="#a94442">
+                                       <font>
+                                          <Font name="Eras Demi ITC" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
+                        <TextField fx:id="FirstName" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer prénom" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="15.0" />
                            </GridPane.margin>
                            <font>
                               <Font name="Eras Medium ITC" size="18.0" />
                            </font>
-                        </CustomTextField>
-                        <CustomTextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer nom" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets left="15.0" />
-                           </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="LastName" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer nom" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Eras Medium ITC" size="18.0" />
                            </font>
-                        </CustomTextField>
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </TextField>
                      </children>
                   </GridPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
@@ -123,7 +149,7 @@
                               <Insets left="15.0" />
                            </GridPane.margin>
                         </Label>
-                        <JFXButton maxWidth="500.0" prefHeight="28.0" prefWidth="500.0" style="-fx-background-color: #283618;" text="Rechercher" textFill="#fefae0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                        <JFXButton fx:id="checkBook" maxWidth="500.0" onAction="#checkBookField" prefHeight="28.0" prefWidth="500.0" style="-fx-background-color: #283618;" text="Rechercher" textFill="#fefae0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Eras Medium ITC" size="14.0" />
                            </font>
@@ -131,14 +157,38 @@
                               <Insets left="15.0" right="50.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <CustomTextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer ISBN" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets left="15.0" />
-                           </GridPane.margin>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <children>
+                              <HBox fx:id="okBook" alignment="CENTER" prefHeight="33.0" prefWidth="359.0" spacing="5.0" visible="false">
+                                 <children>
+                                    <FontAwesomeIconView fill="#606c38" glyphName="CHECK" size="28" />
+                                    <Label text="Livre trouvé avec succé" textFill="#606c38">
+                                       <font>
+                                          <Font name="Eras Demi ITC" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="errorBook" alignment="CENTER" prefHeight="33.0" prefWidth="359.0" spacing="5.0" visible="false">
+                                 <children>
+                                    <FontAwesomeIconView fill="#a94442" glyphName="CLOSE" size="28" />
+                                    <Label text="Livre introuvable" textFill="#a94442">
+                                       <font>
+                                          <Font name="Eras Demi ITC" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
+                        <TextField fx:id="ID" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="220.0" promptText="Entrer ID" style="-fx-background-color: none; -fx-border-color: #FEFAE0;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Eras Medium ITC" size="18.0" />
                            </font>
-                        </CustomTextField>
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </TextField>
                      </children>
                   </GridPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
@@ -153,11 +203,17 @@
                </children>
             </GridPane>
             <Separator maxWidth="-Infinity" orientation="VERTICAL" prefHeight="50.0" visible="false" />
-            <JFXButton maxWidth="500.0" prefHeight="28.0" prefWidth="500.0" style="-fx-background-color: #283618;" text="Valider emprunt" textFill="#fefae0">
+            <JFXButton fx:id="ValidateLoan" maxWidth="500.0" onAction="#ValidateLoan" prefHeight="28.0" prefWidth="500.0" style="-fx-background-color: #283618;" text="Valider emprunt" textFill="#fefae0">
                <font>
                   <Font name="Eras Medium ITC" size="14.0" />
                </font>
             </JFXButton>
+            <Separator maxWidth="15.0" orientation="VERTICAL" prefHeight="15.0" />
+            <Label fx:id="validateState" textFill="#606c38">
+               <font>
+                  <Font name="Eras Medium ITC" size="13.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
    </children>

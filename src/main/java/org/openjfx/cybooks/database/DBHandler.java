@@ -199,7 +199,6 @@ public class DBHandler {
         return customers;
     }
 
-
     public static List<Customer> getAllCustomers() {
         createConnection();
         ResultSet res;
