@@ -106,7 +106,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1000.0" spacing="10.0">
                <children>
                   <FontAwesomeIconView fx:id="ChevronLeft" fill="#606c38" glyphName="CHEVRON_LEFT" onMouseClicked="#Previous" size="30" />
-                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: #606C38;">
+                  <Separator fx:id="Separator" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="200.0" style="-fx-background-color: #606C38;">
                      <effect>
                         <MotionBlur angle="59.29" radius="7.78" />
                      </effect>
