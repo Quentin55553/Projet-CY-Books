@@ -120,7 +120,7 @@
                               <Font size="14.0" />
                            </font>
                            <GridPane.margin>
-                              <Insets left="50.0" right="17.0" top="9.0" />
+                              <Insets left="50.0" right="17.0" top="5.0" />
                            </GridPane.margin>
                         </Label>
                      </children>
