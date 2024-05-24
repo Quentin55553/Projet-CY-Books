@@ -27,23 +27,51 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 
+/**
+ * Controller that allows the user to see the profile of a customer, with his loan history
+ */
 public class ProfilePageController implements Initializable {
+    /**
+     * View of the customer's loans
+     */
     @FXML
     private VBox CustomerHistory;
+    /**
+     * Firstname of the customer
+     */
     @FXML
     private Text firstname;
+    /**
+     * Lastname of the customer
+     */
     @FXML
     private Text lastname;
+    /**
+     * Customer object representing the customer
+     */
     private Customer customer;
+    /**
+     * Loan list of the customer
+     */
     private List<Loan> loans;
 
 
+    /**
+     * Method called at arrival on the page
+     * @param url Not used
+     * @param resourceBundle Not used
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // setButtonCustomer() has to be called first before displaying the page. So we load the page in another dedicated method.
     }
 
 
+    /**
+     * This method loads the page for a given customer
+     * It will show their loan history and their personal information
+     * @param customer The customer to show
+     */
     public void setButtonCustomer(Customer customer) {
         this.customer = customer;
         this.loans = DBHandler.getLoansByCustomer(this.customer.getId());
@@ -53,12 +81,19 @@ public class ProfilePageController implements Initializable {
     }
 
 
+    /**
+     * This method puts the customer's information on the view
+     */
     private void loadCustomerInformation() {
         firstname.setText(customer.getFirstName());
         lastname.setText(customer.getLastName());
     }
 
-
+    /**
+     * This method is called to show the loan history of the current customer
+     * It uses an APIHandler object to search for each book's information and show it if there is no errors
+     * A completed / late button is also handled in this method. The user can mark each loan as completed or late
+     */
     private void loadCustomerHistory() {
         APIHandler api = new APIHandler();
         List <SearchResult> results;
@@ -113,6 +148,13 @@ public class ProfilePageController implements Initializable {
     }
 
 
+    /**
+     * This method changes the status of a loan and handles the visibility of the associated buttons
+     * @param loan The loan to change
+     * @param completedButton The button showing if the loan is completed
+     * @param notCompletedButton The button showing if the loan is not completed
+     * @param lateButton The button showing if the loan is late
+     */
     private void toggleLoanStatus(Loan loan, JFXButton completedButton, JFXButton notCompletedButton, JFXButton lateButton) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
 
@@ -144,7 +186,14 @@ public class ProfilePageController implements Initializable {
         }
     }
 
-
+    /**
+     * This method hides or shows buttons to represent the status of a loan
+     * @param completedButton The button showing if the loan is completed
+     * @param notCompletedButton The button showing if the loan is not completed
+     * @param lateButton The button showing if the loan is late
+     * @param isCompleted The status of the loan
+     * @param hasExpired The status of the loan
+     */
     private void setButtonVisibility(JFXButton completedButton, JFXButton notCompletedButton, JFXButton lateButton, boolean isCompleted, boolean hasExpired) {
         if (hasExpired) {
             completedButton.setVisible(isCompleted);
