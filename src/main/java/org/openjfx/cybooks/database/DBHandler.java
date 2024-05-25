@@ -14,12 +14,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-
+/**
+ * The DBHandler class is used to do queries to the database
+ */
 public class DBHandler {
+
+    /**
+     * Contains a connection to the database
+     */
     private static Connection connection;
+
+    /**
+     * Contains the statement to the database
+     */
     private static Statement statement;
 
-
+    /**
+     * Creates the first connection to the database, used to initialize it
+     */
     private static void createFirstConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -32,7 +44,10 @@ public class DBHandler {
         }
     }
 
-
+    /**
+     * Creates a new connection to the database
+     * @implNote Must be called before any interaction with the database
+     */
     private static void createConnection() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -45,7 +60,10 @@ public class DBHandler {
         }
     }
 
-
+    /**
+     * Closes the connection to the database
+     * @implNote Must be called after any interaction with the database
+     */
     private static void closeConnection () {
         try {
             connection.close();
@@ -55,7 +73,10 @@ public class DBHandler {
         }
     }
 
-
+    /**
+     * Initialize the database on the servers
+     * @param filePath The database's file path
+     */
     public static void executeSQLFile(String filePath) {
         createFirstConnection();
 
@@ -78,9 +99,15 @@ public class DBHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
-
+    /**
+     * Returns a semi-empty Book from its id in database
+     * @param id The id in database
+     * @return A semi-empty Book with all the information available
+     * @throws NoSuchElementException Thrown if the book is missing on the database
+     */
     public static Book getBook(String id) throws NoSuchElementException {
         createConnection();
         ResultSet res;
@@ -103,7 +130,11 @@ public class DBHandler {
         return book;
     }
 
-
+    /**
+     * Returns a list of loans from some customer
+     * @param customer_id The customer's id
+     * @return A list of loans from some customer
+     */
     public static List<Loan> getLoansByCustomer(int customer_id) {
         createConnection();
         ResultSet res;
@@ -126,7 +157,11 @@ public class DBHandler {
         return loans;
     }
 
-
+    /**
+     * Returns a list of loans from some book
+     * @param bookId The book's id
+     * @return A list of loans from some book
+     */
     public static List<Loan> getLoansByBookId(String bookId) {
         createConnection();
         ResultSet res;
@@ -151,7 +186,10 @@ public class DBHandler {
         return loans;
     }
 
-
+    /**
+     * Returns a list of all loans
+     * @return A list of all loans
+     */
     public static List<Loan> getLoans() {
         createConnection();
         ResultSet res;
@@ -176,7 +214,11 @@ public class DBHandler {
         return loans;
     }
 
-
+    /**
+     * Returns a list of customers whose last name matches the name
+     * @param name The name used as filter
+     * @return A list of matching customers
+     */
     public static List<Customer> getCustomers(String name) {
         createConnection();
         ResultSet res;
@@ -199,6 +241,10 @@ public class DBHandler {
         return customers;
     }
 
+    /**
+     * Returns a list of all the customers
+     * @return A list of all the customers
+     */
     public static List<Customer> getAllCustomers() {
         createConnection();
         ResultSet res;
@@ -230,7 +276,10 @@ public class DBHandler {
         return customers;
     }
 
-
+    /**
+     * Returns a list of all ongoing loans
+     * @return A list of all ongoing loans
+     */
     public static List<Loan> getOngoingLoans () {
         createConnection();
         ResultSet res;
@@ -254,7 +303,12 @@ public class DBHandler {
         return loans;
     }
 
-
+    /**
+     * Adds a book in the database
+     * @param ID The book's id
+     * @param stock The amount of books currently available
+     * @param total The total amount of books once all books have been returned
+     */
     public static void addBook (String ID, int stock, int total) {
         createConnection();
 
@@ -262,13 +316,18 @@ public class DBHandler {
             statement.execute("INSERT INTO books (id, quantity, stock) VALUES ('" + ID + "', '" + total + "', '" + stock + "')");
 
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         closeConnection();
     }
 
-
+    /**
+     * Adds a loan to the database
+     * @param book_id The book's id
+     * @param customer_id The customer's id
+     * @param expirationDate The date of which the book must be returned
+     */
     public static void addLoan (String book_id, int customer_id, String expirationDate) {
         createConnection();
 
@@ -277,13 +336,21 @@ public class DBHandler {
             statement.execute("UPDATE books SET stock=stock-1 WHERE id='" + book_id + "'");
             statement.execute("UPDATE customers SET loan_count=loan_count+1 WHERE id='" + customer_id + "'");
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         closeConnection();
     }
 
-
+    /**
+     * Adds a customer to the database
+     * @param firstname The customer's first name
+     * @param lastname The customer's last name
+     * @param tel The customer's phone number
+     * @param email The customer's email
+     * @param address The customer's address
+     * @throws SQLException Thrown if the customer already exists or if one of the fields is incorrect
+     */
     public static void addCustomer (String firstname, String lastname, String tel, String email, String address) throws SQLException {
         createConnection();
 
@@ -303,7 +370,14 @@ public class DBHandler {
         closeConnection();
     }
 
-
+    /**
+     * Adds a librarian to the database
+     * @param login The librarian's login
+     * @param lastName The librarian's last name
+     * @param firstName The librarian's first name
+     * @param password The librarian's password
+     * @throws SQLException Thrown if the librarian already exist in the database
+     */
     public static void addLibrarian (String login, String lastName, String firstName, String password) throws SQLException {
         createConnection();
 
@@ -325,7 +399,12 @@ public class DBHandler {
         closeConnection();
     }
 
-
+    /**
+     * Update the customer's first name and last name
+     * @param id The customer's id
+     * @param firstName The customer's new first name
+     * @param lastName The customer's new last name
+     */
     public static void updateCustomer (int id, String lastName, String firstName) {
         createConnection();
 
@@ -339,7 +418,16 @@ public class DBHandler {
         closeConnection();
     }
 
-
+    /**
+     * Updates all the customer's fields
+     * @param id The customer's id
+     * @param lastName The customer's last name
+     * @param firstName The customer's first nams
+     * @param tel The customer's phone number
+     * @param email The customer's email
+     * @param address The customer's address
+     * @throws SQLException Thrown if one of the fields already exist in the database
+     */
     public static void updateEntireCustomer (int id, String lastName, String firstName, String tel, String email, String address) throws SQLException {
         createConnection();
 
@@ -359,7 +447,11 @@ public class DBHandler {
         closeConnection();
     }
 
-
+    /**
+     * Updates a loan's status
+     * @param id The loan id
+     * @param completed Whether the book has been given back or not
+     */
     public static void updateLoan (int id, boolean completed) {
         createConnection();
 
@@ -375,7 +467,11 @@ public class DBHandler {
         closeConnection();
     }
 
-
+    /**
+     * Updates a loan's expiration date
+     * @param id The loan's id
+     * @param expirationDate The new expiration date
+     */
     public static void updateExpirationDate(String id, String expirationDate) {
         createConnection();
 
@@ -389,7 +485,11 @@ public class DBHandler {
         closeConnection();
     }
 
-
+    /**
+     * Updates a book's stock
+     * @param id The id of the book to be updated
+     * @param stock The book's new stock
+     */
     public static void updateBookStock (String id, int stock) {
         createConnection();
 
@@ -403,7 +503,11 @@ public class DBHandler {
         closeConnection();
     }
 
-
+    /**
+     * Updates a book's total amount
+     * @param id The id of the book to be updated
+     * @param total The book's new total
+     */
     public static void updateBookTotal (String id, int total) {
         createConnection();
 
@@ -417,7 +521,10 @@ public class DBHandler {
         closeConnection();
     }
 
-
+    /**
+     * Returns a list of the most popular books in the database
+     * @return A list of the most popular books in the database
+     */
     public static List<Book> getMostPopularBooks() {
         createConnection();
         ResultSet res;
@@ -443,7 +550,11 @@ public class DBHandler {
         return books;
     }
 
-
+    /**
+     * Returns a list of the most popular books in the database since some date
+     * @param date The date to start the research from
+     * @return A list of the most popular books in the database since some date
+     */
     public static List<Book> getMostPopularBooksSince(String date) {
         createConnection();
         ResultSet res;
@@ -468,7 +579,10 @@ public class DBHandler {
         return books;
     }
 
-
+    /**
+     * Returns a list of the loans that have expired
+     * @return A list of the loans that have expired
+     */
     public static List<Loan> getExpiredLoans() {
         createConnection();
         ResultSet res;
@@ -491,7 +605,14 @@ public class DBHandler {
         return loans;
     }
 
-
+    /**
+     * Tries to log in the librarian with the login and password provided
+     * @param login The librarian's login
+     * @param password The librarian's password
+     * @return A new Librarian object
+     * @throws NoSuchElementException Thrown if the librarian is missing in the database
+     * @throws IncorrectPasswordException Thrown if the librarian's password is incorrect
+     */
     public static Librarian librarianAuthentication(String login, String password) throws IncorrectPasswordException, NoSuchElementException {
         createConnection();
         ResultSet res;
@@ -521,7 +642,11 @@ public class DBHandler {
         return librarian;
     }
 
-
+    /**
+     * Returns a new librarian corresponding to the login
+     * @param login The login to be used as filter
+     * @return A new librarian corresponding to the login
+     */
     public static Librarian getLibrarian(String login) {
 
         createConnection();
@@ -543,6 +668,11 @@ public class DBHandler {
 
     }
 
+    /**
+     * Returns the librarian's login
+     * @param librarian The librarian
+     * @return The librarian's login
+     */
     public static String getLibrarianLogin(Librarian librarian) {
         createConnection();
         ResultSet res;
@@ -566,6 +696,11 @@ public class DBHandler {
         return login;
     }
 
+    /**
+     * Returns a list of customers corresponding to the search filter
+     * @param filter The filter to be used for research
+     * @return A list of customers corresponding to the search filter
+     */
     public static List<Customer> getCustomersByFilter(CustomerFilter filter) {
         createConnection();
         List<Customer> customers = new ArrayList<>();
@@ -633,7 +768,11 @@ public class DBHandler {
         return customers;
     }
 
-
+    /**
+     * Returns a list of loans corresponding to the search filter
+     * @param filter The filter to be used for research
+     * @return A list of loans corresponding to the search filter
+     */
     public static List<Loan> getLoansByFilter (LoanFilter filter) {
         createConnection();
         List<Loan> loans = new ArrayList<>();
@@ -690,23 +829,10 @@ public class DBHandler {
         return loans;
     }
 
-    public static int getLoanCount(int customerId) throws NoSuchElementException {
-        createConnection();
-        ResultSet res;
-        int count = 0;
-        try {
-            res = statement.executeQuery("SELECT loan_count FROM customers WHERE id=" + customerId);
-            if (res.next())
-                count = res.getInt("c");
-            else
-                throw new NoSuchElementException("No customer with id " + customerId);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        closeConnection();
-        return count;
-    }
-
+    /**
+     * Returns a list of semi-empty books from the database
+     * @return A list of semi-empty books from the database
+     */
     public static List<Book> getAllBooks () {
         createConnection();
         List<Book> books = new ArrayList<>();

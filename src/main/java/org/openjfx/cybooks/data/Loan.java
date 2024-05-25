@@ -171,7 +171,7 @@ public class Loan {
      */
     public String toString () {
         return "id : " + id
-            + "\nISBN: " + bookId
+            + "\nbook id: " + bookId
             + "\ncustomer: " + customerId
             + "\nbegin date: " + beginDate
             + "\nexpiration date: " + expirationDate
