@@ -275,6 +275,12 @@ public class SearchBookPageController implements Initializable {
 
     }
 
+    /**
+     * This method handles a click on the 'add to library' button.
+     * The book is added to the library and his button updated to now take the user to its page
+     * @param book The Book object
+     * @param button The button associated with the book
+     */
     private void AddToLibrary(Book book, Button button) {
         Core.addBook(book.getId(), 5,5);
         book.setStock(5);

@@ -12,31 +12,60 @@ import java.sql.SQLException;
 
 
 public class editCustomerPageController {
+    /**
+     * The customer to edit
+     */
     private Customer customer;
 
+    /**
+     * Firstname field for editing the information of the customer
+     */
     @FXML
     public CustomTextField firstnameField;
+    /**
+     * Lastname field for editing the information of the customer
+     */
     @FXML
     public CustomTextField lastnameField;
+    /**
+     * Phone number field for editing the information of the customer
+     */
     @FXML
     public CustomTextField telField;
+    /**
+     * Email field for editing the information of the customer
+     */
     @FXML
     public CustomTextField emailField;
+    /**
+     * Adress field for editing the information of the customer
+     */
     @FXML
     public CustomTextField addressField;
+    /**
+     * Label used to show the error messages
+     */
     @FXML
     public Label errorLabel;
+    /**
+     * Label used to show the confirmation messages
+     */
     @FXML
     public Label confirmationLabel;
 
-
+    /**
+     * This method loads the page for the specified customer
+     * @param customer The Customer object to use
+     */
     public void setButtonCustomer(Customer customer) {
         this.customer = customer;
 
         loadCustomerInformation();
     }
 
-
+    /**
+     * This method loads the information of the customer on the view
+     */
     public void loadCustomerInformation() {
         firstnameField.setText(customer.getFirstName());
         lastnameField.setText(customer.getLastName());
@@ -46,6 +75,9 @@ public class editCustomerPageController {
     }
 
 
+    /**
+     * This method updates the profile of a customer in the database using the information entered in the fields of the page
+     */
     @FXML
     public void modifyCustomerInformations() {
         String newFirstName = firstnameField.getText();
