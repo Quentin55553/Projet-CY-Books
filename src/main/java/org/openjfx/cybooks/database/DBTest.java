@@ -20,14 +20,14 @@ public class DBTest {
 
         try {
 
-            books = Core.getBooksByFilter(bookFilter);
+            Book thebook = Core.getBook("12148/bpt6k33646735");
+            String thebokktitle = thebook.getTitle();
 
+            System.out.println(thebokktitle);
 
-            System.out.println(books.size());
-
-             for (Book b : books) {
+             /*for (Book b : books) {
                System.out.println(b);
-             }
+             }*/
 
 //            for (Loan l : loans) {
 //                System.out.println(l);

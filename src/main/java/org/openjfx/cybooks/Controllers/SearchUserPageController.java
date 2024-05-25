@@ -131,6 +131,7 @@ public class SearchUserPageController implements Initializable {
      */
     private List<Customer> getResultsFromDatabase(CustomerFilter filter) {
         results = DBHandler.getCustomersByFilter(filter);
+        System.out.println(results);
         return results;
     }
 
@@ -294,7 +295,7 @@ public class SearchUserPageController implements Initializable {
         results = getResultsFromDatabase(filter);
         try {
             showPage(0);
-            updateButtonStates(results.size() / rowsPerPage);
+            //updateButtonStates(results.size() / rowsPerPage);
         } catch (IOException e) {
             e.printStackTrace();
         }

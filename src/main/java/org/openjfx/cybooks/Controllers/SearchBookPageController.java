@@ -118,6 +118,9 @@ public class SearchBookPageController implements Initializable {
      */
     @FXML
     private void Next() throws IOException {
+
+        System.out.println("NEXT IS CALLS SHOWPAGE WITH CURRENT PAGE" + (currentPage + 1));
+
         showPage(currentPage + 1);
     }
 
@@ -148,6 +151,10 @@ public class SearchBookPageController implements Initializable {
      * @throws IOException If there is an error during the page transition
      */
     private void showPage(int page) throws IOException {
+
+        System.out.println("SHOW PAGE IS CALLED WITH PAGE NUMBER: " + page);
+
+
         int totalPages = getTotalPages();
         if (page < 0 || page > results.size() / rowsPerPage) {
             return;
@@ -162,8 +169,6 @@ public class SearchBookPageController implements Initializable {
         int start = page * rowsPerPage;
         int end = Math.min(start + rowsPerPage, results.size());
 
-
-        int count = 0;
 
 
         for (int i = start; i < end; i++) {
@@ -214,7 +219,6 @@ public class SearchBookPageController implements Initializable {
                 // Book in library
                 if(DBHandler.isInLibrary(book.getId())){
                     button.setOnAction(actionEvent -> handleButtonClick(book));
-                    count ++;
                 }
                 // Book not in library
                 else{
@@ -227,7 +231,6 @@ public class SearchBookPageController implements Initializable {
             BooksVbox.getChildren().add(node);
         }
         System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
-        System.out.println("count ="+count);
         updateButtonStates(totalPages);
     }
 

@@ -112,7 +112,11 @@ public class LoanIssuesPageControler implements Initializable {
      * @return The number of pages needed to show the all of the results attribute
      */
     private int getTotalPages() {
-        return (results.size() + rowsPerPage - 1) / rowsPerPage;
+        int total = results.size() / rowsPerPage;
+        if (results.size() % rowsPerPage != 0) {
+            total++; // Add one more page for the remaining items
+        }
+        return total;
     }
 
     /**
@@ -125,7 +129,7 @@ public class LoanIssuesPageControler implements Initializable {
         if (page < 0 || page > results.size() / rowsPerPage) {
             return;
         }
-        if ( getTotalPages() <= 1 ){
+        if ( totalPages <= 1 ){
             Separator.setVisible(false);
         }
 
@@ -183,6 +187,7 @@ public class LoanIssuesPageControler implements Initializable {
         results = getResultsFromDatabase();
         try {
             showPage(currentPage);
+            updateButtonStates(currentPage);
         } catch (IOException e) {
             e.printStackTrace();
         }

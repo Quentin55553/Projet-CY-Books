@@ -508,6 +508,7 @@ public class DBHandler {
      * @throws SQLException Thrown if one of the fields already exist in the database
      */
     public static void updateEntireCustomer (int id, String lastName, String firstName, String tel, String email, String address) throws SQLException {
+
         try {
             createConnection();
             statement.execute("UPDATE customers SET last_name='" + lastName + "', first_name='" + firstName + "', tel='" + tel + "', email='" + email + "', address='" + address + "' WHERE id='" + id + "'");
@@ -630,7 +631,6 @@ public class DBHandler {
 
         return books;
     }
-
 
     /**
      * Returns a list of the most popular books in the database since some date
@@ -787,7 +787,6 @@ public class DBHandler {
         return login;
     }
 
-
     /**
      * Returns a list of customers corresponding to the search filter
      * @param filter The filter to be used for research
@@ -880,6 +879,16 @@ public class DBHandler {
         boolean completed = filter.isCompleted();
         boolean expired = filter.isExpired();
 
+        // Handle the case where customerID is null, bookID is empty, and completed is false
+        if (customerID == null && bookID.isEmpty() && !completed) {
+            if (!expired) {
+                System.out.println(getOngoingLoans());
+                //return getOngoingLoans();
+            } else {
+                return getExpiredLoans();
+            }
+        }
+
         // Start building the query
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM loans WHERE ");
 
@@ -896,9 +905,11 @@ public class DBHandler {
             queryBuilder.append(" AND book_id LIKE '%").append(bookID).append("%'");
         }
 
-        // Add expired condition if wanted
+        // Add expired condition if provided
         if (expired) {
             queryBuilder.append(" AND expiration_date < CURRENT_DATE");
+        } else {
+            queryBuilder.append(" AND expiration_date >= CURRENT_DATE");
         }
 
         String query = queryBuilder.toString();
@@ -921,10 +932,9 @@ public class DBHandler {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            closeConnection();
         }
-
-        closeConnection();
-
         return loans;
     }
 
