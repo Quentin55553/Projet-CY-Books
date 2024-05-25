@@ -340,6 +340,26 @@ public class DBHandler {
     }
 
 
+    public static void updateEntireCustomer (int id, String lastName, String firstName, String tel, String email, String address) throws SQLException {
+        createConnection();
+
+        try {
+            statement.execute("UPDATE customers SET last_name='" + lastName + "', first_name='" + firstName + "', tel='" + tel + "', email='" + email + "', address='" + address + "' WHERE id='" + id + "'");
+
+        } catch (SQLException e) {
+            // Checks if MySQL indicates a unique constraint violation
+            if (e.getErrorCode() == 1062) {
+                throw new SQLException("L'email et/ou le numéro de téléphone est déjà utilisé");
+
+            } else {
+                throw new SQLException("Une erreur s'est produite");
+            }
+        }
+
+        closeConnection();
+    }
+
+
     public static void updateLoan (int id, boolean completed) {
         createConnection();
 
