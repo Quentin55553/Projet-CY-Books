@@ -23,7 +23,7 @@ function generate_javadoc() {
 			echo -e "${Vert}Génération de la Javadoc réussie !${Couleur_OFF}"
 
 		else
-			echo -e "${Rouge}Échec de la génération de la Javadoc${Couleur_OFF}"
+			echo -e "${Rouge}La génération de la Javadoc s'est terminée avec plusieurs erreurs${Couleur_OFF}"
 		fi
 
 	else
