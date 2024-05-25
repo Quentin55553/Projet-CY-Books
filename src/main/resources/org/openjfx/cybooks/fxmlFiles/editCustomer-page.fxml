@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.addCustomerPageController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.editCustomerPageController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="68.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -26,17 +26,17 @@
                </rowConstraints>
                <children>
                   <GridPane prefHeight="508.0" prefWidth="990.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="1">
-                    <columnConstraints>
+                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="244.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="339.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="133.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="244.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="353.0" minWidth="10.0" prefWidth="353.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="119.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="50.0" minHeight="5.0" prefHeight="49.0" />
-                      <RowConstraints maxHeight="30.0" minHeight="2.0" prefHeight="26.0" vgrow="SOMETIMES" />
-                      <RowConstraints fillHeight="false" maxHeight="72.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="50.0" minHeight="5.0" prefHeight="49.0" />
+                        <RowConstraints maxHeight="30.0" minHeight="2.0" prefHeight="26.0" vgrow="SOMETIMES" />
+                        <RowConstraints fillHeight="false" maxHeight="72.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="156.0" minHeight="0.0" prefHeight="13.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="86.0" minHeight="0.0" prefHeight="14.0" vgrow="SOMETIMES" />
@@ -47,7 +47,7 @@
                         <RowConstraints maxHeight="82.0" minHeight="5.0" prefHeight="49.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="156.0" minHeight="0.0" prefHeight="21.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                     </rowConstraints>
                      <children>
                         <Label prefHeight="22.0" prefWidth="278.0" text="Prénom" textAlignment="CENTER" textFill="#283618" GridPane.columnIndex="2">
                            <font>
@@ -99,7 +99,7 @@
                               <Font name="Eras Medium ITC" size="18.0" />
                            </font>
                         </CustomTextField>
-                        <JFXButton onAction="#addCustomerClicked" prefHeight="28.0" prefWidth="185.0" style="-fx-background-color: #283618;" text="Inscrire" textFill="#fefae0" GridPane.columnIndex="2" GridPane.rowIndex="11">
+                        <JFXButton onMouseClicked="#modifyCustomerInformations" prefHeight="28.0" prefWidth="185.0" style="-fx-background-color: #283618;" text="Modifier" textFill="#fefae0" GridPane.columnIndex="2" GridPane.rowIndex="11">
                            <font>
                               <Font name="Eras Medium ITC" size="16.0" />
                            </font>
@@ -107,7 +107,7 @@
                               <Insets left="17.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <Label fx:id="errorLabel" prefHeight="29.0" prefWidth="354.0" textFill="#f80000" GridPane.columnIndex="2" GridPane.rowIndex="10">
+                        <Label fx:id="errorLabel" prefHeight="29.0" prefWidth="349.0" textFill="#f80000" GridPane.columnIndex="2" GridPane.rowIndex="10">
                            <font>
                               <Font size="10.0" />
                            </font>
@@ -120,14 +120,14 @@
                               <Font size="14.0" />
                            </font>
                            <GridPane.margin>
-                              <Insets left="50.0" right="17.0" top="5.0" />
+                              <Insets left="35.0" right="17.0" top="5.0" />
                            </GridPane.margin>
                         </Label>
                      </children>
                   </GridPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="301.0" text="Inscription d'un membre" textFill="#fefae0">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="301.0" text="Modification du profil" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="23.0" />
                            </font>

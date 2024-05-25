@@ -1,6 +1,7 @@
 package org.openjfx.cybooks.Controllers;
 
 import com.jfoenix.controls.JFXButton;
+
 import org.openjfx.cybooks.API.APIErrorException;
 import org.openjfx.cybooks.API.APIHandler;
 import org.openjfx.cybooks.API.QueryParameterException;
@@ -9,9 +10,9 @@ import org.openjfx.cybooks.data.Customer;
 import org.openjfx.cybooks.data.Loan;
 import org.openjfx.cybooks.database.DBHandler;
 
+import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
@@ -19,18 +20,16 @@ import javafx.scene.text.Text;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import java.util.Optional;
 
+import java.util.Optional;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
 
 /**
  * Controller that allows the user to see the profile of a customer, with his loan history
  */
-public class ProfilePageController implements Initializable {
+public class ProfilePageController {
     /**
      * View of the customer's loans
      */
@@ -47,6 +46,11 @@ public class ProfilePageController implements Initializable {
     @FXML
     private Text lastname;
     /**
+     * The root of the page
+     */
+    @FXML
+    public AnchorPane Root;
+    /**
      * Customer object representing the customer
      */
     private Customer customer;
@@ -54,17 +58,6 @@ public class ProfilePageController implements Initializable {
      * Loan list of the customer
      */
     private List<Loan> loans;
-
-
-    /**
-     * Method called at arrival on the page
-     * @param url Not used
-     * @param resourceBundle Not used
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // setButtonCustomer() has to be called first before displaying the page. So we load the page in another dedicated method.
-    }
 
 
     /**
@@ -204,6 +197,36 @@ public class ProfilePageController implements Initializable {
             completedButton.setVisible(isCompleted);
             notCompletedButton.setVisible(!isCompleted);
             lateButton.setVisible(false);
+        }
+    }
+
+
+    /**
+     * This method handles the edit profile button click
+     * It changes the page to the edit profile page
+     */
+    @FXML
+    protected void editProfileClicked() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/editCustomer-page.fxml"));
+            AnchorPane newCenter = loader.load();
+
+            // Set the size constraints of the new AnchorPane
+            newCenter.setPrefSize(newCenter.getPrefWidth(), newCenter.getPrefHeight());
+
+            AnchorPane.setTopAnchor(newCenter, 0.0);
+            AnchorPane.setLeftAnchor(newCenter, 0.0);
+            AnchorPane.setBottomAnchor(newCenter, 0.0);
+            AnchorPane.setRightAnchor(newCenter, 0.0);
+
+            // Replace the current center pane with the new one
+            Root.getChildren().setAll(newCenter);
+
+            editCustomerPageController controller = loader.getController();
+            controller.setButtonCustomer(customer);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

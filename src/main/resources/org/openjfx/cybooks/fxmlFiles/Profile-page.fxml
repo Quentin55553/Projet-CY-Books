@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.ProfilePageController">
+<AnchorPane fx:id="Root" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.ProfilePageController">
    <children>
       <VBox alignment="CENTER" layoutX="28.0" layoutY="68.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -102,7 +102,7 @@
                         </Label>
                         <HBox prefHeight="36.0" prefWidth="841.0">
                            <children>
-                              <JFXButton maxWidth="-Infinity" prefHeight="28.0" prefWidth="156.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" text="Modifier le profil" textFill="#fefae0">
+                              <JFXButton maxWidth="-Infinity" prefHeight="28.0" prefWidth="156.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" onMouseClicked="#editProfileClicked" text="Modifier le profil" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
