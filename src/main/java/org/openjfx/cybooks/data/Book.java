@@ -1,5 +1,6 @@
 package org.openjfx.cybooks.data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,6 +59,14 @@ public class Book {
         this.id = id;
         this.stock = stock;
         this.total = total;
+        this.title = "";
+        this.description = "";
+        this.subjects = new ArrayList<>();
+        this.authors = new ArrayList<>();
+        this.imageLink = "";
+        this.publisher = "";
+        this.date = "";
+        this.language = "";
     }
 
     /**
