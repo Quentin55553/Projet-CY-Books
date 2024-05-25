@@ -1,5 +1,6 @@
 package org.openjfx.cybooks.UserInput;
 
+
 /**
  * This exception arises when the user tries to enter an incorrect name in one of the app's fields
  */
