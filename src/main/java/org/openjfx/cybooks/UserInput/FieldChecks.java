@@ -1,6 +1,12 @@
 package org.openjfx.cybooks.UserInput;
 
 
+import org.openjfx.cybooks.data.Librarian;
+import org.openjfx.cybooks.database.DBHandler;
+
+import java.sql.SQLException;
+import java.util.NoSuchElementException;
+
 /**
  * This class' goal is to manage the user's inputs, not allowing them to enter invalid symbols and values in the app's fields
  */
@@ -210,5 +216,23 @@ public class FieldChecks {
      */
     public static boolean isValidSignUp(String login, String lastname, String firstname, String password, String confirmedPassword) throws IncorrectFieldException {
         return isValidLogin(login) && isValidLastname(lastname) && isValidFirstname(firstname) && isValidPassword(password) && areMatchingPasswords(password, confirmedPassword);
+    }
+
+
+    /**
+     * This method checks if entered credentials are valid
+     * @param login The login String
+     * @param password The password String
+     * @return true if the credentials are valid, false if not
+     */
+    public static boolean areValidCredentials(String login, String password) throws NoSuchElementException, IncorrectFieldException {
+        Librarian librarian = null;
+
+        isValidLogin(login);
+        isValidPassword(password);
+        librarian = DBHandler.librarianAuthentication(login, password);
+
+        // Returns 'true' if the 'librarian' variable is not null, 'false' otherwise
+        return librarian != null;
     }
 }
