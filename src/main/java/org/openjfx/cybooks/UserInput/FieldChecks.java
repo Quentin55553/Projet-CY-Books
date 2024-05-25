@@ -5,8 +5,6 @@ package org.openjfx.cybooks.UserInput;
  * This class' goal is to manage the user's inputs, not allowing them to enter invalid symbols and values in the app's fields
  */
 public class FieldChecks {
-
-
     /**
      * This method verifies a 'firstname' field. Only unaccentuated letters are allowed
      * @param firstname The String to check
@@ -119,29 +117,66 @@ public class FieldChecks {
         return true;
     }
 
+
     /**
      * This method verifies a 'login' field. Only unaccentuated letters are allowed
      * @param login The login String to check
      * @return true if the String is valid
-     * @throws IncorrectFirstnameException If the String is invalid
+     * @throws IncorrectLoginException If the String is invalid
      */
     public static boolean isValidLogin(String login) throws IncorrectLoginException {
         String format = "[a-zA-Z0-9]+";
         String newLogin = login.trim();
 
         if (newLogin.isEmpty()) {
-            throw new IncorrectLoginException("Le LOGIN ne peut pas être vide");
+            throw new IncorrectLoginException("Le login ne peut pas être vide");
         }
 
         if (!newLogin.matches(format)) {
             throw new IncorrectLoginException("Le format du login est incorrect");
         }
+
         return true;
     }
+
+
+    /**
+     * This method verifies a 'password' field. Every characters are allowed. There can't be only spaces.
+     * @param password The password String to check
+     * @return true if the String is valid
+     * @throws IncorrectPasswordException If the String is invalid
+     */
+    public static boolean isValidPassword(String password) throws IncorrectPasswordException {
+        String newPassword = password.trim();
+
+        if (newPassword.isEmpty()) {
+            throw new IncorrectPasswordException("Le mot de passe doit contenir au moins un caractère");
+        }
+
+        return true;
+    }
+
+
+    /**
+     * This method verifies if two given passwords are the same.
+     * @param password The first password String to check
+     * @param confirmedPassword The second password String to check
+     * @return true if both String are matching
+     * @throws IncorrectPasswordException If both String don't match
+     */
+    public static boolean areMatchingPasswords(String password, String confirmedPassword) throws IncorrectPasswordException {
+        if (!password.equals(confirmedPassword)) {
+            throw new IncorrectPasswordException("Les mots de passe doivent être identiques");
+        }
+
+        return true;
+    }
+
 
     public static boolean isValidBookIdentifier(String identifier) throws IncorrectFieldException{
         return true;
     }
+
 
     public static boolean isValidDate(int day, int month, int year) throws IncorrectFieldException{
         return true;
@@ -162,6 +197,7 @@ public class FieldChecks {
         return isValidFirstname(firstname) && isValidLastname(lastname) && isValidPhoneNumber(telephone) && isValidEmail(email) && isValidAddress(address);
     }
 
+
     /**
      * This method checks if the signup information entered is valid
      * @param login The login String
@@ -170,12 +206,9 @@ public class FieldChecks {
      * @param password The password field
      * @param confirmedPassword The password confirmation field
      * @return true if all the strings are valid, false if one of them is not
+     * @throws IncorrectFieldException If one of the verifications fails
      */
-    public static boolean isValidSignUp(String login, String lastname, String firstname, String password, String confirmedPassword) throws IncorrectFieldException{
-        if(isValidFirstname(firstname) && isValidLastname(lastname) && isValidLogin(login)){
-            // Assuming a valid sign up requires a unique login and matching passwords
-            return !login.isEmpty() && !lastname.isEmpty() && !firstname.isEmpty() && !password.isEmpty() && password.equals(confirmedPassword);
-        }
-        return false;
+    public static boolean isValidSignUp(String login, String lastname, String firstname, String password, String confirmedPassword) throws IncorrectFieldException {
+        return isValidLogin(login) && isValidLastname(lastname) && isValidFirstname(firstname) && isValidPassword(password) && areMatchingPasswords(password, confirmedPassword);
     }
 }
