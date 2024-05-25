@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" prefHeight="95.0" prefWidth="700.0" spacing="30.0" style="-fx-background-color: #DDA15E;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER" prefHeight="95.0" prefWidth="700.0" spacing="30.0" style="-fx-background-color: #DDA15E;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
    <children>
       <Label prefHeight="16.0" prefWidth="156.0" text="Date d'emprunt" />
       <Label prefHeight="18.0" prefWidth="151.0" text="ID membre" />
