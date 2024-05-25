@@ -214,8 +214,11 @@ public class DBHandler {
 
         try {
             createConnection();
+
+            // creating the query
             res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, expiration_date, completed FROM loans, books WHERE customer_id='" + customer_id + "' AND book_id=books.id");
 
+            // adding every result as a new Loan in the list
             while (res.next()) {
                 loans.add(new Loan(res.getInt("id"), res.getString("book_id"), customer_id, res.getDate("begin_date"), res.getDate("expiration_date"), res.getBoolean("completed")));
             }

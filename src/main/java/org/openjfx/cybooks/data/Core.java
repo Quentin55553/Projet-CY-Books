@@ -32,10 +32,12 @@ public class Core {
         Book book = null;
 
         try {
+            // trying to get the book from the database
             book = DBHandler.getBook(id);
         } catch (NoSuchElementException e) {
             // if the book doesn't exist in database, it may exist online
             System.out.println(e.getMessage());
+            // creating a new empty book to be filled with the API data later
             book = new Book(id, 0, 0);
         }
 
@@ -43,6 +45,7 @@ public class Core {
 
         // get data from API
         try {
+            // preparing the filter for the API
             API.generateQueryStandard("", "", "", bookLink, "", "", "");
             API.exec();
 
@@ -51,6 +54,8 @@ public class Core {
             } else {
 
                 SearchResult result = API.getResults().get(0);
+
+                // filling the book with API results
                 book.setTitle(result.getTitle());
                 book.setAuthors(result.getAuthors());
                 book.setDate(result.getDate());
