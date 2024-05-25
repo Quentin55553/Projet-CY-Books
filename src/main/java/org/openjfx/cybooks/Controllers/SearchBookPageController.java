@@ -184,7 +184,7 @@ public class SearchBookPageController implements Initializable {
                     titleLabel.setText("N/A");
                 }
 
-                if(!book.getAuthors().isEmpty() && book.getAuthors() != null){
+                if(book.getAuthors() != null && !book.getAuthors().isEmpty()){
                     StringBuilder authors = new StringBuilder();
                     for (String author : book.getAuthors()){
                         authors.append(author);
@@ -195,7 +195,7 @@ public class SearchBookPageController implements Initializable {
                     authorLabel.setText("N/A");
                 }
                 editorLabel.setText(book.getPublisher());
-                if(!book.getSubjects().isEmpty() && book.getSubjects() != null){
+                if(book.getSubjects() != null && !book.getSubjects().isEmpty()){
                     StringBuilder subjects = new StringBuilder();
                     for (String subject : book.getSubjects()){
                         subjects.append(subject);
