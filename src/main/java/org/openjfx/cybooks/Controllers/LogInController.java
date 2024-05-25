@@ -7,11 +7,14 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import org.openjfx.cybooks.Main;
+import org.openjfx.cybooks.UserInput.FieldChecks;
+import org.openjfx.cybooks.UserInput.IncorrectFieldException;
 import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.database.DBHandler;
 import org.openjfx.cybooks.UserInput.IncorrectPasswordException;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
 /**
@@ -79,36 +82,15 @@ public class LogInController {
         String login = loginField.getText();
         String password = passwordField.getText();
 
-        if (!login.isEmpty() && !password.isEmpty()) {
-            if (isValidCredentials(login, password)) {
+        try {
+            if (FieldChecks.areValidCredentials(login, password)) {
                 // Go to home page
                 main.showHomeScene(login);
             }
 
-        } else {
-            errorLabel.setText("Les deux champs ne doivent pas être vides");
-        }
-    }
-
-
-    /**
-     * This method checks if entered credentials are valid
-     * @param login The login String
-     * @param password The password String
-     * @return true if the credentials are valid, false if not
-     */
-    private boolean isValidCredentials(String login, String password) {
-        Librarian librarian = null;
-
-        try {
-            librarian = DBHandler.librarianAuthentication(login, password);
-
-        } catch (NoSuchElementException | IncorrectPasswordException e) {
+        } catch (IncorrectFieldException | NoSuchElementException e) {
             errorLabel.setText(e.getMessage());
         }
-
-        // Returns 'true' if the 'librarian' variable is not null, 'false' otherwise
-        return librarian != null;
     }
 
 
