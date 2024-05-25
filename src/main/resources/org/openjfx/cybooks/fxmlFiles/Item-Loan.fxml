@@ -19,11 +19,11 @@
             <Font name="Eras Light ITC" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="IDMember" prefHeight="18.0" prefWidth="133.0" text="ID membre">
+      <Label fx:id="IDMember" prefHeight="18.0" prefWidth="74.0" text="ID membre">
          <font>
             <Font name="Eras Light ITC" size="12.0" />
          </font></Label>
-      <Label fx:id="IDBook" prefHeight="21.0" prefWidth="136.0" text="ID livre">
+      <Label fx:id="IDBook" prefHeight="21.0" prefWidth="149.0" text="ID livre">
          <font>
             <Font name="Eras Light ITC" size="12.0" />
          </font></Label>

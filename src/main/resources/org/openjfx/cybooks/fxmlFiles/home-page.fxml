@@ -162,7 +162,7 @@
       <AnchorPane>
          <children>
             <AnchorPane fx:id="Center" style="-fx-background-color: #FEFAE0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <AnchorPane fx:id="Menuside" prefHeight="294.0" prefWidth="208.0" style="-fx-background-color: #606C38;">
+            <AnchorPane fx:id="Menuside" prefHeight="333.0" prefWidth="208.0" style="-fx-background-color: #606C38;">
                <children>
                   <VBox layoutY="18.0" prefHeight="276.0" prefWidth="208.0" style="-fx-background-color: #606C38;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">
                      <children>
@@ -271,7 +271,28 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <JFXButton fx:id="AllLoansButton" alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Liste emprunts" textFill="#fefae0">
+                        <JFXButton fx:id="SearchLoanButton" alignment="TOP_LEFT" prefHeight="38.0" prefWidth="193.0" text="Rechercher emprunt" textFill="#fefae0">
+                           <font>
+                              <Font name="Eras Demi ITC" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="23.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/icons/calendrier-stylo.png" />
+                                 </image>
+                                 <effect>
+                                    <ColorAdjust brightness="1.0" />
+                                 </effect>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="AllLoansButton" alignment="TOP_LEFT" prefHeight="38.0" prefWidth="204.0" text="Tous les emprunts" textFill="#fefae0">
                            <font>
                               <Font name="Eras Demi ITC" size="15.0" />
                            </font>

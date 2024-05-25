@@ -8,6 +8,7 @@ import org.openjfx.cybooks.database.BookFilter;
 import org.openjfx.cybooks.database.CustomerFilter;
 import org.openjfx.cybooks.database.DBHandler;
 import org.openjfx.cybooks.UserInput.IncorrectPasswordException;
+import org.openjfx.cybooks.database.LoanFilter;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -158,6 +159,10 @@ public class Core {
 
     public static List<Loan> getOngoingLoans() throws NoSuchElementException {
         return DBHandler.getOngoingLoans();
+    }
+
+    public static List<Loan> getLoansByFilter(LoanFilter filter) throws NoSuchElementException {
+        return DBHandler.getLoansByFilter(filter);
     }
 
     public static List<Customer> getCustomers(String name) {

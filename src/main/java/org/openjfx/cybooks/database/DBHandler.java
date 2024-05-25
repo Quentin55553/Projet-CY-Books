@@ -560,22 +560,6 @@ public class DBHandler {
         Integer inf = filter.getInf();
         Integer sup = filter.getSup();
 
-        /*
-        String query = "SELECT * FROM customers WHERE";
-
-        if (id != null)
-            query += "id='"+id+"'";
-        }
-        query += "first_name LIKE '%" + firstName + "%' AND " +
-                    "last_name LIKE '%" + lastName + "%' AND " +
-                    "tel LIKE '%" + tel + "%' AND " +
-                    "email LIKE '%" + email + "%' AND " +
-                    "address LIKE '%" + address + "%'";
-
-         if (inf != null)
-             query += "AND id IN (SELECT customer_id FROM loans GROUP by customer_id HAVING COUNT(customer_id) < " + inf + ")";
-         if (sup != null)
-             query += "AND id IN (SELECT customer_id FROM loans GROUP by customer_id HAVING COUNT(customer_id) > " + sup + ")";*/
 
         List<String> conditions = new ArrayList<>();
 
@@ -629,25 +613,61 @@ public class DBHandler {
         return customers;
     }
 
-    public static List<Book> getBooksByFilter (BookFilter filter) {
+
+    public static List<Loan> getLoansByFilter (LoanFilter filter) {
         createConnection();
-        List<Book> books = new ArrayList<>();
+        List<Loan> loans = new ArrayList<>();
         ResultSet res;
 
+        Integer customerID = filter.getCustomerID();
+        String bookID = filter.getBookID();
+        boolean completed = filter.isCompleted();
+        boolean expired = filter.isExpired();
+
+        // Start building the query
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM loans WHERE ");
+
+        // Add completed condition
+        queryBuilder.append("completed = ").append(completed ? 1 : 0);
+
+        // Add customerID condition if provided
+        if (customerID != null) {
+            queryBuilder.append(" AND customer_id = ").append(customerID);
+        }
+
+        // Add bookID condition if provided
+        if (bookID != null && !bookID.isEmpty()) {
+            queryBuilder.append(" AND book_id LIKE '%").append(bookID).append("%'");
+        }
+
+        // Add expired condition if wanted
+        if (expired) {
+            queryBuilder.append(" AND expiration_date < CURRENT_DATE");
+        }
+
+        String query = queryBuilder.toString();
+
         try {
-            res = statement.executeQuery("SELECT * from books WHERE id='"+ filter.getId() +"'");
+            res = statement.executeQuery(query);
 
             while (res.next()) {
-                Book book = new Book(res.getString("id"), res.getInt("quantity"), res.getInt("stock"));
-                books.add(book);
+                Loan loan = new Loan(
+                        res.getInt("id"),
+                        res.getString("book_id"),
+                        res.getInt("customer_id"),
+                        res.getDate("begin_date"),
+                        res.getDate("expiration_date"),
+                        res.getBoolean("completed")
+                );
+                loans.add(loan);
             }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-
         closeConnection();
-        return books;
+        return loans;
     }
 
     public static int getLoanCount(int customerId) throws NoSuchElementException {

@@ -83,6 +83,11 @@ public class HomePageController implements Initializable {
     @FXML
     private JFXButton AllUsersButton;
     /**
+     * Button used to travel to the SearchLoan page
+     */
+    @FXML
+    private JFXButton SearchLoanButton;
+    /**
      * Button used to travel to the AllLoans page
      */
     @FXML
@@ -190,6 +195,7 @@ public class HomePageController implements Initializable {
         AllUsersButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/AllUsers-page.fxml"));
         AllLoansButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/AllLoans-page.fxml"));
         LoansIssuesButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/LoansIssues-page.fxml"));
+        SearchLoanButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/SearchLoan-page.fxml"));
     }
 
 
