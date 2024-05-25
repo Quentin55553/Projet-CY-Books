@@ -1,6 +1,8 @@
 package org.openjfx.cybooks.CommandLine;
 
+import org.openjfx.cybooks.API.APIErrorException;
 import org.openjfx.cybooks.API.APIHandler;
+import org.openjfx.cybooks.API.QueryParameterException;
 import org.openjfx.cybooks.API.SearchResult;
 import org.openjfx.cybooks.UserInput.FieldChecks;
 import org.openjfx.cybooks.data.*;
@@ -53,7 +55,9 @@ public class CommandLineHandler {
         password=in.nextLine();
 
         try {
-            user = DBHandler.librarianAuthentication(login, password);
+            if(FieldChecks.isValidLogin(login) && FieldChecks.isValidLogin(password)){
+                user = DBHandler.librarianAuthentication(login, password);
+            }
         }
         catch (Exception e){
             Colors.printlnRed("Identifiant ou mot de passe incorrect.");
@@ -68,7 +72,7 @@ public class CommandLineHandler {
 
         try{
             int action=0;
-            while(action!=18){
+            while(action!=20){
 
                 // Choices
                 Colors.printlnWhite("\nChoisissez une action :\n");
@@ -77,27 +81,29 @@ public class CommandLineHandler {
                 Colors.printlnWhite("1 - Consulter les livres");
                 Colors.printlnWhite("2 - Rechercher un livre");
                 Colors.printlnWhite("3 - Ajouter un livre");
-                Colors.printlnWhite("4 - Voir les livres les plus populaires");
+                Colors.printlnWhite("4 - Mettre à jour le stock d'un livre");
+                Colors.printlnWhite("5 - Voir les livres de la bibliothèque");
+                Colors.printlnWhite("6 - Voir les livres les plus populaires");
                 // Customers
                 Colors.printlnPurple("\nII. Membres :");
-                Colors.printlnWhite("5 - Inscrire un nouveau membre");
-                Colors.printlnWhite("6 - Mettre à jour le profil d'un membre");
-                Colors.printlnWhite("7 - Rechercher un membre");
-                Colors.printlnWhite("8 - Afficher la liste des membres");
+                Colors.printlnWhite("7 - Inscrire un nouveau membre");
+                Colors.printlnWhite("8 - Mettre à jour le profil d'un membre");
+                Colors.printlnWhite("9 - Rechercher un membre");
+                Colors.printlnWhite("10 - Afficher la liste des membres");
                 // Loans
                 Colors.printlnPurple("\nIII. Emprunts :");
-                Colors.printlnWhite("9 - Créer un nouvel emprunt");
-                Colors.printlnWhite("10 - Mettre à jour un emprunt");
-                Colors.printlnWhite("11 - Voir les emprunts d'un membre");
-                Colors.printlnWhite("12 - Voir les emprunts d'un livre");
-                Colors.printlnWhite("13 - Voir les emprunts en cours");
-                Colors.printlnWhite("14 - Afficher la liste des emprunts");
-                Colors.printlnWhite("15 - Afficher la liste des problèmes d'emprunts");
+                Colors.printlnWhite("11 - Créer un nouvel emprunt");
+                Colors.printlnWhite("12 - Mettre à jour un emprunt");
+                Colors.printlnWhite("13 - Voir les emprunts d'un membre");
+                Colors.printlnWhite("14 - Voir les emprunts d'un livre");
+                Colors.printlnWhite("15 - Voir les emprunts en cours");
+                Colors.printlnWhite("16 - Afficher la liste des emprunts");
+                Colors.printlnWhite("17 - Afficher la liste des problèmes d'emprunts");
                 // Miscellaneous
                 Colors.printlnPurple("\nIV. Autres :");
-                Colors.printlnWhite("16 - Créer un nouveau compte bibliothécaire");
-                Colors.printlnWhite("17 - Consulter son compte");
-                Colors.printlnWhite("18 - Se déconnecter (fermera l'application)");
+                Colors.printlnWhite("18 - Créer un nouveau compte bibliothécaire");
+                Colors.printlnWhite("19 - Consulter son compte");
+                Colors.printlnWhite("20 - Se déconnecter (fermera l'application)");
 
                 action = in.nextInt();
                 switch (action) {
@@ -105,27 +111,29 @@ public class CommandLineHandler {
                     case 1 -> consultBooks();
                     case 2 -> searchBook();
                     case 3 -> addNewBook();
-                    case 4 -> printMostPopularBooks();
+                    case 4 -> changeBookStock();
+                    case 5 -> printBooks();
+                    case 6 -> printMostPopularBooks();
                     // Members
-                    case 5 -> addNewMember();
-                    case 6 -> updateMemberProfile();
-                    case 7 -> searchForMember();
-                    case 8 -> printMembers();
+                    case 7 -> addNewMember();
+                    case 8 -> updateMemberProfile();
+                    case 9 -> searchForMember();
+                    case 10 -> printMembers();
                     // Loans
-                    case 9 -> addNewLoan();
-                    case 10 -> updateOngoingLoan();
-                    case 11-> printMemberLoans();
-                    case 12-> printBookLoans();
-                    case 13-> printOngoingLoans();
-                    case 14-> printLoans();
-                    case 15-> printLoanProblems();
+                    case 11 -> addNewLoan();
+                    case 12 -> updateOngoingLoan();
+                    case 13-> printMemberLoans();
+                    case 14-> printBookLoans();
+                    case 15-> printOngoingLoans();
+                    case 16-> printLoans();
+                    case 17-> printLoanProblems();
                     // Miscellaneous
-                    case 16-> createAccount();
-                    case 17-> {
+                    case 18-> createAccount();
+                    case 19-> {
                         Colors.printlnCyan("Voici les informations de votre compte :\n");
                         Colors.printColorfulLibrarian(user,login);
                     }
-                    case 18 -> disconnectUser();
+                    case 20 -> disconnectUser();
                     default -> {
                         Colors.printlnRed("Valeur invalide saisie. Arrêt de l'application.");
                         System.exit(0);
@@ -227,7 +235,7 @@ public class CommandLineHandler {
             for (int i = 0; i < min(API.getNumberOfResults(), 3); i++) {
                 Colors.printColorfulSearchResult(API.getResults().get(i));
                 Colors.printlnWhite("");
-                //addNewBookAuto(API.getResults().get(i));
+                addNewBookAuto(API.getResults().get(i));
             }
         }
         catch(Exception e){
@@ -372,9 +380,12 @@ public class CommandLineHandler {
                 for (int i = 0; i < min(API.getNumberOfResults(), 3); i++) {
                     Colors.printColorfulSearchResult(API.getResults().get(i));
                     Colors.printlnWhite("");
-                    //addNewBookAuto(API.getResults().get(i));
+                    addNewBookAuto(API.getResults().get(i));
                 }
             }
+        }
+        catch(QueryParameterException | APIErrorException e){
+            Colors.printlnRed(e.getMessage());
         }
         catch(Exception e){
             Colors.printlnRed("Une erreur est survenue !");
@@ -393,8 +404,16 @@ public class CommandLineHandler {
             identifier = sc.nextLine();
             Colors.printlnWhite("Entrez le stock actuellement disponible :");
             stock = Integer.parseInt(sc.nextLine());
-            DBHandler.addBook(identifier,stock,0);
+            if(FieldChecks.isValidBookIdentifier(identifier) && stock>=0){
+                DBHandler.addBook(identifier,stock,0);
+            }
             Colors.printlnCyan("Le livre a bien été ajouté.");
+        }
+        catch(NumberFormatException e){
+            Colors.printlnRed("Veuillez entrer une valeur numérique.");
+        }
+        catch(IncorrectFieldException e){
+            Colors.printlnRed(e.getMessage());
         }
         catch(Exception e){
             Colors.printlnRed("Une erreur est survenue.");
@@ -404,19 +423,82 @@ public class CommandLineHandler {
     /**
      * This method is used to automatically add a book found by the API to our database.
      * @param sr The SearchResult object found brought by an APIHandler object.
-     */
+    */
     public static void addNewBookAuto(SearchResult sr){
         String identifier=sr.getIdentifier();
+
         try{
+            identifier = identifier.replace("https://gallica.bnf.fr/ark:/", "");
+            identifier = identifier.replace("/date", "");
             DBHandler.getBook(identifier);
         }
         catch(NoSuchElementException e){
-            DBHandler.addBook(identifier,1,0);
+            DBHandler.addBook(identifier, 1, 0);
+            Colors.printlnGreen("Vous avez trouvé le livre :");
+            Colors.printlnGreen(sr.getTitle());
+            Colors.printlnGreen("Les membres peuvent maintenant l'emprunter !\n");
         }
         catch(Exception e){
             Colors.printRed("Attention : Le livre ");
-            Colors.printCyan(sr.getTitle());
-            Colors.printlnRed(" n'est pas empruntable.");
+            Colors.printYellow(sr.getTitle());
+            Colors.printlnRed(" n'est pas empruntable.\n");
+        }
+    }
+
+    private static void changeBookStock(){
+        try {
+            String identifier;
+            int stock;
+            Scanner sc = new Scanner(System.in);
+            Colors.printlnWhite("Entrez l'ID du livre :");
+            identifier = sc.nextLine();
+            Colors.printlnWhite("Entrez le stock actuellement disponible :");
+            stock = Integer.parseInt(sc.nextLine());
+            if(FieldChecks.isValidBookIdentifier(identifier) && stock>=0){
+                DBHandler.updateBookStock(identifier,stock);
+                Colors.printlnCyan("Le stock a bien été mis à jour.");
+            }
+            else{
+                Colors.printlnRed("Veuillez entrer une valeur numérique positive.");
+            }
+        }
+        catch(NumberFormatException e){
+            Colors.printlnRed("Veuillez entrer une valeur numérique.");
+        }
+        catch(IncorrectFieldException e){
+            Colors.printlnRed(e.getMessage());
+        }
+        catch(Exception e){
+            Colors.printlnRed("Une erreur est survenue.");
+        }
+    }
+
+    /**
+     * This command line method is used to print all the books present in the library on the terminal
+     */
+    private static void printBooks(){
+        try {
+            APIHandler API=new APIHandler();
+            List<Book> bookList;
+            String identifier;
+            bookList = DBHandler.getAllBooks();
+            Colors.printlnCyan("Voici les livres de la bibliothèque :");
+            for (int i = 0; i < min(5,bookList.size()); i++) {
+                identifier=bookList.get(i).getId();
+                API.generateQueryStandard("","","",identifier,"","","");
+                API.exec();
+                if(API.getNumberOfResults()>0){
+                    Colors.printColorfulSearchResult(API.getResults().get(0));
+                }
+                Colors.printlnWhite("");
+            }
+            Colors.printlnCyan("\nEt bien d'autres...!");
+        }
+        catch(APIErrorException e){
+            Colors.printlnRed(e.getMessage());
+        }
+        catch(Exception e){
+            Colors.printlnRed("Pas de livres dans la bibliothèque !");
         }
     }
 
@@ -484,6 +566,9 @@ public class CommandLineHandler {
             String lastname;
             String member_id_string;
             int member_id;
+            String phone;
+            String email;
+            String adress;
             Scanner sc = new Scanner(System.in);
 
             Colors.printlnWhite("Entrez l'ID du membre à modifier :");
@@ -493,8 +578,19 @@ public class CommandLineHandler {
             firstname = sc.nextLine();
             Colors.printlnWhite("Entrez son nouveau nom :");
             lastname = sc.nextLine();
+            Colors.printlnWhite("Entrez son nouveau numéro de téléphone :");
+            phone = sc.nextLine();
+            Colors.printlnWhite("Entrez son nouvel email :");
+            email = sc.nextLine();
+            Colors.printlnWhite("Entrez sa nouvelle adresse :");
+            adress = sc.nextLine();
             Colors.printlnCyan("Mise à jour du profil du membre " + firstname + " " + lastname + ".");
-            DBHandler.updateCustomer(member_id,lastname, firstname);
+            if(FieldChecks.isValidCustomer(firstname,lastname,phone,email,adress)){
+                DBHandler.updateEntireCustomer(member_id,lastname,firstname,phone,email,adress);
+            }
+        }
+        catch(IncorrectFieldException e){
+            Colors.printlnRed(e.getMessage());
         }
         catch(Exception e){
             Colors.printlnRed("Une erreur est survenue.");
@@ -525,16 +621,21 @@ public class CommandLineHandler {
     private static void searchForMember() {
         try {
             String lastname;
-            List<Customer> customersList;
+            List<Customer> customersList = null;
             Scanner sc = new Scanner(System.in);
             Colors.printlnWhite("Entrez un nom de membre à rechercher :");
             lastname = sc.nextLine();
-            customersList = DBHandler.getCustomers(lastname);
+            if(FieldChecks.isValidLastname(lastname)){
+                customersList = DBHandler.getCustomers(lastname);
+            }
             Colors.printlnCyan("Voici la liste des membres trouvés : \n");
             for (int i = 0; i < customersList.size(); i++) {
                 Colors.printColorfulCustomer(customersList.get(i));
                 Colors.printlnWhite("");
             }
+        }
+        catch(IncorrectFieldException e){
+            Colors.printlnRed(e.getMessage());
         }
         catch(NoSuchElementException e){
             Colors.printlnRed("Aucun membre n'a été trouvé !");
@@ -570,9 +671,17 @@ public class CommandLineHandler {
             month = Integer.parseInt(sc.nextLine());
             Colors.printlnWhite("Entrez le jour d'expiration :");
             day = Integer.parseInt(sc.nextLine());
-            expirationDate=new java.sql.Date(year,month+1,day);
-            Colors.printlnCyan("Ajout de l'emprunt du livre " + book_identifier+" par le membre d'ID " + member_id_string);
-            DBHandler.addLoan(book_identifier,member_id,expirationDate.toString());
+            expirationDate=new java.sql.Date(year-1900,month-1,day);
+            if(FieldChecks.isValidBookIdentifier(book_identifier) && FieldChecks.isValidDate(day,month,year)){
+                DBHandler.addLoan(book_identifier,member_id,expirationDate.toString());
+                Colors.printlnCyan("Ajout de l'emprunt du livre " + book_identifier+" par le membre d'ID " + member_id_string);
+            }
+        }
+        catch(NumberFormatException e){
+            Colors.printlnRed("Veuillez entrer une valeur numérique");
+        }
+        catch(IncorrectFieldException e){
+            Colors.printlnRed(e.getMessage());
         }
         catch(Exception e){
             Colors.printlnRed(e.getMessage());
@@ -621,13 +730,19 @@ public class CommandLineHandler {
                     month = Integer.parseInt(in.nextLine());
                     Colors.printlnWhite("Entrez le nouveau jour :");
                     day = Integer.parseInt(in.nextLine());
-                    java.sql.Date newDate=new java.sql.Date(year,month+1,day);
-                    DBHandler.updateExpirationDate(loan_id_string,newDate.toString());
+                    if(FieldChecks.isValidDate(day,month,year)){
+                        java.sql.Date newDate=new java.sql.Date(year-1900,month-1,day);
+                        DBHandler.updateExpirationDate(loan_id_string,newDate.toString());
+                        Colors.printlnCyan("La date d'expiration a bien été mise à jour");
+                    }
                 }
                 default -> {
                     Colors.printlnRed("Mauvaise valeur. Sélectionnez 1 ou 2.");
                 }
             }
+        }
+        catch(NumberFormatException e){
+            Colors.printlnRed("Veuillez entrer une valeur numérique.");
         }
         catch(Exception e){
             Colors.printlnRed("Une erreur est survenue.");
@@ -671,6 +786,9 @@ public class CommandLineHandler {
                 Colors.printlnWhite("");
             }
         }
+        catch(NumberFormatException e){
+            Colors.printlnRed("Veuillez entrer une valeur numérique.");
+        }
         catch (NoSuchElementException e){
             Colors.printlnRed("Aucun emprunt ne concerne ce membre pour le moment.");
         }
@@ -689,12 +807,17 @@ public class CommandLineHandler {
             Scanner sc = new Scanner(System.in);
             Colors.printlnWhite("Entrez son identifiant :");
             identifier = sc.nextLine();
-            loanList = DBHandler.getLoansByBookId(identifier);
-            Colors.printlnCyan("Voici les emprunts liés au livre d'identifiant "+identifier+" :\n");
-            for (int i = 0; i < loanList.size(); i++) {
-                Colors.printColorfulLoan(loanList.get(i));
-                Colors.printlnWhite("");
+            if(FieldChecks.isValidBookIdentifier(identifier)){
+                loanList = DBHandler.getLoansByBookId(identifier);
+                Colors.printlnCyan("Voici les emprunts liés au livre d'identifiant "+identifier+" :\n");
+                for (int i = 0; i < loanList.size(); i++) {
+                    Colors.printColorfulLoan(loanList.get(i));
+                    Colors.printlnWhite("");
+                }
             }
+        }
+        catch(IncorrectFieldException e){
+            Colors.printlnRed("Veuillez entrer un identifiant valide pour le livre.");
         }
         catch (NoSuchElementException e){
             Colors.printlnRed("Aucun emprunt ne concerne ce livre pour le moment.");
@@ -751,19 +874,27 @@ public class CommandLineHandler {
         try {
             String login;
             String password;
+            String password2;
             String firstname;
             String lastname;
             Scanner sc = new Scanner(System.in);
-            Colors.printlnWhite("Entrez son prénom :");
+            Colors.printlnWhite("Entrez le prénom :");
             firstname = sc.nextLine();
-            Colors.printlnWhite("Entrez son nom :");
+            Colors.printlnWhite("Entrez le nom :");
             lastname = sc.nextLine();
-            Colors.printlnWhite("Entrez son login :");
+            Colors.printlnWhite("Entrez le login :");
             login = sc.nextLine();
-            Colors.printlnWhite("Entrez son mot de passe :");
+            Colors.printlnWhite("Entrez le mot de passe :");
             password = sc.nextLine();
-            Colors.printlnCyan("Ajout du biblothécaire " + firstname + " " + lastname + ".");
-            DBHandler.addLibrarian(login,lastname, firstname,password);
+            Colors.printlnWhite("Confirmez le mot de passe :");
+            password2 = sc.nextLine();
+            if(password.equals(password2) && FieldChecks.isValidLogin(login) && FieldChecks.isValidLogin(password) && FieldChecks.isValidFirstname(firstname) && FieldChecks.isValidLastname(lastname)){
+                DBHandler.addLibrarian(login,lastname, firstname,password);
+                Colors.printlnCyan("Ajout du biblothécaire " + firstname + " " + lastname + ".");
+            }
+        }
+        catch(IncorrectFieldException e){
+            Colors.printlnRed(e.getMessage());
         }
         catch(Exception e){
             Colors.printlnRed("Une erreur est survenue.");
