@@ -5,7 +5,7 @@
 > - Avoir les privilèges administrateur
 
 > [!IMPORTANT]
-> Le JDK installé doit obligatoirement être de la version **20** ou ultérieure.
+> Le JDK et le JRE inclus installé doit obligatoirement être de la version **20** ou ultérieure.
 
 ## Étape 1 : Ouvrir le terminal Linux
 Sur votre ordinateur Linux, ouvrez le terminal (**Ctrl+Alt+T**).
@@ -25,7 +25,7 @@ sudo apt-get upgrade
 ```
 
 ## Étape 4 : Installer un JDK
-Vous pouvez désormais installer le JDK sur votre système à l'aide de la commande suivante :
+Vous pouvez désormais installer le JDK (incluant un JRE) sur votre système à l'aide de la commande suivante :
 
 ```bash
 sudo apt install openjdk-21-jdk
