@@ -515,7 +515,7 @@ public class CommandLineHandler {
     private static void printMostPopularBooks(){
         try {
             List<Book> bookList;
-            bookList = DBHandler.getMostPopularBooks();
+            bookList = Core.getMostPopularBooks();
             for (int i = 0; i < bookList.size(); i++) {
                 Colors.printlnWhite(bookList.get(i).toString());
                 Colors.printlnWhite("");
