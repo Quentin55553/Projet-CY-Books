@@ -17,7 +17,6 @@ import java.sql.SQLException;
  * Controller class for the page that allows the user to add a new customer to the database
  */
 public class addCustomerPageController {
-
     /**
      * Reference to the main application
      */
@@ -37,7 +36,6 @@ public class addCustomerPageController {
      */
     @FXML
     public CustomTextField lastnameField;
-
     /**
      * Phone number field for the addition of a customer
      */
@@ -58,12 +56,12 @@ public class addCustomerPageController {
      */
     @FXML
     public Label errorLabel;
-
     /**
      * Confirmation label for the addition of a customer
      */
     @FXML
     public Label confirmationLabel;
+
 
     /**
      * Setter for the main attribute
@@ -73,6 +71,7 @@ public class addCustomerPageController {
         this.main = main;
     }
 
+
     /**
      * Setter for the primary stage attribute
      * @param primaryStage The main container
@@ -80,6 +79,7 @@ public class addCustomerPageController {
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
+
 
     /**
      * This method is called when the 'Add customer' button is clicked.
