@@ -51,10 +51,15 @@ public class DBHandler {
      */
     private static void createConnection() throws SQLSyntaxErrorException {
         try {
+
+            // trying to connect to the database
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             connection = DriverManager.getConnection("jdbc:mysql://localhost/CY-Books", "root", "");
+            // creating the statement object to be used for incoming queries
             statement = connection.createStatement();
+
+            // now that the connection is opened, we can do queries in the other methods
 
         } catch (SQLSyntaxErrorException e) {
             throw e;
@@ -71,10 +76,11 @@ public class DBHandler {
      */
     private static void closeConnection () {
         try {
+            // trying to close the connection
             connection.close();
 
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -112,28 +118,6 @@ public class DBHandler {
             }
         }
 
-        /*
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            StringBuilder sql = new StringBuilder();
-
-            while ((line = br.readLine()) != null) {
-                sql.append(line).append("\n");
-            }
-
-            String[] sqlCommands = sql.toString().split(";");
-
-            for (String command : sqlCommands) {
-                if (!command.trim().isEmpty()) {
-                    statement.execute(command.trim());
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        */
-
         closeConnection();
     }
 
@@ -149,17 +133,26 @@ public class DBHandler {
         Book book = null;
 
         try {
+            // connect to the database
             createConnection();
+            // make the query
             res = statement.executeQuery("SELECT * FROM books WHERE id='" + id + "'");
-            if (!res.next())
-                throw new NoSuchElementException("No such book with id " + id + " in database");
 
+            // catch results if existing
+
+            if (!res.next()) {
+                closeConnection();
+                throw new NoSuchElementException("No such book with id " + id + " in database");
+            }
+
+            // create the book object
             book = new Book(id, res.getInt("quantity"), res.getInt("stock"));
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
+        // always close the connection
         closeConnection();
 
         return book;
@@ -442,6 +435,7 @@ public class DBHandler {
             statement.execute("INSERT INTO customers (`last_name`, `first_name`, `tel`, `email`, `address`) VALUES ('" + lastname + "', '" + firstname + "', '" + tel + "', '" + email + "', '" + address + "')");
 
         } catch (SQLException e) {
+            closeConnection();
             // Checks if MySQL indicates a unique constraint violation
             if (e.getErrorCode() == 1062) {
                 throw new SQLException("L'email et/ou le numéro de téléphone est déjà utilisé");
@@ -470,6 +464,7 @@ public class DBHandler {
             statement.execute("INSERT INTO librarians (`login`, `last_name`, `first_name`, `password`) VALUES ('" + login + "', '" + lastName + "', '" + firstName + "', '" + hashedPassword +"')");
 
         } catch (SQLException e) {
+            closeConnection();
             // Checks if MySQL indicates a unique constraint violation
             if (e.getErrorCode() == 1062) {
                 throw new SQLException("Ce login est déjà utilisé");
@@ -506,7 +501,7 @@ public class DBHandler {
      * Updates all the customer's fields
      * @param id The customer's id
      * @param lastName The customer's last name
-     * @param firstName The customer's first nams
+     * @param firstName The customer's first name
      * @param tel The customer's phone number
      * @param email The customer's email
      * @param address The customer's address
@@ -518,6 +513,7 @@ public class DBHandler {
             statement.execute("UPDATE customers SET last_name='" + lastName + "', first_name='" + firstName + "', tel='" + tel + "', email='" + email + "', address='" + address + "' WHERE id='" + id + "'");
 
         } catch (SQLException e) {
+            closeConnection();
             // Checks if MySQL indicates a unique constraint violation
             if (e.getErrorCode() == 1062) {
                 throw new SQLException("L'email et/ou le numéro de téléphone est déjà utilisé");
@@ -710,6 +706,7 @@ public class DBHandler {
             res = statement.executeQuery("SELECT * FROM librarians WHERE login='" + login + "'");
 
             if (!res.next()) {
+                closeConnection();
                 throw new NoSuchElementException("Nom d'utilisateur introuvable");
             }
 
@@ -718,8 +715,10 @@ public class DBHandler {
             if (BCrypt.checkpw(password, hashedPassword))
                 librarian = new Librarian(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
 
-            else
+            else {
+                closeConnection();
                 throw new IncorrectPasswordException("Mot de passe incorrect");
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
