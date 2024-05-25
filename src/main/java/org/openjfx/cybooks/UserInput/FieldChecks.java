@@ -139,6 +139,14 @@ public class FieldChecks {
         return true;
     }
 
+    public static boolean isValidBookIdentifier(String identifier) throws IncorrectFieldException{
+        return true;
+    }
+
+    public static boolean isValidDate(int day, int month, int year) throws IncorrectFieldException{
+        return true;
+    }
+
 
     /**
      * This method verifies all the fields needed to create a new user in the database
