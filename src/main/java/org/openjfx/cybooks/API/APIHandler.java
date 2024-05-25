@@ -93,7 +93,6 @@ public class APIHandler {
      *     jpn = Japonais
      *     lat = Latin
      *     spa = Espagnol
-     *  Do not use accentuated or special characters in the parameters
      */
     public void generateQueryStandard(String title, String author, String date, String identifier, String publisher, String language, String subject) throws QueryParameterException{
         // The query is first initialized with the beginning of the URL
@@ -274,7 +273,7 @@ public class APIHandler {
 
             // Anything other than 200 indicates an error
             if(responseCode!=200){
-                throw new APIErrorException("There was an error during communication with the API. Error code : "+responseCode,responseCode);
+                throw new APIErrorException("Une erreur est survenue durant la communication avec l'API. Code d'erreur : "+responseCode,responseCode);
             }
             else {
                 // Reading the content of the webpage (an xml file)
@@ -293,7 +292,7 @@ public class APIHandler {
         }
         // In case one of the predefined methods goes wrong
         catch(Exception e){
-            throw new APIErrorException("There was an error during parsing of the API results",501);
+            throw new APIErrorException("Une erreur est survenue durant la communication avec l'API",501);
         }
     }
 
@@ -479,7 +478,7 @@ public class APIHandler {
             // Reset the attributes
             this.numberOfResults=0;
             this.results=new ArrayList<SearchResult>();
-            throw new APIErrorException("There was an error during parsing of the API results",501);
+            throw new APIErrorException("Une erreur est survenue durant la communication avec l'API",501);
         }
     }
 
@@ -606,7 +605,7 @@ public class APIHandler {
             }
             else{
                 // If the character is not in the above cases, this means the string contains forbidden symbols
-                throw new QueryParameterException("Invalid value for generateQuery() parameter : "+str);
+                throw new QueryParameterException("Un caractère non autorisé est présent dans ce champ : "+str);
             }
         }
         return normalizedString;
