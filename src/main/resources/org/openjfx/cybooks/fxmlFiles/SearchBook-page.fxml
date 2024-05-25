@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -65,9 +66,9 @@
                   <VBox fx:id="BooksVbox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="3" />
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="2">
                      <children>
-                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="1010.0" spacing="30.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="1010.0" spacing="20.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" StackPane.alignment="CENTER">
                            <children>
-                              <Label prefHeight="16.0" prefWidth="136.0" text="Titre" textFill="#fefae0">
+                              <Label contentDisplay="CENTER" prefHeight="18.0" prefWidth="150.0" text="Titre" textAlignment="CENTER" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
@@ -77,27 +78,35 @@
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
+                              <Label prefHeight="21.0" prefWidth="154.0" text="Editeur" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Medium ITC" size="14.0" />
+                                 </font>
+                              </Label>
                               <Label prefHeight="21.0" prefWidth="126.0" text="Genre" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="21.0" prefWidth="126.0" text="ID" textFill="#fefae0">
+                              <Label prefHeight="21.0" prefWidth="130.0" text="ID" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="21.0" prefWidth="126.0" text="Stock" textFill="#fefae0">
+                              <Label prefHeight="21.0" prefWidth="92.0" text="Stock" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Label text="Livre" textFill="#fefae0">
+                              <Label prefHeight="18.0" prefWidth="55.0" text="Livre" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets left="15.0" right="10.0" />
+                           </padding>
                         </HBox>
                      </children>
                   </StackPane>
