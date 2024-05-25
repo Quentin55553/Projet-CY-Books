@@ -120,6 +120,27 @@ public class FieldChecks {
     }
 
     /**
+     * This method verifies a 'login' field. Only unaccentuated letters are allowed
+     * @param login The login String to check
+     * @return true if the String is valid
+     * @throws IncorrectFirstnameException If the String is invalid
+     */
+    public static boolean isValidLogin(String login) throws IncorrectLoginException {
+        String format = "[a-zA-Z0-9]+";
+        String newLogin = login.trim();
+
+        if (newLogin.isEmpty()) {
+            throw new IncorrectLoginException("Le LOGIN ne peut pas être vide");
+        }
+
+        if (!newLogin.matches(format)) {
+            throw new IncorrectLoginException("Le format du login est incorrect");
+        }
+        return true;
+    }
+
+
+    /**
      * This method verifies all the fields needed to create a new user in the database
      * @param firstname Only unaccentuated letters are allowed
      * @param lastname Only unaccentuated letters are allowed
@@ -131,5 +152,22 @@ public class FieldChecks {
      */
     public static boolean isValidCustomer(String firstname, String lastname, String telephone, String email, String address) throws IncorrectFieldException {
         return isValidFirstname(firstname) && isValidLastname(lastname) && isValidPhoneNumber(telephone) && isValidEmail(email) && isValidAddress(address);
+    }
+
+    /**
+     * This method checks if the signup information entered is valid
+     * @param login The login String
+     * @param lastname The lastname String
+     * @param firstname The firstname String
+     * @param password The password field
+     * @param confirmedPassword The password confirmation field
+     * @return true if all the strings are valid, false if one of them is not
+     */
+    public static boolean isValidSignUp(String login, String lastname, String firstname, String password, String confirmedPassword) throws IncorrectFieldException{
+        if(isValidFirstname(firstname) && isValidLastname(lastname) && isValidLogin(login)){
+            // Assuming a valid sign up requires a unique login and matching passwords
+            return !login.isEmpty() && !lastname.isEmpty() && !firstname.isEmpty() && !password.isEmpty() && password.equals(confirmedPassword);
+        }
+        return false;
     }
 }
