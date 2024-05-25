@@ -26,6 +26,7 @@ import org.openjfx.cybooks.database.LoanFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -137,7 +138,11 @@ public class SearchLoanPageController implements Initializable {
      * @return The number of pages needed to show the all of the results attribute
      */
     private int getTotalPages() {
-        return (results.size() + rowsPerPage - 1) / rowsPerPage;
+        int total = results.size() / rowsPerPage;
+        if (results.size() % rowsPerPage != 0) {
+            total++; // Add one more page for the remaining items
+        }
+        return total;
     }
 
     /**
@@ -151,7 +156,7 @@ public class SearchLoanPageController implements Initializable {
         if (page < 0 || page > results.size() / rowsPerPage) {
             return;
         }
-        if ( getTotalPages() <= 1 ){
+        if ( totalPages <= 1 ){
             Separator.setVisible(false);
         }
 
@@ -183,13 +188,20 @@ public class SearchLoanPageController implements Initializable {
                 IDMember.setText(String.valueOf(loan.getCustomerId()));
                 IDBook.setText(loan.getBookId());
 
-//                Title.setText( ((Book) Core.getBook(loan.getBookId())).getTitle());
-
-                Book book = Core.getBook(loan.getBookId());
-                if (book.getTitle() != null || book.getTitle().isEmpty()) {
+                try {
+                     Book book = Core.getBook(loan.getBookId());
+                    if (book != null && book.getTitle() != null && !book.getTitle().isEmpty()) {
+                        System.out.println("Book found: " + book.getTitle());
+                        Title.setText(book.getTitle());
+                    } else {
+                        System.out.println("Book or title is null or empty");
+                        Title.setText("N/A");
+                    }
+                } catch (NoSuchElementException e) {
+                    System.out.println("Book not found: " + e.getMessage());
                     Title.setText("N/A");
-                } else {
-                    Title.setText(book.getTitle());
+                } catch (Exception e) {
+                    Title.setText("N/A");
                 }
 
                 // by default return button is the only one visible in the item-loan
@@ -302,7 +314,7 @@ public class SearchLoanPageController implements Initializable {
         results = getResultsFromDatabase(filter);
         try {
             showPage(0);
-            updateButtonStates(results.size() / rowsPerPage);
+            updateButtonStates(getTotalPages());
         } catch (IOException e) {
             e.printStackTrace();
         }

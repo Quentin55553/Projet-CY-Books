@@ -662,7 +662,7 @@ public class DBHandler {
             res = statement.executeQuery("SELECT * FROM loans WHERE completed = 0 AND expiration_date < CURRENT_DATE");
 
             while (res.next()) {
-                boolean completed = (res.getInt("completed") != 0);
+                boolean completed = res.getBoolean("completed");
                 loans.add(new Loan(res.getInt("id"), res.getString("book_id"), res.getInt("customer_id"), res.getDate("begin_date"), res.getDate("expiration_date"), completed));
             }
 
@@ -852,6 +852,16 @@ public class DBHandler {
         boolean completed = filter.isCompleted();
         boolean expired = filter.isExpired();
 
+        // Handle the case where customerID is null, bookID is empty, and completed is false
+        if (customerID == null && bookID.isEmpty() && !completed) {
+            if (!expired) {
+                System.out.println(getOngoingLoans());
+                //return getOngoingLoans();
+            } else {
+                return getExpiredLoans();
+            }
+        }
+
         // Start building the query
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM loans WHERE ");
 
@@ -868,9 +878,11 @@ public class DBHandler {
             queryBuilder.append(" AND book_id LIKE '%").append(bookID).append("%'");
         }
 
-        // Add expired condition if wanted
+        // Add expired condition if provided
         if (expired) {
             queryBuilder.append(" AND expiration_date < CURRENT_DATE");
+        } else {
+            queryBuilder.append(" AND expiration_date >= CURRENT_DATE");
         }
 
         String query = queryBuilder.toString();
@@ -893,9 +905,9 @@ public class DBHandler {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            closeConnection();
         }
-
-        closeConnection();
         return loans;
     }
 

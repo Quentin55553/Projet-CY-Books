@@ -9,7 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import org.openjfx.cybooks.API.APIErrorException;
 import org.openjfx.cybooks.data.Book;
 import org.openjfx.cybooks.data.Core;
 import org.openjfx.cybooks.data.Loan;
@@ -18,6 +20,7 @@ import org.openjfx.cybooks.database.DBHandler;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -158,7 +161,24 @@ public class AllLoansController implements Initializable {
             START.setText(loan.getBeginDate());
             IDBook.setText(loan.getBookId());
             IDMember.setText(String.valueOf(loan.getCustomerId()));
-            Title.setText( ((Book) DBHandler.getBook(loan.getBookId())).getTitle() );
+
+            Book book = null;
+            try {
+                book = Core.getBook(loan.getBookId());
+                if (book != null && book.getTitle() != null && !book.getTitle().isEmpty()) {
+                    System.out.println("Book found: " + book.getTitle());
+                    Title.setText(book.getTitle());
+                } else {
+                    System.out.println("Book or title is null or empty");
+                    Title.setText("N/A");
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println("Book not found: " + e.getMessage());
+                Title.setText("N/A");
+            } catch (Exception e) {
+                Title.setText("N/A");
+            }
+
             // by default return button is the only one visible in the item-loan
             if(loan.isCompleted()){
                 // hide return button
