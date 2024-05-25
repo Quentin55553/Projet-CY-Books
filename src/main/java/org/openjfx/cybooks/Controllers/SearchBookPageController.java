@@ -177,20 +177,48 @@ public class SearchBookPageController implements Initializable {
                 Label stockLabel = (Label) node.lookup("#stockLabel");
                 Button button = (Button) ((Parent)node).lookup("#BookButton");
 
-                titleLabel.setText(String.valueOf(book.getTitle()));
-                StringBuilder authors = new StringBuilder();
-                for (String author : book.getAuthors()){
-                    authors.append(author);
+                if(book.getTitle() != null && !book.getTitle().isEmpty()){
+                    titleLabel.setText(String.valueOf(book.getTitle()));
                 }
-                authorLabel.setText(authors.toString());
+                else{
+                    titleLabel.setText("N/A");
+                }
+
+                if(!book.getAuthors().isEmpty() && book.getAuthors() != null){
+                    StringBuilder authors = new StringBuilder();
+                    for (String author : book.getAuthors()){
+                        authors.append(author);
+                    }
+                    authorLabel.setText(authors.toString());
+                }
+                else {
+                    authorLabel.setText("N/A");
+                }
                 editorLabel.setText(book.getPublisher());
-                StringBuilder subjects = new StringBuilder();
-                for (String subject : book.getSubjects()){
-                    authors.append(subject);
+                if(!book.getSubjects().isEmpty() && book.getSubjects() != null){
+                    StringBuilder subjects = new StringBuilder();
+                    for (String subject : book.getSubjects()){
+                        subjects.append(subject);
+                    }
+                    subjectLabel.setText(subjects.toString());
                 }
-                subjectLabel.setText(subjects.toString());
+                else{
+                    subjectLabel.setText("N/A");
+                }
                 IDLabel.setText(book.getId());
                 stockLabel.setText(String.valueOf(book.getStock()));
+                button.setId("BookPage" + book.getId());
+                // Book in library
+                if(DBHandler.getBook(book.getId()).equals(book)){
+                    button.setOnAction(actionEvent -> handleButtonClick(book));
+                }
+                // Book not in library
+                else{
+                    FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();
+                    icon.setGlyphName("PLUS");
+                    button.setOnAction(actionEvent -> AddToLibrary(book,button));
+                }
+
             }
             BooksVbox.getChildren().add(node);
         }
@@ -246,6 +274,16 @@ public class SearchBookPageController implements Initializable {
         }
 
     }
+
+    private void AddToLibrary(Book book, Button button) {
+        Core.addBook(book.getId(), 5,5);
+        book.setStock(5);
+        book.setTotal(5);
+        FontAwesomeIconView icon = (FontAwesomeIconView) button.getGraphic();
+        icon.setGlyphName("BOOK");
+        button.setOnAction(actionEvent -> handleButtonClick(book));
+    }
+
 
     /**
      * This method is called to show the dialog page used for the search filtering
