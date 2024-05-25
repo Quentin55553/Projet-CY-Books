@@ -146,6 +146,7 @@ public class SearchLoanPageController implements Initializable {
      * @throws IOException If there is an error during the page transition
      */
     private void showPage(int page) throws IOException {
+
         int totalPages = getTotalPages();
         if (page < 0 || page > results.size() / rowsPerPage) {
             return;
@@ -181,7 +182,16 @@ public class SearchLoanPageController implements Initializable {
                 END.setText(loan.getExpirationDate());
                 IDMember.setText(String.valueOf(loan.getCustomerId()));
                 IDBook.setText(loan.getBookId());
-                Title.setText( ((Book) DBHandler.getBook(loan.getBookId())).getTitle());
+
+//                Title.setText( ((Book) Core.getBook(loan.getBookId())).getTitle());
+
+                Book book = Core.getBook(loan.getBookId());
+                if (book.getTitle() != null || book.getTitle().isEmpty()) {
+                    Title.setText("N/A");
+                } else {
+                    Title.setText(book.getTitle());
+                }
+
                 // by default return button is the only one visible in the item-loan
                 if(loan.isCompleted()){
                     // hide return button
