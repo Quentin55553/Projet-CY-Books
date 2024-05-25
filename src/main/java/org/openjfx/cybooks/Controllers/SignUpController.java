@@ -6,6 +6,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.openjfx.cybooks.Main;
+import org.openjfx.cybooks.UserInput.FieldChecks;
+import org.openjfx.cybooks.UserInput.IncorrectFieldException;
 import org.openjfx.cybooks.data.Core;
 
 import java.io.IOException;
@@ -100,36 +102,28 @@ public class SignUpController {
         String enteredFirstname = firstname.getText();
         String enteredPassword = password.getText();
         String confirmedPassword = password2.getText();
+        try {
+            if (FieldChecks.isValidSignUp(enteredLogin, enteredLastname, enteredFirstname, enteredPassword, confirmedPassword)) {
+                // Go to login page
+                try {
+                    Core.addLibrarian(enteredLogin, enteredLastname, enteredFirstname, enteredPassword);
+                    main.showLogInScene();
 
-        if (isValidSignUp(enteredLogin, enteredLastname, enteredFirstname, enteredPassword, confirmedPassword)) {
-            // Go to login page
-            try {
-                Core.addLibrarian(enteredLogin, enteredLastname, enteredFirstname, enteredPassword);
-                main.showLogInScene();
+                } catch (IOException e) {
+                    e.printStackTrace();
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                } catch (SQLException e) {
+                    errorLabel.setText(e.getMessage());
+                }
 
-            } catch (SQLException e) {
-                errorLabel.setText(e.getMessage());
+            } else {
+                errorLabel.setText("Tous les champs doivent avoir au moins 1 caractère \n et les deux mots de passe doivent être identiques");
             }
-
-        } else {
-            errorLabel.setText("Tous les champs doivent avoir au moins 1 caractère \n et les deux mots de passe doivent être identiques");
+        }
+        catch (IncorrectFieldException e){
+            errorLabel.setText(e.getMessage());
         }
     }
 
-    /**
-     * This method checks if the signup information entered is valid
-     * @param login The login String
-     * @param lastname The lastname String
-     * @param firstname The firstname String
-     * @param password The password field
-     * @param confirmedPassword The password confirmation field
-     * @return true if all the strings are valid, false if one of them is not
-     */
-    private boolean isValidSignUp(String login, String lastname, String firstname, String password, String confirmedPassword) {
-        // Assuming a valid sign up requires a unique login and matching passwords
-        return !login.isEmpty() && !lastname.isEmpty() && !firstname.isEmpty() && !password.isEmpty() && password.equals(confirmedPassword);
-    }
+
 }

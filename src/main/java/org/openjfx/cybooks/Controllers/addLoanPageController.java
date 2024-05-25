@@ -14,42 +14,85 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-
+/**
+ * Controller class for the page that allows the user to add a loan
+ */
 public class addLoanPageController {
 
+    /**
+     * Button that allows the user to check if the book can be found
+     */
     @FXML
     private JFXButton checkBook;
 
+    /**
+     * Button that allows the user to check if the customer can be found
+     */
     @FXML
     private JFXButton checkCustomer;
 
+    /**
+     * Error box that shows when the book can't be found
+     */
     @FXML
     private HBox errorBook;
 
+    /**
+     * Error box that shows when the customer can't be found
+     */
     @FXML
     private HBox errorCustomer;
 
+    /**
+     * Field used to enter the firstname of the customer
+     */
     @FXML
     private TextField FirstName;
 
+    /**
+     * Field used to enter the identifier of the book
+     */
     @FXML
     private TextField ID;
-
+    /**
+     * Field used to enter the lastname of the customer
+     */
     @FXML
     private TextField LastName;
 
+    /**
+     * Box that shows when the book is found in the database
+     */
     @FXML
     private HBox okBook;
 
+    /**
+     * Box shown when the customer is found in the database
+     */
     @FXML
     private HBox okCustomer;
+    /**
+     * Label used to show if the loan was validated or not
+     */
     @FXML
     private Label validateState;
+    /**
+     * The customer borrowing a book
+     */
     Customer customerSelected;
+    /**
+     * The borrowed book
+     */
     Book bookSelected;
+    /**
+     * The expiration date of the loan
+     */
     LocalDate expirationdate;
 
 
+    /**
+     * This method checks if the customer can be fetched from the database using their name and shows messages depending on the result
+     */
     @FXML
     private void checkCustomerFields(){
         okCustomer.setVisible(false);
@@ -68,6 +111,9 @@ public class addLoanPageController {
         }
     }
 
+    /**
+     * This method checks if the book can be fetched from the database using its identifier and shows messages depending on the result
+     */
     @FXML
     private void checkBookField(){
         okBook.setVisible(false);
@@ -85,14 +131,25 @@ public class addLoanPageController {
     }
 
 
+    /**
+     * This method is used to clear the fields corresponding to the customer
+     */
     private void clearCustomerFields(){
         FirstName.clear();
         LastName.clear();
     }
+
+    /**
+     * This method is used to clear the fields corresponding to the book
+     */
     private void clearLoanFields(){
         ID.clear();
     }
 
+    /**
+     * This method is called when the loan is validated. The librarian msut enter an expiration date for the loan
+     * @return true if a date was entered, false if not
+     */
     public boolean PickDate() {
         // Create the date picker dialog
         Dialog<LocalDate> dialog = new Dialog<>();
@@ -132,6 +189,9 @@ public class addLoanPageController {
     }
 
 
+    /**
+     * This method is used to clear the messages and information on the page
+     */
     private void clearPage(){
         okBook.setVisible(false);
         errorBook.setVisible(false);
@@ -142,6 +202,10 @@ public class addLoanPageController {
         ID.clear();
     }
 
+    /**
+     * This methods adds the loan to the database if it is valid.
+     * It shows a confirmation or an error message
+     */
     @FXML
     private void ValidateLoan(){
         if(Boolean.TRUE.equals(checkCustomer.getUserData()) && Boolean.TRUE.equals(checkBook.getUserData()) && PickDate()){
@@ -151,7 +215,7 @@ public class addLoanPageController {
             validateState.setStyle("-fx-text-fill: #606C38;");
         }
         else{
-            validateState.setText("L'emprunt ne peux pas être valider");
+            validateState.setText("L'emprunt ne peut pas être validé");
             validateState.setStyle("-fx-text-fill: #a94442;");
         }
     }
