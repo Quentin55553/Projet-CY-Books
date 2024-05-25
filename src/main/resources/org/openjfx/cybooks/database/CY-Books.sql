@@ -12,8 +12,8 @@ USE `CY-Books`;
 
 CREATE TABLE `books` (
   `id` varchar(50) NOT NULL PRIMARY KEY,
-  `quantity` int(11) DEFAULT 0,
-  `stock` int(11) DEFAULT 0
+  `quantity` int(11) DEFAULT 5,
+  `stock` int(11) DEFAULT 5
 );
 
 
