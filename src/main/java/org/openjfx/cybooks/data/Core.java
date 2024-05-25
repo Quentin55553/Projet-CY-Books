@@ -107,7 +107,7 @@ public class Core {
         APIHandler API = new APIHandler();
         String bookLink = "";
 
-        if (filter.isEmpty())
+        if (filter.isEmpty() && filter.isDatabaseOnly())
             return getAllBooks();
 
 

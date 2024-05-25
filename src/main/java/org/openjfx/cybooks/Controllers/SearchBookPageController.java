@@ -87,8 +87,8 @@ public class SearchBookPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // initialize filter with empty fields for books in the library, this ensures that not too much books are showing
-        filter = new BookFilter("","","", "", "", "", true);
+        // initialize filter with empty fields for books in the library with date 2020, this ensures that not too much books are showing for the initial page load
+        filter = new BookFilter("","","", "2020", "", "", true);
         System.out.println(filter);
         results = getResultsFromDatabase(filter);
 
@@ -163,6 +163,9 @@ public class SearchBookPageController implements Initializable {
         int end = Math.min(start + rowsPerPage, results.size());
 
 
+        int count = 0;
+
+
         for (int i = start; i < end; i++) {
             Node node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-Book.fxml")));
             if (node instanceof Parent){
@@ -209,8 +212,9 @@ public class SearchBookPageController implements Initializable {
                 stockLabel.setText(String.valueOf(book.getStock()));
                 button.setId("BookPage" + book.getId());
                 // Book in library
-                if(DBHandler.getBook(book.getId()).equals(book)){
+                if(DBHandler.isInLibrary(book.getId())){
                     button.setOnAction(actionEvent -> handleButtonClick(book));
+                    count ++;
                 }
                 // Book not in library
                 else{
@@ -223,6 +227,7 @@ public class SearchBookPageController implements Initializable {
             BooksVbox.getChildren().add(node);
         }
         System.out.println("Showing page " + page + " from index " + start + " to " + (end - 1));
+        System.out.println("count ="+count);
         updateButtonStates(totalPages);
     }
 

@@ -131,6 +131,41 @@ public class DBHandler {
     }
 
     /**
+     * Checks if a Book is in database from its id
+     * @param id the id to test
+     * @return true if it is in database false otherwise
+     */
+    public static boolean isInLibrary(String id) {
+        createConnection();
+        ResultSet res = null;
+        boolean isInLibrary = false;
+
+        String query = "SELECT * FROM books WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, id);
+            res = preparedStatement.executeQuery();
+
+            if (res.next()) {
+                isInLibrary = true;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (res != null) {
+                    res.close();
+                }
+                closeConnection();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return isInLibrary;
+    }
+
+    /**
      * Returns a list of loans from some customer
      * @param customer_id The customer's id
      * @return A list of loans from some customer
