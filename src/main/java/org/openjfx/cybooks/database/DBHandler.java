@@ -43,18 +43,20 @@ public class DBHandler {
             e.printStackTrace();
         }
     }
-
     /**
      * Creates a new connection to the database
      * @implNote Must be called before any interaction with the database
      */
-    private static void createConnection() {
+    private static void createConnection() throws SQLSyntaxErrorException {
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             connection = DriverManager.getConnection("jdbc:mysql://localhost/CY-Books", "root", "");
             statement = connection.createStatement();
 
+        } catch (SQLSyntaxErrorException e) {
+            throw e;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,27 +80,53 @@ public class DBHandler {
      * @param filePath The database's file path
      */
     public static void executeSQLFile(String filePath) {
-        createFirstConnection();
+        try {
+            createConnection();
+        } catch (SQLSyntaxErrorException exception) {
+            System.out.println("Database CY-Books not found, trying to create it");
+            createFirstConnection();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            StringBuilder sql = new StringBuilder();
+            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                StringBuilder sql = new StringBuilder();
 
-            while ((line = br.readLine()) != null) {
-                sql.append(line).append("\n");
-            }
-
-            String[] sqlCommands = sql.toString().split(";");
-
-            for (String command : sqlCommands) {
-                if (!command.trim().isEmpty()) {
-                    statement.execute(command.trim());
+                while ((line = br.readLine()) != null) {
+                    sql.append(line).append("\n");
                 }
-            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                String[] sqlCommands = sql.toString().split(";");
+
+                for (String command : sqlCommands) {
+                    if (!command.trim().isEmpty()) {
+                        statement.execute(command.trim());
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+//        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+//            String line;
+//            StringBuilder sql = new StringBuilder();
+//
+//            while ((line = br.readLine()) != null) {
+//                sql.append(line).append("\n");
+//            }
+//
+//            String[] sqlCommands = sql.toString().split(";");
+//
+//            for (String command : sqlCommands) {
+//                if (!command.trim().isEmpty()) {
+//                    statement.execute(command.trim());
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         closeConnection();
     }
 
@@ -109,11 +137,12 @@ public class DBHandler {
      * @throws NoSuchElementException Thrown if the book is missing on the database
      */
     public static Book getBook(String id) throws NoSuchElementException {
-        createConnection();
+
         ResultSet res;
         Book book = null;
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT * FROM books WHERE id='" + id + "'");
             if (!res.next())
                 throw new NoSuchElementException("No such book with id " + id + " in database");
@@ -136,9 +165,15 @@ public class DBHandler {
      * @return true if it is in database false otherwise
      */
     public static boolean isInLibrary(String id) {
-        createConnection();
         ResultSet res = null;
         boolean isInLibrary = false;
+
+        try {
+            createConnection();
+        } catch (SQLException e) {
+
+        }
+
 
         String query = "SELECT * FROM books WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -171,11 +206,11 @@ public class DBHandler {
      * @return A list of loans from some customer
      */
     public static List<Loan> getLoansByCustomer(int customer_id) {
-        createConnection();
         ResultSet res;
         List<Loan> loans = new ArrayList<>();
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, expiration_date, completed FROM loans, books WHERE customer_id='" + customer_id + "' AND book_id=books.id");
 
 
@@ -198,12 +233,12 @@ public class DBHandler {
      * @return A list of loans from some book
      */
     public static List<Loan> getLoansByBookId(String bookId) {
-        createConnection();
         ResultSet res;
         Loan loan;
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT loans.id, customer_id, begin_date, expiration_date, completed FROM loans, books WHERE loans.book_id=books.id");
 
 
@@ -226,12 +261,12 @@ public class DBHandler {
      * @return A list of all loans
      */
     public static List<Loan> getLoans() {
-        createConnection();
         ResultSet res;
         Loan loan;
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, expiration_date, completed FROM loans");
 
             while (res.next()){
@@ -255,12 +290,12 @@ public class DBHandler {
      * @return A list of matching customers
      */
     public static List<Customer> getCustomers(String name) {
-        createConnection();
         ResultSet res;
         Customer customer;
         ArrayList<Customer> customers = new ArrayList<>();
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT * FROM customers WHERE last_name like '%" + name + "%'");
             while (res.next()) {
                 customer = new Customer(res.getInt("id"), res.getString("first_name"), res.getString("last_name"), res.getString("tel"), res.getString("email"), res.getString("address"), res.getInt("loan_count"));
@@ -281,12 +316,12 @@ public class DBHandler {
      * @return A list of all the customers
      */
     public static List<Customer> getAllCustomers() {
-        createConnection();
         ResultSet res;
         Customer customer;
         ArrayList<Customer> customers = new ArrayList<>();
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT * FROM customers");
 
             while (res.next()) {
@@ -316,12 +351,12 @@ public class DBHandler {
      * @return A list of all ongoing loans
      */
     public static List<Loan> getOngoingLoans () {
-        createConnection();
         ResultSet res;
         Loan loan;
         ArrayList<Loan> loans = new ArrayList<>();
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT loans.id, book_id, customer_id, begin_date, expiration_date, completed FROM loans WHERE completed='0'");
 
             while (res.next()){
@@ -345,9 +380,9 @@ public class DBHandler {
      * @param total The total amount of books once all books have been returned
      */
     public static void addBook (String ID, int stock, int total) {
-        createConnection();
 
         try {
+            createConnection();
             statement.execute("INSERT INTO books (id, quantity, stock) VALUES ('" + ID + "', '" + total + "', '" + stock + "')");
 
         } catch (SQLException e) {
@@ -364,9 +399,9 @@ public class DBHandler {
      * @param expirationDate The date of which the book must be returned
      */
     public static void addLoan (String book_id, int customer_id, String expirationDate) {
-        createConnection();
 
         try {
+            createConnection();
             statement.execute("INSERT INTO loans (book_id, customer_id, expiration_date) VALUES ('" + book_id + "', '" + customer_id + "', '" + expirationDate + "')");
             statement.execute("UPDATE books SET stock=stock-1 WHERE id='" + book_id + "'");
             statement.execute("UPDATE customers SET loan_count=loan_count+1 WHERE id='" + customer_id + "'");
@@ -387,9 +422,9 @@ public class DBHandler {
      * @throws SQLException Thrown if the customer already exists or if one of the fields is incorrect
      */
     public static void addCustomer (String firstname, String lastname, String tel, String email, String address) throws SQLException {
-        createConnection();
 
         try {
+            createConnection();
             statement.execute("INSERT INTO customers (`last_name`, `first_name`, `tel`, `email`, `address`) VALUES ('" + lastname + "', '" + firstname + "', '" + tel + "', '" + email + "', '" + address + "')");
 
         } catch (SQLException e) {
@@ -414,10 +449,10 @@ public class DBHandler {
      * @throws SQLException Thrown if the librarian already exist in the database
      */
     public static void addLibrarian (String login, String lastName, String firstName, String password) throws SQLException {
-        createConnection();
 
         try {
 
+            createConnection();
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             statement.execute("INSERT INTO librarians (`login`, `last_name`, `first_name`, `password`) VALUES ('" + login + "', '" + lastName + "', '" + firstName + "', '" + hashedPassword +"')");
 
@@ -441,9 +476,9 @@ public class DBHandler {
      * @param lastName The customer's new last name
      */
     public static void updateCustomer (int id, String lastName, String firstName) {
-        createConnection();
 
         try {
+            createConnection();
             statement.execute("UPDATE customers SET last_name='" + lastName + "', first_name='" + firstName + "' WHERE id='" + id + "'");
 
         } catch (SQLException e) {
@@ -464,9 +499,9 @@ public class DBHandler {
      * @throws SQLException Thrown if one of the fields already exist in the database
      */
     public static void updateEntireCustomer (int id, String lastName, String firstName, String tel, String email, String address) throws SQLException {
-        createConnection();
 
         try {
+            createConnection();
             statement.execute("UPDATE customers SET last_name='" + lastName + "', first_name='" + firstName + "', tel='" + tel + "', email='" + email + "', address='" + address + "' WHERE id='" + id + "'");
 
         } catch (SQLException e) {
@@ -488,11 +523,11 @@ public class DBHandler {
      * @param completed Whether the book has been given back or not
      */
     public static void updateLoan (int id, boolean completed) {
-        createConnection();
 
         int value = (completed ? 1 : 0);
 
         try {
+            createConnection();
             statement.execute("UPDATE loans SET completed='" + value + "' WHERE id='" + id + "'");
             statement.execute("UPDATE books SET stock=stock+1 WHERE id=(SELECT book_id FROM loans WHERE id =" + id + ")");
         } catch (SQLException e) {
@@ -508,9 +543,9 @@ public class DBHandler {
      * @param expirationDate The new expiration date
      */
     public static void updateExpirationDate(String id, String expirationDate) {
-        createConnection();
 
         try {
+            createConnection();
             statement.execute("UPDATE loans SET expiration_date='" + expirationDate + "' WHERE id='" + id + "'");
 
         } catch (SQLException e) {
@@ -526,9 +561,9 @@ public class DBHandler {
      * @param stock The book's new stock
      */
     public static void updateBookStock (String id, int stock) {
-        createConnection();
 
         try {
+            createConnection();
             statement.execute("UPDATE books SET stock='" + stock + "' WHERE id='" + id + "'");
 
         } catch (SQLException e) {
@@ -544,9 +579,9 @@ public class DBHandler {
      * @param total The book's new total
      */
     public static void updateBookTotal (String id, int total) {
-        createConnection();
 
         try {
+            createConnection();
             statement.execute("UPDATE books SET quantity='" + total + "' WHERE id='" + id + "'");
 
         } catch (SQLException e) {
@@ -561,12 +596,12 @@ public class DBHandler {
      * @return A list of the most popular books in the database
      */
     public static List<Book> getMostPopularBooks() {
-        createConnection();
         ResultSet res;
 
         List<Book> books = new ArrayList<>();
 
         try {
+            createConnection();
             // resBooks = statement.executeQuery("SELECT * FROM books WHERE id IN (SELECT book_id FROM loans GROUP BY book_id ORDER BY COUNT(book_id) DESC)");
             res = statement.executeQuery("SELECT *, count(book_id) as nb FROM books RIGHT JOIN loans l on books.id = l.book_id GROUP BY book_id ORDER BY COUNT(book_id) DESC");
 
@@ -591,12 +626,12 @@ public class DBHandler {
      * @return A list of the most popular books in the database since some date
      */
     public static List<Book> getMostPopularBooksSince(String date) {
-        createConnection();
         ResultSet res;
 
         List<Book> books = new ArrayList<>();
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT *, count(book_id) as nb FROM books RIGHT JOIN loans l on books.id = l.book_id WHERE begin_date >= '" + date + "' GROUP BY book_id ORDER BY COUNT(book_id) DESC");
 
             while (res.next()) {
@@ -619,11 +654,11 @@ public class DBHandler {
      * @return A list of the loans that have expired
      */
     public static List<Loan> getExpiredLoans() {
-        createConnection();
         ResultSet res;
         List<Loan> loans = new ArrayList<>();
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT * FROM loans WHERE completed = 0 AND expiration_date < CURRENT_DATE");
 
             while (res.next()) {
@@ -649,11 +684,11 @@ public class DBHandler {
      * @throws IncorrectPasswordException Thrown if the librarian's password is incorrect
      */
     public static Librarian librarianAuthentication(String login, String password) throws IncorrectPasswordException, NoSuchElementException {
-        createConnection();
         ResultSet res;
         Librarian librarian = null;
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT * FROM librarians WHERE login='" + login + "'");
 
             if (!res.next()) {
@@ -684,11 +719,11 @@ public class DBHandler {
      */
     public static Librarian getLibrarian(String login) {
 
-        createConnection();
         ResultSet res;
         Librarian librarian = null;
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT * FROM librarians WHERE login='" + login + "'");
             if (res.next()) {
                 librarian = new Librarian(res.getInt("id"), res.getString("first_name"), res.getString("last_name"));
@@ -709,11 +744,11 @@ public class DBHandler {
      * @return The librarian's login
      */
     public static String getLibrarianLogin(Librarian librarian) {
-        createConnection();
         ResultSet res;
         String login = null;
 
         try {
+            createConnection();
             String query = "SELECT login FROM librarians WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, String.valueOf(librarian.getId()));
@@ -737,7 +772,6 @@ public class DBHandler {
      * @return A list of customers corresponding to the search filter
      */
     public static List<Customer> getCustomersByFilter(CustomerFilter filter) {
-        createConnection();
         List<Customer> customers = new ArrayList<>();
         ResultSet res;
 
@@ -786,6 +820,7 @@ public class DBHandler {
 
 
         try {
+            createConnection();
             res = statement.executeQuery(query);
 
             while (res.next()) {
@@ -809,7 +844,6 @@ public class DBHandler {
      * @return A list of loans corresponding to the search filter
      */
     public static List<Loan> getLoansByFilter (LoanFilter filter) {
-        createConnection();
         List<Loan> loans = new ArrayList<>();
         ResultSet res;
 
@@ -842,6 +876,7 @@ public class DBHandler {
         String query = queryBuilder.toString();
 
         try {
+            createConnection();
             res = statement.executeQuery(query);
 
             while (res.next()) {
@@ -869,11 +904,11 @@ public class DBHandler {
      * @return A list of semi-empty books from the database
      */
     public static List<Book> getAllBooks () {
-        createConnection();
         List<Book> books = new ArrayList<>();
         ResultSet res;
 
         try {
+            createConnection();
             res = statement.executeQuery("SELECT * from books");
 
             while (res.next()) {
