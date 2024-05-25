@@ -45,28 +45,32 @@ public class CommandLineHandler {
 
         // User login or signup
         Scanner in = new Scanner(System.in);
-
         Librarian user = null;
         String login;
         String password;
-        Colors.printlnWhite("Veuillez entrer votre identifiant :");
-        login=in.nextLine();
-        Colors.printlnWhite("Veuillez entrer votre mot de passe :");
-        password=in.nextLine();
 
-        try {
-            if(FieldChecks.isValidLogin(login) && FieldChecks.isValidLogin(password)){
-                user = DBHandler.librarianAuthentication(login, password);
+        do {
+            Colors.printlnWhite("Veuillez entrer votre identifiant :");
+            login = in.nextLine();
+            Colors.printlnWhite("Veuillez entrer votre mot de passe :");
+            password = in.nextLine();
+
+            try {
+                if (FieldChecks.isValidLogin(login) && FieldChecks.isValidLogin(password)) {
+                    user = DBHandler.librarianAuthentication(login, password);
+                }
             }
-        }
-        catch (Exception e){
-            Colors.printlnRed("Identifiant ou mot de passe incorrect.");
-        }
+            catch(IncorrectFieldException e){
+                Colors.printlnRed(e.getMessage());
+            }
+            catch (Exception e) {
+                Colors.printlnRed("Identifiant ou mot de passe incorrect.");
+            }
+        }while(user==null);
 
-        if(user==null){
-            Colors.printlnRed("Arrêt de l'application.");
-            System.exit(0);
-        }
+        Colors.printGreen("\nBonjour " );
+        Colors.printCyan(user.getFirstName());
+        Colors.printGreen(" !\n");
 
         // User actions
 
@@ -237,6 +241,9 @@ public class CommandLineHandler {
                 Colors.printlnWhite("");
                 addNewBookAuto(API.getResults().get(i));
             }
+        }
+        catch(APIErrorException e){
+            Colors.printlnRed(e.getMessage());
         }
         catch(Exception e){
             Colors.printlnRed("Une erreur de communication est survenue !");
