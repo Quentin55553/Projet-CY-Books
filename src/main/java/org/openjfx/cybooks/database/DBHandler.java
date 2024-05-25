@@ -94,7 +94,7 @@ public class DBHandler {
             createConnection();
 
         } catch (SQLSyntaxErrorException exception) {
-            System.out.println("Database CY-Books not found, trying to create it");
+            System.out.println("Database CY-Books not found, trying to create it...");
             createFirstConnection();
 
             try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
