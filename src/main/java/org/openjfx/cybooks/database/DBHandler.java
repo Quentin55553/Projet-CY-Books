@@ -36,7 +36,7 @@ public class DBHandler {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            connection = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "cytech0001");
             statement = connection.createStatement();
 
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class DBHandler {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            connection = DriverManager.getConnection("jdbc:mysql://localhost/CY-Books", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/CY-Books", "root", "cytech0001");
             statement = connection.createStatement();
 
         } catch (Exception e) {
@@ -773,10 +773,10 @@ public class DBHandler {
             conditions.add("address LIKE '%" + address + "%'");
         }
         if (inf != null) {
-            conditions.add("id IN (SELECT customer_id FROM loans GROUP BY customer_id HAVING COUNT(customer_id) < " + inf + ")");
+            conditions.add("loan_count < " + inf);
         }
         if (sup != null) {
-            conditions.add("id IN (SELECT customer_id FROM loans GROUP BY customer_id HAVING COUNT(customer_id) > " + sup + ")");
+            conditions.add("loan_count > " + sup);
         }
 
         String query = "SELECT * FROM customers";
