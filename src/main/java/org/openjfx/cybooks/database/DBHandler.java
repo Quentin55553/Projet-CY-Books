@@ -36,7 +36,7 @@ public class DBHandler {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            connection = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "cytech0001");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "");
             statement = connection.createStatement();
 
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class DBHandler {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            connection = DriverManager.getConnection("jdbc:mysql://localhost/CY-Books", "root", "cytech0001");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/CY-Books", "root", "");
             statement = connection.createStatement();
 
         } catch (Exception e) {

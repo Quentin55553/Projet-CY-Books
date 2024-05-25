@@ -65,7 +65,7 @@
                               <Insets left="15.0" right="50.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
                            <children>
                               <HBox fx:id="okCustomer" alignment="CENTER" prefHeight="33.0" prefWidth="359.0" spacing="5.0" visible="false">
                                  <children>
@@ -81,6 +81,16 @@
                                  <children>
                                     <FontAwesomeIconView fill="#a94442" glyphName="CLOSE" size="28" />
                                     <Label text="Membre introuvable" textFill="#a94442">
+                                       <font>
+                                          <Font name="Eras Demi ITC" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="toMuchLoanCustomer" alignment="CENTER" prefHeight="33.0" prefWidth="359.0" spacing="5.0" visible="false">
+                                 <children>
+                                    <FontAwesomeIconView fill="#a94442" glyphName="EXCLAMATION_CIRCLE" size="28" />
+                                    <Label text="Membre a atteint la limite d'emprunt" textFill="#a94442">
                                        <font>
                                           <Font name="Eras Demi ITC" size="16.0" />
                                        </font>
@@ -157,8 +167,18 @@
                               <Insets left="15.0" right="50.0" />
                            </GridPane.margin>
                         </JFXButton>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
                            <children>
+                              <HBox fx:id="toMuchLoanBook" alignment="CENTER" prefHeight="33.0" prefWidth="359.0" spacing="5.0" visible="false">
+                                 <children>
+                                    <FontAwesomeIconView fill="#a94442" glyphName="BAN" size="28" />
+                                    <Label text="Livre indisponible pour le moment" textFill="#a94442">
+                                       <font>
+                                          <Font name="Eras Demi ITC" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                               <HBox fx:id="okBook" alignment="CENTER" prefHeight="33.0" prefWidth="359.0" spacing="5.0" visible="false">
                                  <children>
                                     <FontAwesomeIconView fill="#606c38" glyphName="CHECK" size="28" />

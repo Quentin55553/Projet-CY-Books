@@ -42,6 +42,17 @@ public class addLoanPageController {
      */
     @FXML
     private HBox errorCustomer;
+    /**
+     * Error box that shows when the book is not available
+     */
+    @FXML
+    private HBox toMuchLoanBook;
+
+    /**
+     * Error box that shows when the customer made too much loans
+     */
+    @FXML
+    private HBox toMuchLoanCustomer;
 
     /**
      * Field used to enter the firstname of the customer
@@ -97,12 +108,21 @@ public class addLoanPageController {
     private void checkCustomerFields(){
         okCustomer.setVisible(false);
         errorCustomer.setVisible(false);
+        toMuchLoanCustomer.setVisible(false);
         CustomerFilter filter = new CustomerFilter(LastName.getText().trim(), FirstName.getText().trim(),null,"","","",null, null);
         List<Customer> custommer= DBHandler.getCustomersByFilter(filter);
         if(custommer.size() == 1){
-            okCustomer.setVisible(true);
-            checkCustomer.setUserData(true);
-            customerSelected = custommer.get(0);
+            // Ensures the customer did not make too much loans
+            if(custommer.get(0).getLoanCount() < 10){
+                okCustomer.setVisible(true);
+                checkCustomer.setUserData(true);
+                customerSelected = custommer.get(0);
+            }
+            else{
+                toMuchLoanCustomer.setVisible(true);
+                checkCustomer.setUserData(false);
+                clearCustomerFields();
+            }
         }
         else {
             errorCustomer.setVisible(true);
@@ -118,10 +138,19 @@ public class addLoanPageController {
     private void checkBookField(){
         okBook.setVisible(false);
         errorBook.setVisible(false);
+        toMuchLoanBook.setVisible(false);
         try{
             bookSelected = DBHandler.getBook(ID.getText().trim());
-            okBook.setVisible(true);
-            checkBook.setUserData(true);
+            // Ensures the book is in stock for loans
+            if(bookSelected.getStock() > 0){
+                okBook.setVisible(true);
+                checkBook.setUserData(true);
+            }
+            else{
+                toMuchLoanBook.setVisible(true);
+                checkBook.setUserData(false);
+                clearLoanFields();
+            }
         }
         catch(NoSuchElementException e) {
                 errorBook.setVisible(true);
