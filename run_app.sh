@@ -63,12 +63,12 @@ function run() {
 	if [ "$run_gui" = "o" ] || [ "$run_gui" = "oui" ]; then
 		echo -e "Lancement de l'interface graphique"
 		# Runs the project with GUI
-		mvn -q clean javafx:run
+		mvn -q javafx:run
 	
 	# Otherwise, we run the project with CLI
 	else
 		echo -e "Lancement de l'interface en ligne de commande"
-		mvn -q clean javafx:run@commandline-cli
+		mvn -q javafx:run@commandline-cli
 	fi
 }
 
