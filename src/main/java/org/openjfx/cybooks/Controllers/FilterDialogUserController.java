@@ -3,8 +3,11 @@ package org.openjfx.cybooks.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.openjfx.cybooks.UserInput.FieldChecks;
+import org.openjfx.cybooks.UserInput.IncorrectFieldException;
 import org.openjfx.cybooks.database.CustomerFilter;
 
 /**
@@ -57,6 +60,11 @@ public class FilterDialogUserController{
      */
     @FXML
     private TextField PhoneField;
+    /**
+     * Label object used to display error messages
+     */
+    @FXML
+    private Label errorLabel;
 
     /**
      * CustomerFilter object used for the search filtering
@@ -113,35 +121,42 @@ public class FilterDialogUserController{
      */
     @FXML
     public void saveNewFilter(){
-        // Update filter with inputs fields
-        filter.setFirstName(FirstNameField.getText().trim());
-        filter.setLastName(LastNameFIeld.getText().trim());
-        filter.setEmail(EmailField.getText().trim());
-        filter.setTel(PhoneField.getText().trim());
-        filter.setAddress(AddressField.getText().trim());
-        // Parse Integer fields
-        if (!IDField.getText().trim().isEmpty() && isInteger(IDField.getText().trim())) {
-            filter.setId(Integer.parseInt(IDField.getText().trim()));
-        } else {
-            filter.setId(null); // Handle empty field scenario
-        }
-        if (!LoanInfField.getText().trim().isEmpty() && isInteger(LoanInfField.getText().trim())) {
-            filter.setInf(Integer.parseInt(LoanInfField.getText().trim()));
-        } else {
-            filter.setInf(null); // Handle empty field scenario
-        }
-        if (!LoanSuppField.getText().trim().isEmpty() && isInteger(LoanSuppField.getText().trim())) {
-            filter.setSup(Integer.parseInt(LoanSuppField.getText().trim()));
-        } else {
-            filter.setSup(null); // Handle empty field scenario
-        }
+        try {
+            if (FieldChecks.isValidDialogUserFilter(LastNameFIeld.getText(), FirstNameField.getText(), IDField.getText(), EmailField.getText(), PhoneField.getText(), AddressField.getText(), LoanInfField.getText(), LoanSuppField.getText())) {
+                // Update filter with inputs fields
+                filter.setFirstName(FirstNameField.getText().trim());
+                filter.setLastName(LastNameFIeld.getText().trim());
+                filter.setEmail(EmailField.getText().trim());
+                filter.setTel(PhoneField.getText().trim());
+                filter.setAddress(AddressField.getText().trim());
+                // Parse Integer fields
+                if (!IDField.getText().trim().isEmpty() && isInteger(IDField.getText().trim())) {
+                    filter.setId(Integer.parseInt(IDField.getText().trim()));
+                } else {
+                    filter.setId(null); // Handle empty field scenario
+                }
+                if (!LoanInfField.getText().trim().isEmpty() && isInteger(LoanInfField.getText().trim())) {
+                    filter.setInf(Integer.parseInt(LoanInfField.getText().trim()));
+                } else {
+                    filter.setInf(null); // Handle empty field scenario
+                }
+                if (!LoanSuppField.getText().trim().isEmpty() && isInteger(LoanSuppField.getText().trim())) {
+                    filter.setSup(Integer.parseInt(LoanSuppField.getText().trim()));
+                } else {
+                    filter.setSup(null); // Handle empty field scenario
+                }
 
-        // Notify SearchUserPageController about the updated filter
-        searchUserPageController.refreshSearchResults(filter);
+                // Notify SearchUserPageController about the updated filter
+                searchUserPageController.refreshSearchResults(filter);
 
-        // Close the dialog
-        Stage stage = (Stage) IDField.getScene().getWindow();
-        stage.close();
+                // Close the dialog
+                Stage stage = (Stage) IDField.getScene().getWindow();
+                stage.close();
+            }
+
+        } catch (IncorrectFieldException e) {
+            errorLabel.setText(e.getMessage());
+        }
     }
 
     /**

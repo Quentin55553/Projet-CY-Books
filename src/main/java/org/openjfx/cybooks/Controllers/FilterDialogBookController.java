@@ -1,71 +1,72 @@
 package org.openjfx.cybooks.Controllers;
 
-
 import com.jfoenix.controls.JFXToggleButton;
+
+import org.openjfx.cybooks.UserInput.FieldChecks;
+import org.openjfx.cybooks.UserInput.IncorrectFieldException;
+import org.openjfx.cybooks.database.BookFilter;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.Node;
-import org.openjfx.cybooks.database.BookFilter;
 
 
 /**
  * Controller class for the page that allows the user to filter their search of a book
  */
 public class FilterDialogBookController {
-
     /**
      * Author field for the search filtering
      */
     @FXML
     private TextField AutorField;
-
     /**
      * Publisher field for the search filtering
      */
     @FXML
     private TextField EditorField;
-
     /**
      * Identifier field for the search filtering
      */
     @FXML
     private TextField IdField;
-
     /**
      * Button used to search only for books present in the SQL tables
      */
     @FXML
     private JFXToggleButton inLibraryToggle;
-
     /**
      * Subject field for the search filtering
      */
     @FXML
     private TextField SubjectField;
-
     /**
      * Title field for the search filtering
      */
     @FXML
     private TextField TitleField;
-
     /**
      * Year field for the search filtering
      */
     @FXML
     private TextField YearField;
-
     /**
      * BookFilter object used for the search filtering
      */
     private BookFilter filter;
-
+    /**
+     * Label object used to display error messages
+     */
+    @FXML
+    private Label errorLabel;
     /**
      * A SearchBookPageController associated with the dialog box
      */
     private SearchBookPageController searchBookPageController;
+
 
     /**
      * Setter for the searchBookPageController attribute
@@ -98,23 +99,31 @@ public class FilterDialogBookController {
      * Method used to make the book search controller use the book filter attribute of an object
      */
     @FXML
-    public void saveNewFilter(){
-        // Update filter with inputs fields
-        filter.setTitle(TitleField.getText().trim());
-        filter.setAuthor(AutorField.getText().trim());
-        filter.setTheme(SubjectField.getText().trim());
-        filter.setDate(YearField.getText().trim());
-        filter.setEditor(EditorField.getText().trim());
-        filter.setDatabaseOnly(inLibraryToggle.isSelected());
-        filter.setId(IdField.getText().trim());
+    public void saveNewFilter() {
+        try {
+            if (FieldChecks.isValidDialogBookFilter(YearField.getText(), IdField.getText())) {
+                // Update filter with inputs fields
+                filter.setTitle(TitleField.getText().trim());
+                filter.setAuthor(AutorField.getText().trim());
+                filter.setTheme(SubjectField.getText().trim());
+                filter.setDate(YearField.getText().trim());
+                filter.setEditor(EditorField.getText().trim());
+                filter.setDatabaseOnly(inLibraryToggle.isSelected());
+                filter.setId(IdField.getText().trim());
 
-        // Notify SearchBookPageController about the updated filter
-        searchBookPageController.refreshSearchResults(filter);
+                // Notify SearchBookPageController about the updated filter
+                searchBookPageController.refreshSearchResults(filter);
 
-        // Close the dialog
-        Stage stage = (Stage) IdField.getScene().getWindow();
-        stage.close();
+                // Close the dialog
+                Stage stage = (Stage) IdField.getScene().getWindow();
+                stage.close();
+            }
+
+        } catch (IncorrectFieldException e) {
+            errorLabel.setText(e.getMessage());
+        }
     }
+
 
     /**
      * This method is used to close the dialog window
@@ -126,6 +135,7 @@ public class FilterDialogBookController {
         Stage stage = (Stage) ((Node) (actionEvent.getSource())).getScene().getWindow();
         stage.close();
     }
+
 
     /**
      * This method is used to reset the fields of the filtering
@@ -143,5 +153,4 @@ public class FilterDialogBookController {
         // Reset filter
         filter = new BookFilter("", "", "", "", null, "", false);
     }
-
 }

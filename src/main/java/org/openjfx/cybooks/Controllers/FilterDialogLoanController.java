@@ -4,8 +4,11 @@ import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.openjfx.cybooks.UserInput.FieldChecks;
+import org.openjfx.cybooks.UserInput.IncorrectFieldException;
 import org.openjfx.cybooks.database.LoanFilter;
 
 import static org.openjfx.cybooks.Controllers.FilterDialogUserController.isInteger;
@@ -38,7 +41,11 @@ public class FilterDialogLoanController {
      * Loanfilter object used for the search filtering
      */
     private LoanFilter filter;
-
+    /**
+     * Label object used to display error messages
+     */
+    @FXML
+    private Label errorLabel;
     /**
      * A SearchLoanPageController associated with the dialog box
      */
@@ -72,23 +79,30 @@ public class FilterDialogLoanController {
      */
     @FXML
     public void saveNewFilter(){
-        // Update filter with inputs fields
-        filter.setBookID(BookID.getText().trim());
-        filter.setCompleted(completedToggle.isSelected());
-        filter.setExpired(expiredToggle.isSelected());
-        // Parse Integer fields
-        if (!CustomerID.getText().trim().isEmpty() && isInteger(CustomerID.getText().trim())) {
-            filter.setCustomerID(Integer.parseInt(CustomerID.getText().trim()));
-        } else {
-            filter.setCustomerID(null); // Handle empty field scenario
+        try {
+            if (FieldChecks.isValidDialogLoanFilter(CustomerID.getText(), BookID.getText())) {
+                // Update filter with inputs fields
+                filter.setBookID(BookID.getText().trim());
+                filter.setCompleted(completedToggle.isSelected());
+                filter.setExpired(expiredToggle.isSelected());
+                // Parse Integer fields
+                if (!CustomerID.getText().trim().isEmpty() && isInteger(CustomerID.getText().trim())) {
+                    filter.setCustomerID(Integer.parseInt(CustomerID.getText().trim()));
+                } else {
+                    filter.setCustomerID(null); // Handle empty field scenario
+                }
+
+                // Notify SearchUserPageController about the updated filter
+                searchLoanPageController.refreshSearchResults(filter);
+
+                // Close the dialog
+                Stage stage = (Stage) CustomerID.getScene().getWindow();
+                stage.close();
+            }
+
+        } catch (IncorrectFieldException e) {
+            errorLabel.setText(e.getMessage());
         }
-
-        // Notify SearchUserPageController about the updated filter
-        searchLoanPageController.refreshSearchResults(filter);
-
-        // Close the dialog
-        Stage stage = (Stage) CustomerID.getScene().getWindow();
-        stage.close();
     }
 
     /**
