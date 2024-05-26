@@ -124,7 +124,9 @@ public class HomePageController implements Initializable {
     private Main main;
     private static Librarian librarian;
 
-
+    /**
+     * Reference to the connected librarian
+     */
     protected Librarian connectedLibrarian;
 
     /**

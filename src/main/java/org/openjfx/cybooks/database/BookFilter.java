@@ -1,6 +1,5 @@
 package org.openjfx.cybooks.database;
 
-import org.openjfx.cybooks.data.Book;
 
 import java.util.Objects;
 

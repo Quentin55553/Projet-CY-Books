@@ -1,12 +1,8 @@
 package org.openjfx.cybooks.database;
 
 import org.openjfx.cybooks.data.Book;
-import org.openjfx.cybooks.data.Core;
 import org.openjfx.cybooks.data.Customer;
 import org.openjfx.cybooks.data.Loan;
-
-import java.sql.Time;
-import java.time.LocalDate;
 import java.util.*;
 
 

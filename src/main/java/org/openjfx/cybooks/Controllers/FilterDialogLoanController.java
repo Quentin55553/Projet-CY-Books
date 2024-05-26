@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.openjfx.cybooks.database.CustomerFilter;
 import org.openjfx.cybooks.database.LoanFilter;
 
 import static org.openjfx.cybooks.Controllers.FilterDialogUserController.isInteger;

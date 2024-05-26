@@ -16,11 +16,22 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-
+/**
+ * The Main class serves as the entry point for the CY-Books JavaFX application.
+ * It extends the Application class and sets up the primary stage and scenes.
+ */
 public class Main extends Application {
     private Stage primaryStage;
 
 
+    /**
+     * The main entry point for the JavaFX application. This method is called after the
+     * system is ready for the application to start.
+     *
+     * @param primaryStage the primary stage for this application, onto which
+     *                     the application scene can be set.
+     * @throws IOException if an I/O error occurs during loading the FXML files.
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
@@ -36,7 +47,11 @@ public class Main extends Application {
         showLogInScene();
     }
 
-
+    /**
+     * Displays the sign-up scene.
+     *
+     * @throws IOException if an I/O error occurs during loading the FXML file.
+     */
     public void showSignUpScene() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxmlFiles/signup-page.fxml"));
         Parent root = loader.load();
@@ -49,7 +64,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * Displays the login scene.
+     *
+     * @throws IOException if an I/O error occurs during loading the FXML file.
+     */
     public void showLogInScene() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxmlFiles/login-page.fxml"));
         Parent root = loader.load();
@@ -62,7 +81,12 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * Displays the home scene.
+     *
+     * @param id the ID of the librarian to be accessed.
+     * @throws IOException if an I/O error occurs during loading the FXML file.
+     */
     public void showHomeScene(String id) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxmlFiles/home-page.fxml"));
         Parent root = loader.load();
@@ -82,7 +106,12 @@ public class Main extends Application {
         System.out.println("Connected to: " + id);
     }
 
-
+    /**
+     * The main method, used to launch the application.
+     * This method executes the database creation file and then launches the application.
+     *
+     * @param args the command line arguments.
+     */
     public static void main(String[] args) {
         // Executes the database creation file
         DBHandler.executeSQLFile(Paths.get("").toAbsolutePath().toString() + "/src/main/resources/org/openjfx/cybooks/database/CY-Books.sql");

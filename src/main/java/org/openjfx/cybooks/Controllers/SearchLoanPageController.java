@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -17,9 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.openjfx.cybooks.data.Book;
 import org.openjfx.cybooks.data.Core;
-import org.openjfx.cybooks.data.Customer;
 import org.openjfx.cybooks.data.Loan;
-import org.openjfx.cybooks.database.CustomerFilter;
 import org.openjfx.cybooks.database.DBHandler;
 import org.openjfx.cybooks.database.LoanFilter;
 

@@ -20,50 +20,84 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * The BestBooksPageController class handles the UI logic for the Best Books Page in the CY-Books application.
+ * It implements the Initializable interface to initialize the controller after its root element has been completely processed.
+ */
 public class BestBooksPageController implements Initializable {
 
-    @FXML
-    private AnchorPane bestBooksPage;
+    /**
+     * Text area to display the author of the first book.
+     */
     @FXML
     private JFXTextArea author1;
-
+    /**
+     * Text area to display the author of the second book.
+     */
     @FXML
     private JFXTextArea author2;
-
+    /**
+     * Text area to display the author of the third book.
+     */
     @FXML
     private JFXTextArea author3;
-
+    /**
+     * Text area to display the ID of the first book.
+     */
     @FXML
     private JFXTextArea id1;
-
+    /**
+     * Text area to display the ID of the second book.
+     */
     @FXML
     private JFXTextArea id2;
-
+    /**
+     * Text area to display the ID of the third book.
+     */
     @FXML
     private JFXTextArea id3;
-
+    /**
+     * Text area to display the title of the first book.
+     */
     @FXML
     private JFXTextArea title1;
-
+    /**
+     * Text area to display the title of the second book.
+     */
     @FXML
     private JFXTextArea title2;
-
+    /**
+     * Text area to display the title of the third book.
+     */
     @FXML
     private JFXTextArea title3;
-
+    /**
+     * Text to display the number of loans for the first book.
+     */
     @FXML
     private Text nb1;
-
+    /**
+     * Text to display the number of loans for the second book.
+     */
     @FXML
     private Text nb2;
-
+    /**
+     * Text to display the number of loans for the second book.
+     */
     @FXML
     private Text nb3;
-
+    /**
+     * Text to display the selected date.
+     */
     @FXML
     private Text date;
 
-
+    /**
+     * Initializes the controller class. This method is automatically called after the FXML file has been loaded.
+     *
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Afficher la date du jour
@@ -74,7 +108,12 @@ public class BestBooksPageController implements Initializable {
         updateBooksDisplay(today);
     }
 
-
+    /**
+     * Handles the date click event to show a date picker dialog for the user to select a date.
+     * Updates the display with the selected date.
+     *
+     * @param event The mouse event triggered by clicking on the date text.
+     */
     @FXML
     private void handleDateClick(MouseEvent event){
         // Créer le DatePicker
@@ -85,14 +124,11 @@ public class BestBooksPageController implements Initializable {
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.setContent(datePicker);
         dialogPane.getButtonTypes().addAll(javafx.scene.control.ButtonType.OK, javafx.scene.control.ButtonType.CANCEL);
-        dialog.setResultConverter(new Callback<javafx.scene.control.ButtonType, LocalDate>() {
-            @Override
-            public LocalDate call(javafx.scene.control.ButtonType buttonType) {
-                if (buttonType == javafx.scene.control.ButtonType.OK) {
-                    return datePicker.getValue();
-                }
-                return null;
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == javafx.scene.control.ButtonType.OK) {
+                return datePicker.getValue();
             }
+            return null;
         });
 
             Optional<LocalDate> result = dialog.showAndWait();
@@ -105,7 +141,11 @@ public class BestBooksPageController implements Initializable {
             });
     }
 
-
+    /**
+     * Updates the books display with the most popular books since the given date.
+     *
+     * @param selectedDate The date from which to retrieve the most popular books.
+     */
     private void updateBooksDisplay(LocalDate selectedDate) {
         List<Book> books = Core.getMostPopularBooksSince(selectedDate.toString());
         if (books.size() > 0) {

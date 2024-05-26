@@ -32,13 +32,6 @@ public class LibrarianAccountPageController{
     private Text login;
 
     /**
-     * Not used
-     */
-    @FXML
-    private CustomTextField password;
-
-
-    /**
      * The librarian to show
      */
     private Librarian librarian;

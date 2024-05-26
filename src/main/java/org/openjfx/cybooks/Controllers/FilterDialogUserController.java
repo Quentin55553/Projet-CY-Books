@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.openjfx.cybooks.database.CustomerFilter;
-import org.openjfx.cybooks.Controllers.SearchUserPageController;
 
 /**
  * Controller class for the page that allows the user to filter their search of a member of the library
