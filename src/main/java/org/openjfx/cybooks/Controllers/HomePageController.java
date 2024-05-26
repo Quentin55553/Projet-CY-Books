@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
-import com.mysql.cj.protocol.PacketReceivedTimeHolder;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +13,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.openjfx.cybooks.Main;
 import org.openjfx.cybooks.data.Librarian;
@@ -38,7 +36,9 @@ public class HomePageController implements Initializable {
      */
     @FXML
     private ImageView librarianAccount;
-
+    /**
+     * Button used to travel to the BestBooks page
+     */
     @FXML
     private JFXButton BestBook;
 
