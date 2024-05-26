@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="Root" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.openjfx.cybooks.Controllers.ProfilePageController">
+<AnchorPane fx:id="Root" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.ProfilePageController">
    <children>
       <VBox alignment="CENTER" layoutX="28.0" layoutY="68.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -96,7 +96,7 @@
                         </HBox>
                         <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="95.0" prefWidth="900.0" spacing="10.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="title" prefHeight="18.0" prefWidth="188.0" text="Titre" textFill="#fefae0">
+                              <Label fx:id="title" prefHeight="18.0" prefWidth="191.0" text="Titre" textFill="#fefae0">
                                  <HBox.margin>
                                     <Insets left="10.0" />
                                  </HBox.margin>
@@ -106,23 +106,25 @@
                                     <Font name="Eras Demi ITC" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="genre" prefHeight="18.0" prefWidth="176.0" text="Genre" textFill="#fefae0">
+                              <Label fx:id="genre" prefHeight="18.0" prefWidth="156.0" text="Genre" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Demi ITC" />
                                  </font>
                               </Label>
-                              <Label fx:id="loanDate" prefHeight="18.0" prefWidth="146.0" text="Date emprunt" textFill="#fefae0">
+                              <Label fx:id="loanDate" prefHeight="18.0" prefWidth="224.0" text="Date emprunt" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Demi ITC" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="loanDate1" layoutX="610.0" layoutY="11.0" prefHeight="16.0" prefWidth="122.0" text="Etat" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Demi ITC" size="12.0" />
                                  </font>
                               </Label>
                            </children>
                            <GridPane.margin>
-                              <Insets />
+                              <Insets top="15.0" />
                            </GridPane.margin>
-                           <padding>
-                              <Insets right="100.0" />
-                           </padding>
                         </HBox>
                      </children>
                   </GridPane>
