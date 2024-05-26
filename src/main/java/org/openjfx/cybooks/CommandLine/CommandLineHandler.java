@@ -10,6 +10,7 @@ import org.openjfx.cybooks.database.DBHandler;
 import org.openjfx.cybooks.UserInput.IncorrectFieldException;
 
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.*;
 
 import static java.lang.Math.min;
@@ -74,81 +75,78 @@ public class CommandLineHandler {
 
         // User actions
 
-        try{
-            int action=0;
-            while(action!=20){
+        int action=0;
 
-                // Choices
-                Colors.printlnWhite("\nChoisissez une action :\n");
-                // Books
-                Colors.printlnPurple("\nI. Livres :");
-                Colors.printlnWhite("1 - Consulter les livres");
-                Colors.printlnWhite("2 - Rechercher un livre");
-                Colors.printlnWhite("3 - Ajouter un livre");
-                Colors.printlnWhite("4 - Mettre à jour le stock d'un livre");
-                Colors.printlnWhite("5 - Voir les livres de la bibliothèque");
-                Colors.printlnWhite("6 - Voir les livres les plus populaires");
-                // Customers
-                Colors.printlnPurple("\nII. Membres :");
-                Colors.printlnWhite("7 - Inscrire un nouveau membre");
-                Colors.printlnWhite("8 - Mettre à jour le profil d'un membre");
-                Colors.printlnWhite("9 - Rechercher un membre");
-                Colors.printlnWhite("10 - Afficher la liste des membres");
-                // Loans
-                Colors.printlnPurple("\nIII. Emprunts :");
-                Colors.printlnWhite("11 - Créer un nouvel emprunt");
-                Colors.printlnWhite("12 - Mettre à jour un emprunt");
-                Colors.printlnWhite("13 - Voir les emprunts d'un membre");
-                Colors.printlnWhite("14 - Voir les emprunts d'un livre");
-                Colors.printlnWhite("15 - Voir les emprunts en cours");
-                Colors.printlnWhite("16 - Afficher la liste des emprunts");
-                Colors.printlnWhite("17 - Afficher la liste des problèmes d'emprunts");
-                // Miscellaneous
-                Colors.printlnPurple("\nIV. Autres :");
-                Colors.printlnWhite("18 - Créer un nouveau compte bibliothécaire");
-                Colors.printlnWhite("19 - Consulter son compte");
-                Colors.printlnWhite("20 - Se déconnecter (fermera l'application)");
-
-                action = in.nextInt();
-                switch (action) {
+        do {
+            try {
+                    // Choices
+                    Colors.printlnWhite("\nChoisissez une action :\n");
                     // Books
-                    case 1 -> consultBooks();
-                    case 2 -> searchBook();
-                    case 3 -> addNewBook();
-                    case 4 -> changeBookStock();
-                    case 5 -> printBooks();
-                    case 6 -> printMostPopularBooks();
-                    // Members
-                    case 7 -> addNewMember();
-                    case 8 -> updateMemberProfile();
-                    case 9 -> searchForMember();
-                    case 10 -> printMembers();
+                    Colors.printlnPurple("\nI. Livres :");
+                    Colors.printlnWhite("1 - Consulter les livres");
+                    Colors.printlnWhite("2 - Rechercher un livre");
+                    Colors.printlnWhite("3 - Ajouter un livre");
+                    Colors.printlnWhite("4 - Mettre à jour le stock d'un livre");
+                    Colors.printlnWhite("5 - Voir les livres de la bibliothèque");
+                    Colors.printlnWhite("6 - Voir les livres les plus populaires");
+                    // Customers
+                    Colors.printlnPurple("\nII. Membres :");
+                    Colors.printlnWhite("7 - Inscrire un nouveau membre");
+                    Colors.printlnWhite("8 - Mettre à jour le profil d'un membre");
+                    Colors.printlnWhite("9 - Rechercher un membre");
+                    Colors.printlnWhite("10 - Afficher la liste des membres");
                     // Loans
-                    case 11 -> addNewLoan();
-                    case 12 -> updateOngoingLoan();
-                    case 13-> printMemberLoans();
-                    case 14-> printBookLoans();
-                    case 15-> printOngoingLoans();
-                    case 16-> printLoans();
-                    case 17-> printLoanProblems();
+                    Colors.printlnPurple("\nIII. Emprunts :");
+                    Colors.printlnWhite("11 - Créer un nouvel emprunt");
+                    Colors.printlnWhite("12 - Mettre à jour un emprunt");
+                    Colors.printlnWhite("13 - Voir les emprunts d'un membre");
+                    Colors.printlnWhite("14 - Voir les emprunts d'un livre");
+                    Colors.printlnWhite("15 - Voir les emprunts en cours");
+                    Colors.printlnWhite("16 - Afficher la liste des emprunts");
+                    Colors.printlnWhite("17 - Afficher la liste des problèmes d'emprunts");
                     // Miscellaneous
-                    case 18-> createAccount();
-                    case 19-> {
-                        Colors.printlnCyan("Voici les informations de votre compte :\n");
-                        Colors.printColorfulLibrarian(user,login);
+                    Colors.printlnPurple("\nIV. Autres :");
+                    Colors.printlnWhite("18 - Créer un nouveau compte bibliothécaire");
+                    Colors.printlnWhite("19 - Consulter son compte");
+                    Colors.printlnWhite("20 - Se déconnecter (fermera l'application)");
+
+                    action = Integer.parseInt(in.nextLine());
+                    switch (action) {
+                        // Books
+                        case 1 -> consultBooks();
+                        case 2 -> searchBook();
+                        case 3 -> addNewBook();
+                        case 4 -> changeBookStock();
+                        case 5 -> printBooks();
+                        case 6 -> printMostPopularBooks();
+                        // Members
+                        case 7 -> addNewMember();
+                        case 8 -> updateMemberProfile();
+                        case 9 -> searchForMember();
+                        case 10 -> printMembers();
+                        // Loans
+                        case 11 -> addNewLoan();
+                        case 12 -> updateOngoingLoan();
+                        case 13 -> printMemberLoans();
+                        case 14 -> printBookLoans();
+                        case 15 -> printOngoingLoans();
+                        case 16 -> printLoans();
+                        case 17 -> printLoanProblems();
+                        // Miscellaneous
+                        case 18 -> createAccount();
+                        case 19 -> {
+                            Colors.printlnCyan("Voici les informations de votre compte :\n");
+                            Colors.printColorfulLibrarian(user, login);
+                        }
+                        case 20 -> disconnectUser();
+                        default -> {
+                            Colors.printlnRed("Valeur invalide.");
+                        }
                     }
-                    case 20 -> disconnectUser();
-                    default -> {
-                        Colors.printlnRed("Valeur invalide saisie. Arrêt de l'application.");
-                        System.exit(0);
-                    }
-                }
+            } catch (Exception e) {
+                Colors.printlnRed("Valeur invalide.");
             }
-        }
-        catch(Exception e){
-            Colors.printlnRed("Valeur invalide saisie. Arrêt de l'application.");
-            System.exit(0);
-        }
+        }while(action!=20);
 
 
         // Ending
@@ -402,27 +400,27 @@ public class CommandLineHandler {
     /**
      * This command line method is used to add an unkown book to the databse using the terminal
      */
-    private static void addNewBook(){
+    private static void addNewBook() {
+        String identifier = null;
+        int stock = 0;
         try {
-            String identifier;
-            int stock;
             Scanner sc = new Scanner(System.in);
             Colors.printlnWhite("Entrez l'ID du livre à ajouter :");
             identifier = sc.nextLine();
             Colors.printlnWhite("Entrez le stock actuellement disponible :");
             stock = Integer.parseInt(sc.nextLine());
-            if(FieldChecks.isValidBookIdentifier(identifier) && stock>=0){
-                DBHandler.addBook(identifier,stock,0);
+            if (FieldChecks.isValidBookIdentifier(identifier) && stock >= 0) {
+                DBHandler.getBook(identifier);
+                Colors.printlnRed("Le livre existe déjà dans la bibliothèque !");
             }
+        } catch (NoSuchElementException e) {
+            DBHandler.addBook(identifier, stock, stock);
             Colors.printlnCyan("Le livre a bien été ajouté.");
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             Colors.printlnRed("Veuillez entrer une valeur numérique.");
-        }
-        catch(IncorrectFieldException e){
+        } catch (IncorrectFieldException e) {
             Colors.printlnRed(e.getMessage());
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             Colors.printlnRed("Une erreur est survenue.");
         }
     }
@@ -440,7 +438,7 @@ public class CommandLineHandler {
             DBHandler.getBook(identifier);
         }
         catch(NoSuchElementException e){
-            DBHandler.addBook(identifier, 1, 0);
+            DBHandler.addBook(identifier, 1, 1);
             Colors.printlnGreen("Vous avez trouvé le livre :");
             Colors.printlnGreen(sr.getTitle());
             Colors.printlnGreen("Les membres peuvent maintenant l'emprunter !\n");
@@ -452,6 +450,10 @@ public class CommandLineHandler {
         }
     }
 
+    /**
+     * This command line method allows the user to change the stock of a book.
+     * It will ask for the identifier and the new stock.
+     */
     private static void changeBookStock(){
         try {
             String identifier;
@@ -462,12 +464,16 @@ public class CommandLineHandler {
             Colors.printlnWhite("Entrez le stock actuellement disponible :");
             stock = Integer.parseInt(sc.nextLine());
             if(FieldChecks.isValidBookIdentifier(identifier) && stock>=0){
+                DBHandler.getBook(identifier);
                 DBHandler.updateBookStock(identifier,stock);
                 Colors.printlnCyan("Le stock a bien été mis à jour.");
             }
             else{
                 Colors.printlnRed("Veuillez entrer une valeur numérique positive.");
             }
+        }
+        catch (NoSuchElementException e){
+            Colors.printlnRed("Ce livre n'est pas dans la biliothèque !");
         }
         catch(NumberFormatException e){
             Colors.printlnRed("Veuillez entrer une valeur numérique.");
@@ -489,7 +495,7 @@ public class CommandLineHandler {
             List<Book> bookList;
             String identifier;
             bookList = DBHandler.getAllBooks();
-            Colors.printlnCyan("Voici les livres de la bibliothèque :");
+            Colors.printlnCyan("Voici les livres de la bibliothèque :\n");
             for (int i = 0; i < min(5,bookList.size()); i++) {
                 identifier=bookList.get(i).getId();
                 API.generateQueryStandard("","","",identifier,"","","");
@@ -556,8 +562,8 @@ public class CommandLineHandler {
                 DBHandler.addCustomer(firstname,lastname,phone,email,adress);
             }
         }
-        catch (IncorrectFieldException e){
-            Colors.printlnRed("Erreur : "+ e.getMessage());
+        catch (IncorrectFieldException  | SQLException e){
+            Colors.printlnRed(e.getMessage());
         }
         catch(Exception e){
             Colors.printlnRed("Une erreur est survenue.");
@@ -596,7 +602,10 @@ public class CommandLineHandler {
                 DBHandler.updateEntireCustomer(member_id,lastname,firstname,phone,email,adress);
             }
         }
-        catch(IncorrectFieldException e){
+        catch(NumberFormatException e){
+            Colors.printlnRed("Veuillez entrer une valeur numérique valide.");
+        }
+        catch(IncorrectFieldException | SQLException e){
             Colors.printlnRed(e.getMessage());
         }
         catch(Exception e){
@@ -635,10 +644,15 @@ public class CommandLineHandler {
             if(FieldChecks.isValidLastname(lastname)){
                 customersList = DBHandler.getCustomers(lastname);
             }
-            Colors.printlnCyan("Voici la liste des membres trouvés : \n");
-            for (int i = 0; i < customersList.size(); i++) {
-                Colors.printColorfulCustomer(customersList.get(i));
-                Colors.printlnWhite("");
+            if(customersList.size()==0){
+                Colors.printlnRed("Aucun membre n'a été trouvé.");
+            }
+            else {
+                Colors.printlnCyan("Voici la liste des membres trouvés : \n");
+                for (int i = 0; i < customersList.size(); i++) {
+                    Colors.printColorfulCustomer(customersList.get(i));
+                    Colors.printlnWhite("");
+                }
             }
         }
         catch(IncorrectFieldException e){
@@ -680,9 +694,18 @@ public class CommandLineHandler {
             day = Integer.parseInt(sc.nextLine());
             expirationDate=new java.sql.Date(year-1900,month-1,day);
             if(FieldChecks.isValidBookIdentifier(book_identifier) && FieldChecks.isValidDate(day,month,year)){
-                DBHandler.addLoan(book_identifier,member_id,expirationDate.toString());
-                Colors.printlnCyan("Ajout de l'emprunt du livre " + book_identifier+" par le membre d'ID " + member_id_string);
+                Book b = DBHandler.getBook(book_identifier);
+                if(b.getStock() <= 0){
+                    Colors.printlnRed("Rupture de stock !");
+                }
+                else{
+                    DBHandler.addLoan(book_identifier,member_id,expirationDate.toString());
+                    Colors.printlnCyan("Ajout de l'emprunt du livre " + book_identifier+" par le membre d'ID " + member_id_string);
+                }
             }
+        }
+        catch(NoSuchElementException e){
+            Colors.printlnRed("L'identifiant du livre entré n'existe pas dans la base de données.");
         }
         catch(NumberFormatException e){
             Colors.printlnRed("Veuillez entrer une valeur numérique");
@@ -692,7 +715,6 @@ public class CommandLineHandler {
         }
         catch(Exception e){
             Colors.printlnRed(e.getMessage());
-            Colors.printlnRed("Une erreur est survenue.");
         }
     }
 
@@ -747,6 +769,9 @@ public class CommandLineHandler {
                     Colors.printlnRed("Mauvaise valeur. Sélectionnez 1 ou 2.");
                 }
             }
+        }
+        catch(IncorrectFieldException e){
+            Colors.printlnRed(e.getMessage());
         }
         catch(NumberFormatException e){
             Colors.printlnRed("Veuillez entrer une valeur numérique.");
