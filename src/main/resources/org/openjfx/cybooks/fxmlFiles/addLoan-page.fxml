@@ -70,7 +70,7 @@
                               <HBox fx:id="okCustomer" alignment="CENTER" prefHeight="33.0" prefWidth="359.0" spacing="5.0" visible="false">
                                  <children>
                                     <FontAwesomeIconView fill="#606c38" glyphName="CHECK" size="28" />
-                                    <Label text="Membre trouvé avec succé" textFill="#606c38">
+                                    <Label text="Membre trouvé avec succès" textFill="#606c38">
                                        <font>
                                           <Font name="Eras Demi ITC" size="16.0" />
                                        </font>
@@ -182,7 +182,7 @@
                               <HBox fx:id="okBook" alignment="CENTER" prefHeight="33.0" prefWidth="359.0" spacing="5.0" visible="false">
                                  <children>
                                     <FontAwesomeIconView fill="#606c38" glyphName="CHECK" size="28" />
-                                    <Label text="Livre trouvé avec succé" textFill="#606c38">
+                                    <Label text="Livre trouvé avec succès" textFill="#606c38">
                                        <font>
                                           <Font name="Eras Demi ITC" size="16.0" />
                                        </font>
