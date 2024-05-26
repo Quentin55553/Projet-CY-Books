@@ -66,26 +66,26 @@ CREATE TABLE `customers` (
 
 
 INSERT INTO `customers` (`last_name`, `first_name`, `tel`, `email`, `address`, `loan_count`) VALUES
-('FILLION', 'Quentin', '0601020304', 'quentin.fillion@gmail.com', 'adresse1', 1),
-('Belliere', 'Theo', '0602030405', 'theo.belliere@gmail.com', 'adresse2', 4),
-('Martin', 'Julie', '0603040506', 'julie.martin@gmail.com', 'adresse3', 2),
-('Duval', 'Lucas', '0604050607', 'lucas.duval@gmail.com', 'adresse4', 3),
-('Leroy', 'Emma', '0605060708', 'emma.leroy@gmail.com', 'adresse5', 0),
-('Roux', 'Hugo', '0606070809', 'hugo.roux@gmail.com', 'adresse6', 1),
-('Moreau', 'Clara', '0607080901', 'clara.moreau@gmail.com', 'adresse7', 0),
-('Simon', 'Arthur', '0608090102', 'arthur.simon@gmail.com', 'adresse8', 1),
-('Laurent', 'Chloe', '0609010203', 'chloe.laurent@gmail.com', 'adresse9', 0),
-('Michel', 'Louis', '0610203040', 'louis.michel@gmail.com', 'adresse10', 2),
-('Bernard', 'Alice', '0610203041', 'alice.bernard@gmail.com', 'adresse11', 0),
-('Petit', 'Jean', '0610203042', 'jean.petit@gmail.com', 'adresse12', 1),
-('Durand', 'Nina', '0610203043', 'nina.durand@gmail.com', 'adresse13', 3),
-('Lemoine', 'Paul', '0610203044', 'paul.lemoine@gmail.com', 'adresse14', 0),
-('Morel', 'Lea', '0610203045', 'lea.morel@gmail.com', 'adresse15', 2),
-('Fournier', 'Max', '0610203046', 'max.fournier@gmail.com', 'adresse16', 0),
-('Garnier', 'Sophie', '0610203047', 'sophie.garnier@gmail.com', 'adresse17', 0),
-('Lambert', 'Nicolas', '0610203048', 'nicolas.lambert@gmail.com', 'adresse18', 1),
-('Henry', 'Marie', '0610203049', 'marie.henry@gmail.com', 'adresse19', 2),
-('Rousseau', 'Thomas', '0610203050', 'thomas.rousseau@gmail.com', 'adresse20', 1);
+('Fillion', 'Quentin', '0601020304', 'quentin.fillion@gmail.com', '1 Avenue des Champs-Elysées', 1),
+('Belliere', 'Théo', '0602030405', 'theo.belliere@gmail.com', '3 Rue de la Paix', 4),
+('Martin', 'Julie', '0603040506', 'julie.martin@gmail.com', '28 Avenue de Rivoli', 2),
+('Duval', 'Lucas', '0604050607', 'lucas.duval@gmail.com', '6 Boulevard Saint-Germain', 3),
+('Leroy', 'Emma', '0605060708', 'emma.leroy@gmail.com', '17 Rue de Belleville', 0),
+('Roux', 'Hugo', '0606070809', 'hugo.roux@gmail.com', '56 Rue de Charonne', 1),
+('Moreau', 'Clara', '0607080901', 'clara.moreau@gmail.com', '12 Avenue Montaigne', 0),
+('Simon', 'Arthur', '0608090102', 'arthur.simon@gmail.com', '16 Rue de la Pompe', 1),
+('Laurent', 'Chloe', '0609010203', 'chloe.laurent@gmail.com', '20 Rue Université', 0),
+('Michel', 'Louis', '0610203040', 'louis.michel@gmail.com', '7 Rue de la République', 2),
+('Bernard', 'Alice', '0610203041', 'alice.bernard@gmail.com', '14 Boulevard Haussmann', 0),
+('Petit', 'Jean', '0610203042', 'jean.petit@gmail.com', '18 Avenue de Clichy', 1),
+('Durand', 'Nina', '0610203043', 'nina.durand@gmail.com', '5 Allée des Acacias', 3),
+('Lemoine', 'Paul', '0610203044', 'paul.lemoine@gmail.com', '15 Rue de Lyon', 0),
+('Morel', 'Lea', '0610203045', 'lea.morel@gmail.com', '13 Rue du Bac', 2),
+('Fournier', 'Max', '0610203046', 'max.fournier@gmail.com', '10 Quai de la Seine', 0),
+('Garnier', 'Sophie', '0610203047', 'sophie.garnier@gmail.com', '9 Place de la Concorde', 0),
+('Lambert', 'Nicolas', '0610203048', 'nicolas.lambert@gmail.com', '10 Rue Amazone', 1),
+('Henry', 'Marie', '0610203049', 'marie.henry@gmail.com', '8 Avenue Victor Hugo', 2),
+('Rousseau', 'Thomas', '0610203050', 'thomas.rousseau@gmail.com', '60 Avenue du Parc', 1);
 
 
 -- -----------------------------------------------------------
