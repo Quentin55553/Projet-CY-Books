@@ -1,11 +1,12 @@
 package org.openjfx.cybooks.UserInput;
 
+
 import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.database.DBHandler;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.NoSuchElementException;
-
 
 /**
  * This class' goal is to manage the user's inputs, not allowing them to enter invalid symbols and values in the app's fields
@@ -125,7 +126,7 @@ public class FieldChecks {
 
 
     /**
-     * This method verifies a 'login' field. Only unaccentuated letters are allowed
+     * This method verifies a 'login' field. Only unaccentuated letters and numbers are allowed
      * @param login The login String to check
      * @return true if the String is valid
      * @throws IncorrectLoginException If the String is invalid
@@ -179,12 +180,72 @@ public class FieldChecks {
     }
 
 
+    /**
+     * This method checks if a given book identifier is valid
+     * The needed format is : [Some numbers]/[Some alphanumeric characters]
+     * @param identifier The identifier to check
+     * @return true if the identifier is valid
+     * @throws IncorrectFieldException If the identifier's format is not correct
+     */
     public static boolean isValidBookIdentifier(String identifier) throws IncorrectFieldException{
+        String format = "^[0-9]+/[a-zA-Z0-9]+$";
+        String newIdentifier = identifier.trim();
+
+        if (!newIdentifier.matches(format)) {
+            throw new IncorrectFieldException("Le format de l'identifiant du livre est incorrect");
+        }
+
         return true;
     }
 
 
+    /**
+     * This method checks if a given date is valid i.e. not before or equals to today's date and that it has correct month/days/years
+     * @param day The day of the date
+     * @param month The month of the date
+     * @param year The year of the date
+     * @return true if the date is valid
+     * @throws IncorrectFieldException If the date is not as specified
+     */
     public static boolean isValidDate(int day, int month, int year) throws IncorrectFieldException{
+        Date today=new Date();
+        Date date=new Date(year-1900,month-1,day);
+        if(year>=2100){
+            throw new IncorrectFieldException("L'année d'expiration est un peu trop lointaine !");
+        }
+        if(month<=0 || month >=13){
+            throw new IncorrectFieldException("La date entrée n'est pas valide.");
+        }
+        int notvalid=0;
+        switch(month){
+            case 1,3,5,7,8,10,12 -> {
+                if(day >= 32 || day <=0){
+                    notvalid=1;
+                }
+            }
+            case  4,6,9,11 -> {
+                if(day >= 31 || day <=0){
+                    notvalid=1;
+                }
+            }
+            case 2 -> {
+                if(day >= 29 || day <=0){
+                    notvalid=1;
+                }
+            }
+            default -> {
+                notvalid=1;
+            }
+        }
+        if(notvalid==1){
+            throw new IncorrectFieldException("La date entrée n'est pas valide.");
+        }
+        if(date.before(today)){
+            throw new IncorrectFieldException("La date ne peut pas être passée !");
+        }
+        else if(date.equals(today)){
+            throw new IncorrectFieldException("La date ne peut pas être aujourd'hui !");
+        }
         return true;
     }
 
