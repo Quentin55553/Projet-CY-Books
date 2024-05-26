@@ -1,12 +1,12 @@
 package org.openjfx.cybooks.UserInput;
 
-
 import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.database.DBHandler;
 
-import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.NoSuchElementException;
+
 
 /**
  * This class' goal is to manage the user's inputs, not allowing them to enter invalid symbols and values in the app's fields
@@ -185,14 +185,14 @@ public class FieldChecks {
      * The needed format is : [Some numbers]/[Some alphanumeric characters]
      * @param identifier The identifier to check
      * @return true if the identifier is valid
-     * @throws IncorrectFieldException If the identifier's format is not correct
+     * @throws IncorrectBookIdException If the identifier's format is not correct
      */
-    public static boolean isValidBookIdentifier(String identifier) throws IncorrectFieldException{
+    public static boolean isValidBookIdentifier(String identifier) throws IncorrectBookIdException {
         String format = "^[0-9]+/[a-zA-Z0-9]+$";
         String newIdentifier = identifier.trim();
 
         if (!newIdentifier.matches(format)) {
-            throw new IncorrectFieldException("Le format de l'identifiant du livre est incorrect");
+            throw new IncorrectBookIdException("Le format de l'identifiant du livre est incorrect");
         }
 
         return true;
@@ -205,47 +205,99 @@ public class FieldChecks {
      * @param month The month of the date
      * @param year The year of the date
      * @return true if the date is valid
-     * @throws IncorrectFieldException If the date is not as specified
+     * @throws IncorrectDateException If the date is not as specified
      */
-    public static boolean isValidDate(int day, int month, int year) throws IncorrectFieldException{
-        Date today=new Date();
-        Date date=new Date(year-1900,month-1,day);
-        if(year>=2100){
-            throw new IncorrectFieldException("L'année d'expiration est un peu trop lointaine !");
+    public static boolean isValidDate(int day, int month, int year) throws IncorrectDateException {
+        Date today = new Date();
+        Date date = new Date(year-1900, month-1, day);
+
+        if (year>=2100) {
+            throw new IncorrectDateException("L'année d'expiration est un peu trop lointaine !");
+
         }
-        if(month<=0 || month >=13){
-            throw new IncorrectFieldException("La date entrée n'est pas valide.");
+        if (month<=0 || month >=13) {
+            throw new IncorrectDateException("La date entrée n'est pas valide.");
         }
-        int notvalid=0;
-        switch(month){
+
+        int notvalid = 0;
+
+        switch (month) {
             case 1,3,5,7,8,10,12 -> {
-                if(day >= 32 || day <=0){
-                    notvalid=1;
+                if (day >= 32 || day <=0) {
+                    notvalid = 1;
                 }
             }
-            case  4,6,9,11 -> {
-                if(day >= 31 || day <=0){
-                    notvalid=1;
+            case 4,6,9,11 -> {
+                if (day >= 31 || day <=0) {
+                    notvalid = 1;
                 }
             }
             case 2 -> {
-                if(day >= 29 || day <=0){
-                    notvalid=1;
+                if (day >= 29 || day <=0) {
+                    notvalid = 1;
                 }
             }
             default -> {
-                notvalid=1;
+                notvalid = 1;
             }
         }
-        if(notvalid==1){
-            throw new IncorrectFieldException("La date entrée n'est pas valide.");
+
+        if (notvalid == 1) {
+            throw new IncorrectDateException("La date entrée n'est pas valide.");
         }
-        if(date.before(today)){
-            throw new IncorrectFieldException("La date ne peut pas être passée !");
+        if (date.before(today)) {
+            throw new IncorrectDateException("La date ne peut pas être passée !");
         }
-        else if(date.equals(today)){
-            throw new IncorrectFieldException("La date ne peut pas être aujourd'hui !");
+        else if (date.equals(today)) {
+            throw new IncorrectDateException("La date ne peut pas être aujourd'hui !");
         }
+
+        return true;
+    }
+
+
+    public static boolean isValidBookReleaseYear(String year) throws IncorrectDateException {
+        String format = "^\\d{4}$";
+        String newYear = year.trim();
+
+        if (newYear.isEmpty()) {
+            return true;
+        }
+
+        if (!newYear.matches(format)) {
+            throw new IncorrectDateException("L'année de publication du livre est incorrecte");
+        }
+
+        int releaseYear = Integer.parseInt(newYear);
+
+        int currentYear = LocalDate.now().getYear();
+
+        if (releaseYear > currentYear) {
+            throw new IncorrectDateException("L'année de publication du livre ne peut pas être dans le futur");
+        }
+
+        return true;
+    }
+
+
+    /**
+     * This method checks if a given customer identifier is valid, i.e. if it only contains numbers
+     * @param identifier The identifier to check
+     * @return true if the identifier is valid
+     * @throws IncorrectCustomerIdException If the identifier's format is not correct
+     */
+    public static boolean isValidCustomerIdentifier(String identifier) throws IncorrectCustomerIdException {
+        String format = "^[0-9]+$";
+        String newIdentifier = identifier.trim();
+
+        if (newIdentifier.isEmpty()) {
+            return true;
+        }
+
+        if (!newIdentifier.matches(format)) {
+            throw new IncorrectCustomerIdException("Le format de l'identifiant du membre est incorrect");
+        }
+
         return true;
     }
 
@@ -277,6 +329,108 @@ public class FieldChecks {
      */
     public static boolean isValidSignUp(String login, String lastname, String firstname, String password, String confirmedPassword) throws IncorrectFieldException {
         return isValidLogin(login) && isValidLastname(lastname) && isValidFirstname(firstname) && isValidPassword(password) && areMatchingPasswords(password, confirmedPassword);
+    }
+
+
+    /**
+     * This method checks if a given number of loans is valid
+     * @param loansNumber The number of loans
+     * @return true if the number of loans is a whole number
+     * @throws IncorrectLoansNumberException If one of the verifications fails
+     */
+    public static boolean isValidNumbersOfLoans(String loansNumber) throws IncorrectLoansNumberException {
+        String format = "^\\d+$";
+        String newLoansNumber = loansNumber.trim();
+
+        if (!newLoansNumber.matches(format)) {
+            throw new IncorrectLoansNumberException("Le nombre d'emprunts doit être un nombre entier");
+        }
+
+        return true;
+    }
+
+
+    /**
+     * This method checks if all parameters are valid
+     * @param year The year
+     * @param bookId The book identifier
+     * @return true if both parameters are valid
+     * @throws IncorrectFieldException If one of the verifications fails
+     */
+    public static boolean isValidDialogBookFilter(String year, String bookId) throws IncorrectFieldException {
+        boolean isValid = isValidBookReleaseYear(year);
+
+        if (!bookId.trim().isEmpty() && !isValidBookIdentifier(bookId)) {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+
+    /**
+     * This method checks if all parameters are valid
+     * @param customerId The customer identifier
+     * @param bookId The book identifier
+     * @return true if both parameters are valid
+     * @throws IncorrectFieldException If one of the verifications fails
+     */
+    public static boolean isValidDialogLoanFilter(String customerId, String bookId) throws IncorrectFieldException {
+        boolean isValid = isValidCustomerIdentifier(customerId);
+
+        if (!bookId.trim().isEmpty() && !isValidBookIdentifier(bookId)) {
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+
+    /**
+     * This method checks if all parameters are valid
+     * @param lastname The year
+     * @param lastname
+     * @param customerId
+     * @param bookId The book identifier
+     * @return true if all parameters are valid
+     * @throws IncorrectFieldException If one of the verifications fails
+     */
+    public static boolean isValidDialogUserFilter(String lastname, String firstname, String customerId, String email, String tel, String address, String loansInferiorTo, String loansSuperiorTo) throws IncorrectFieldException {
+        boolean isValid = true;
+
+        if (!lastname.trim().isEmpty() && !isValidLastname(lastname)) {
+            isValid = false;
+        }
+
+        if (!firstname.trim().isEmpty() && !isValidFirstname(firstname)) {
+            isValid = false;
+        }
+
+        if (!customerId.trim().isEmpty() && !isValidCustomerIdentifier(customerId)) {
+            isValid = false;
+        }
+
+        if (!email.trim().isEmpty() && !isValidEmail(email)) {
+            isValid = false;
+        }
+
+        if (!tel.trim().isEmpty() && !isValidPhoneNumber(tel)) {
+            isValid = false;
+        }
+
+        if (!address.trim().isEmpty() && !isValidAddress(address)) {
+            isValid = false;
+        }
+
+        if (!loansInferiorTo.trim().isEmpty() && !isValidNumbersOfLoans(loansInferiorTo)) {
+            isValid = false;
+        }
+
+        if (!loansSuperiorTo.trim().isEmpty() && !isValidNumbersOfLoans(loansSuperiorTo)) {
+            isValid = false;
+        }
+
+        return isValid;
     }
 
 
