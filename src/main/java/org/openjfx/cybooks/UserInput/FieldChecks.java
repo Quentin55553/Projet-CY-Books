@@ -148,7 +148,7 @@ public class FieldChecks {
 
 
     /**
-     * This method verifies a 'password' field. Every characters are allowed. There can't be only spaces.
+     * This method verifies a 'password' field. Every character is allowed. There can't be only spaces.
      * @param password The password String to check
      * @return true if the String is valid
      * @throws IncorrectPasswordException If the String is invalid
@@ -256,6 +256,12 @@ public class FieldChecks {
     }
 
 
+    /**
+     * This method checks the format of a book release year. It must contain only 4 numbers
+     * @param year The string to check
+     * @return true if the string is valid
+     * @throws IncorrectDateException If the string is not valid
+     */
     public static boolean isValidBookReleaseYear(String year) throws IncorrectDateException {
         String format = "^\\d{4}$";
         String newYear = year.trim();
@@ -304,8 +310,8 @@ public class FieldChecks {
 
     /**
      * This method verifies all the fields needed to create a new user in the database
-     * @param firstname Only unaccentuated letters are allowed
-     * @param lastname Only unaccentuated letters are allowed
+     * @param firstname Only letters are allowed
+     * @param lastname Only letters are allowed
      * @param telephone Exactly 10 numbers need to be written, the first one being 0
      * @param email Needs to be of the form XXXX@YYY.ZZZ
      * @param address A number followed by the road / avenue / boulevard name
@@ -336,7 +342,7 @@ public class FieldChecks {
      * This method checks if a given number of loans is valid
      * @param loansNumber The number of loans
      * @return true if the number of loans is a whole number
-     * @throws IncorrectLoansNumberException If one of the verifications fails
+     * @throws IncorrectLoansNumberException If the verification fails
      */
     public static boolean isValidNumbersOfLoans(String loansNumber) throws IncorrectLoansNumberException {
         String format = "^\\d+$";
@@ -351,9 +357,9 @@ public class FieldChecks {
 
 
     /**
-     * This method checks if all parameters are valid
-     * @param year The year
-     * @param bookId The book identifier
+     * This method checks if all parameters are valid for a book filter dialog
+     * @param year The release year of the book
+     * @param bookId The book's identifier
      * @return true if both parameters are valid
      * @throws IncorrectFieldException If one of the verifications fails
      */
@@ -369,9 +375,9 @@ public class FieldChecks {
 
 
     /**
-     * This method checks if all parameters are valid
-     * @param customerId The customer identifier
-     * @param bookId The book identifier
+     * This method checks if all parameters are valid for a loan filter dialog
+     * @param customerId The customer's identifier
+     * @param bookId The book's identifier
      * @return true if both parameters are valid
      * @throws IncorrectFieldException If one of the verifications fails
      */
@@ -387,12 +393,16 @@ public class FieldChecks {
 
 
     /**
-     * This method checks if all parameters are valid
-     * @param lastname The year
-     * @param lastname
-     * @param customerId
-     * @param bookId The book identifier
-     * @return true if all parameters are valid
+     * This method checks if information entered for a customer filter dialog is valid
+     * @param lastname The lastname of the customer
+     * @param firstname The firstname of the customer
+     * @param customerId The customer's ID
+     * @param email Their email adress
+     * @param tel Their phone number adress
+     * @param address Their address
+     * @param loansInferiorTo Upper bound for the number of loans they have
+     * @param loansSuperiorTo Lower bound for the number of loans they have
+     * @return true if all the formats are valid
      * @throws IncorrectFieldException If one of the verifications fails
      */
     public static boolean isValidDialogUserFilter(String lastname, String firstname, String customerId, String email, String tel, String address, String loansInferiorTo, String loansSuperiorTo) throws IncorrectFieldException {
