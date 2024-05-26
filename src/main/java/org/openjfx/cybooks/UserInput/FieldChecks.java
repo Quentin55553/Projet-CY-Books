@@ -1,24 +1,24 @@
 package org.openjfx.cybooks.UserInput;
 
-
 import org.openjfx.cybooks.data.Librarian;
 import org.openjfx.cybooks.database.DBHandler;
 
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
+
 /**
  * This class' goal is to manage the user's inputs, not allowing them to enter invalid symbols and values in the app's fields
  */
 public class FieldChecks {
     /**
-     * This method verifies a 'firstname' field. Only unaccentuated letters are allowed
+     * This method verifies a 'firstname' field. Only accentuated and unaccentuated letters are allowed
      * @param firstname The String to check
      * @return true if the String is valid
      * @throws IncorrectFirstnameException If the String is invalid
      */
     public static boolean isValidFirstname(String firstname) throws IncorrectFirstnameException {
-        String format = "[a-zA-Z]+";
+        String format = "\\p{L}+";
         String newFirstname = firstname.trim();
 
         if (newFirstname.isEmpty()) {
@@ -34,13 +34,13 @@ public class FieldChecks {
 
 
     /**
-     * This method verifies a 'lastname' field. Only unaccentuated letters are allowed
+     * This method verifies a 'lastname' field. Only accentuated and unaccentuated letters are allowed
      * @param lastname The String to check
      * @return true if the String is valid
      * @throws IncorrectLastnameException If the String is invalid
      */
     public static boolean isValidLastname(String lastname) throws IncorrectLastnameException {
-        String format = "[a-zA-Z]+";
+        String format = "\\p{L}+";
         String newLastname = lastname.trim();
 
         if (newLastname.isEmpty()) {
