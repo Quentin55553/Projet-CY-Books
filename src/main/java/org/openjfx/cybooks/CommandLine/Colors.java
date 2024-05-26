@@ -173,7 +173,29 @@ public class Colors {
      * @param B The Book object
      */
     public static void printColorfulBook(Book B){
+        printCyan("Titre : ");
+        printlnWhite(B.getTitle());
 
+        printCyan("Auteur(s) : ");
+        printlnWhite(B.getAuthors().toString());
+
+        printCyan("Date de publication : ");
+        printlnWhite(B.getDate());
+
+        printCyan("Identifiant : ");
+        printlnWhite(B.getId());
+
+        printCyan("Thèmes : ");
+        printlnWhite(B.getSubjects().toString());
+
+        printCyan("Description : ");
+        printlnWhite(B.getDescription());
+
+        printCyan("Langue : ");
+        printlnWhite(B.getLanguage());
+
+        printCyan("Image : ");
+        printlnWhite(B.getImageLink());
     }
 
     /**

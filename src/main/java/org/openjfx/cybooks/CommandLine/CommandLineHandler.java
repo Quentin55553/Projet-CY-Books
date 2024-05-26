@@ -576,15 +576,23 @@ public class CommandLineHandler {
      */
     private static void printMostPopularBooks(){
         try {
+            APIHandler API=new APIHandler();
             Colors.printlnCyan("\nVoici les livres les plus populaires :\n");
-            Colors.printlnYellow("Attention : cette fonctionnalité peut ne pas être fonctionelle.");
+            Colors.printlnYellow("Attention : cette fonctionnalité peut ne pas être fonctionelle.\n");
             List<Book> bookList;
-            bookList = Core.getMostPopularBooks();
+            bookList = DBHandler.getMostPopularBooks();
 
             for (int i = 0; i < bookList.size(); i++) {
-                Colors.printlnWhite(bookList.get(i).toString());
-                Colors.printlnWhite("");
+                API.generateQueryStandard("","","",bookList.get(i).getId(),"","","");
+                API.exec();
+                if(API.getNumberOfResults()>0){
+                    Colors.printColorfulSearchResult(API.getResults().get(0));
+                    Colors.printlnWhite("");
+                }
             }
+        }
+        catch(APIErrorException e){
+            Colors.printlnRed("Un problème de communication est survenu.");
         }
         catch(Exception e){
             Colors.printlnRed("Pas encore de livres populaires !");
