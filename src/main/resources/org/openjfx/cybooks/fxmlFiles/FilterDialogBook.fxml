@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="447.0" prefWidth="363.0" style="-fx-background-color: FEFAE0;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.openjfx.cybooks.Controllers.FilterDialogBookController">
+<AnchorPane prefHeight="447.0" prefWidth="363.0" style="-fx-background-color: FEFAE0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.FilterDialogBookController">
     <children>
         <Label layoutX="90.0" layoutY="14.0" text="Filtrage de recherche" textFill="#bc6c25">
             <font>
@@ -94,5 +94,10 @@
       </Label>
       <TextField fx:id="EditorField" layoutX="90.0" layoutY="307.0" />
       <JFXToggleButton fx:id="inLibraryToggle" layoutX="152.0" layoutY="338.0" prefHeight="57.0" prefWidth="77.0" textOverrun="CLIP" toggleColor="#bc6c25" toggleLineColor="#dda15e" unToggleLineColor="#e1ddc6" />
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="383.0" prefHeight="17.0" prefWidth="369.0" textFill="#f80000">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>
