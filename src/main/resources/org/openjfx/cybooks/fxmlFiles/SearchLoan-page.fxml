@@ -73,7 +73,7 @@
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="18.0" prefWidth="134.0" text="Date d'expiration" textFill="#fefae0">
+                              <Label prefHeight="18.0" prefWidth="139.0" text="Date d'expiration" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>

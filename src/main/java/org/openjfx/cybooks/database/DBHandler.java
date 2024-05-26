@@ -927,6 +927,7 @@ public class DBHandler {
         boolean completed = filter.isCompleted();
         boolean expired = filter.isExpired();
 
+
         // Handle the case where customerID is null, bookID is empty, and completed is false
         if (customerID == null && bookID.isEmpty() && !completed) {
             if (!expired) {
@@ -940,8 +941,18 @@ public class DBHandler {
         // Start building the query
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM loans WHERE ");
 
-        // Add completed condition
-        queryBuilder.append("completed = ").append(completed ? 1 : 0);
+        // Handel contradictory filters
+        if (completed && expired){
+            return loans;
+        }
+        else if (expired && !completed) {
+            queryBuilder.append("expiration_date < CURRENT_DATE AND completed = 0");
+        } else if (completed && !expired){
+            queryBuilder.append("completed = 1");
+        }
+        else{
+            queryBuilder.append("completed = 0 AND expiration_date >= CURRENT_DATE");
+        }
 
         // Add customerID condition if provided
         if (customerID != null) {
@@ -951,13 +962,6 @@ public class DBHandler {
         // Add bookID condition if provided
         if (bookID != null && !bookID.isEmpty()) {
             queryBuilder.append(" AND book_id LIKE '%").append(bookID).append("%'");
-        }
-
-        // Add expired condition if provided
-        if (expired) {
-            queryBuilder.append(" AND expiration_date < CURRENT_DATE");
-        } else {
-            queryBuilder.append(" AND expiration_date >= CURRENT_DATE");
         }
 
         String query = queryBuilder.toString();
