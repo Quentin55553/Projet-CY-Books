@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AllUsersAnchorPane" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.openjfx.cybooks.Controllers.AllUsersPageController">
+<AnchorPane fx:id="AllUsersAnchorPane" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.cybooks.Controllers.AllUsersPageController">
    <children>
       <VBox alignment="CENTER" layoutX="28.0" layoutY="68.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
@@ -79,14 +79,14 @@
                                  </font>
                               </Label>
                               <Separator prefHeight="16.0" prefWidth="102.0" visible="false" />
-                              <Label prefHeight="18.0" prefWidth="68.0" text="Emprunts" textFill="#fefae0">
+                              <Label prefHeight="18.0" prefWidth="94.0" text="Emprunts" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
                            </children>
                            <padding>
-                              <Insets right="75.0" />
+                              <Insets right="50.0" />
                            </padding>
                         </HBox>
                      </children>
