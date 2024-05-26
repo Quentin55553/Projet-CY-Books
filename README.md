@@ -1,7 +1,7 @@
 # CY-Books
 
 <div>
-  <img src="src/main/resources/org/openjfx/cybooks/img/CYBooksFullGit.png" style="width: 55%;">
+  <img src="src/main/resources/org/openjfx/cybooks/img/Cy books_vert.png" style="width: 55%;">
 </div>
 
 ## 📋 Projet
