@@ -636,6 +636,51 @@ public class DBHandler {
     }
 
     /**
+     * Returns a list of the top 3 most popular books loan count in the database
+     * @param id1 The id of the top1 book
+     * @param id2 The id of the top2 book
+     * @param id3 The id of the top3 book
+     * @param date The date to look after
+     * @return A list of the top 3 most popular books loan count in the database since the provided date
+     */
+    public static List<Integer> getTop3LoansCountsSince(String id1, String id2, String id3, String date) {
+        ResultSet res;
+        List<Integer> loanCounts = new ArrayList<>();
+
+        try {
+            createConnection();
+            String query = "SELECT COUNT(l.book_id) AS nb " +
+                    "FROM books b " +
+                    "RIGHT JOIN loans l ON b.id = l.book_id " +
+                    "WHERE l.begin_date >= ? AND " +
+                    "      l.book_id IN (?, ?, ?) " +
+                    "GROUP BY l.book_id " +
+                    "ORDER BY nb DESC " +
+                    "LIMIT 3";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, date);
+            preparedStatement.setString(2, id1);
+            preparedStatement.setString(3, id2);
+            preparedStatement.setString(4, id3);
+
+            res = preparedStatement.executeQuery();
+
+            while (res.next()) {
+                int loanCount = res.getInt("nb");
+                loanCounts.add(loanCount);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+
+        return loanCounts;
+    }
+
+    /**
      * Returns a list of the most popular books in the database since some date
      * @param date The date to start the research from
      * @return A list of the most popular books in the database since some date

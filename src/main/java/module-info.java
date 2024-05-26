@@ -9,6 +9,7 @@ module org.openjfx.cybooks {
     requires de.jensd.fx.glyphs.fontawesome;
     requires spring.security.crypto;
     requires com.google.protobuf;
+    requires mysql.connector.java;
 
     opens org.openjfx.cybooks to javafx.fxml;
     exports org.openjfx.cybooks;

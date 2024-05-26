@@ -2,7 +2,9 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.MotionBlur?>
@@ -62,54 +64,75 @@
                         </HBox>
                      </children>
                   </StackPane>
-                  <VBox fx:id="UsersVbox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="3" />
+                  <VBox fx:id="UsersVbox" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="3">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="95.0" prefWidth="700.0" spacing="3.0" style="-fx-background-color: DDA15E; bord*: blue;">
+                           <children>
+                              <Label fx:id="IDLabel" prefHeight="17.0" prefWidth="60.0" text="ID" />
+                              <Label fx:id="LastNameLabel" prefHeight="22.0" prefWidth="114.0" text="Nom" textOverrun="CLIP" />
+                              <Label fx:id="FirstNameLabel" prefHeight="27.0" prefWidth="135.0" text="Prénom" />
+                              <Label fx:id="TelLabel" prefHeight="20.0" prefWidth="117.0" text="Téléphone" />
+                              <Label fx:id="EmailLabel" prefHeight="16.0" prefWidth="186.0" text="Email" />
+                              <Label fx:id="AddressLabel" prefHeight="16.0" prefWidth="191.0" text="Adresse" />
+                              <Label fx:id="NbLoansLabel" prefHeight="24.0" prefWidth="54.0" text="Nombre d'emprunt" />
+                              <Button fx:id="ProfileButton" mnemonicParsing="false" style="-fx-background-color: none;">
+                                 <graphic>
+                                    <FontAwesomeIconView fill="#606c38" glyphName="SEARCH" selectionFill="#fefae0" selectionStart="0" size="19">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </FontAwesomeIconView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets left="3.0" />
+                           </padding>
+                        </HBox>
+                     </children></VBox>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="2">
                      <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="18.0" prefWidth="975.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;">
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="18.0" prefWidth="975.0" spacing="3.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;">
                            <children>
-                              <Separator prefHeight="16.0" prefWidth="2.0" visible="false" />
-                              <Label prefHeight="18.0" prefWidth="18.0" text="ID" textFill="#fefae0">
+                              <Label prefHeight="18.0" prefWidth="60.0" text="ID" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Separator prefHeight="15.0" prefWidth="47.0" visible="false" />
-                              <Label prefHeight="10.0" prefWidth="53.0" text="Nom" textFill="#fefae0">
+                              <Label prefHeight="10.0" prefWidth="114.0" text="Nom" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Separator prefHeight="13.0" prefWidth="68.0" visible="false" />
-                              <Label prefHeight="18.0" prefWidth="65.0" text="Prénom" textFill="#fefae0">
+                              <Label prefHeight="18.0" prefWidth="135.0" text="Prénom" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Separator prefHeight="3.0" prefWidth="74.0" visible="false" />
-                              <Label prefHeight="13.0" prefWidth="124.0" text="Téléphone" textFill="#fefae0">
+                              <Label prefHeight="13.0" prefWidth="117.0" text="Téléphone" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Separator prefHeight="9.0" prefWidth="27.0" visible="false" />
-                              <Label text="Email" textFill="#fefae0">
+                              <Label prefWidth="186.0" text="Email" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Separator prefHeight="18.0" prefWidth="116.0" visible="false" />
-                              <Label text="Adresse" textFill="#fefae0">
+                              <Label prefHeight="18.0" prefWidth="150.0" text="Adresse" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
-                              <Separator prefHeight="16.0" prefWidth="102.0" visible="false" />
-                              <Label text="Emprunts" textFill="#fefae0">
+                              <Label prefHeight="18.0" prefWidth="70.0" text="Emprunts" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>
                               </Label>
                            </children>
+                           <padding>
+                              <Insets right="50.0" />
+                           </padding>
                         </HBox>
                      </children>
                   </StackPane>

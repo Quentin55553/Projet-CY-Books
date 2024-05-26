@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
+import com.mysql.cj.protocol.PacketReceivedTimeHolder;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +38,10 @@ public class HomePageController implements Initializable {
      */
     @FXML
     private ImageView librarianAccount;
+
+    @FXML
+    private JFXButton BestBook;
+
     /**
      * Button used to travel to the AddCustomer page
      */
@@ -155,6 +160,7 @@ public class HomePageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         // Hide menu
         Menuside.setTranslateX(-208);
         
@@ -184,6 +190,7 @@ public class HomePageController implements Initializable {
         librarianAccount.setOnMouseClicked(actionevent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/LibrarianAccount-page.fxml"));
 
         // top and left menu buttons
+        BestBook.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/BestBooks-page.fxml"));
         AddCustomerTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/addCustomer-page.fxml"));
         AddCustomerLeftButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/addCustomer-page.fxml"));
         AddLoanTopButton.setOnAction(actionEvent -> handleChangeCenter("/org/openjfx/cybooks/fxmlFiles/addLoan-page.fxml"));

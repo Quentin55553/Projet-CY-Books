@@ -316,6 +316,18 @@ public class Core {
     }
 
     /**
+     * Returns a list of the loan count of the 3 bokks provided by id since some date
+     * @param id1 The id1
+     * @param id2 The id2
+     * @param id3 The id3
+     * @param date The date to start the research from
+     * @return A list of the most popular books in the database since some date
+     */
+    public static List<Integer> getTop3LoansCountsSince(String id1, String id2, String id3, String date) {
+        return DBHandler.getTop3LoansCountsSince(id1,id2,id3, date);
+    }
+
+    /**
      * Returns a list of the most popular books in the database since some date
      * @param date The date to start the research from
      * @return A list of the most popular books in the database since some date

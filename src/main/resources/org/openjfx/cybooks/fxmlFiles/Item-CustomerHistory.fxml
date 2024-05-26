@@ -4,27 +4,20 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="95.0" prefWidth="950.0" spacing="100.0" style="-fx-background-color: #DDA15E;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<HBox alignment="CENTER" prefHeight="95.0" prefWidth="1000.0" spacing="10.0" style="-fx-background-color: #DDA15E;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
    <children>
-      <ImageView fitHeight="83.0" fitWidth="97.0" layoutX="10.0" pickOnBounds="true" preserveRatio="true">
+      <Label fx:id="title" prefHeight="18.0" prefWidth="188.0" text="Titre">
          <HBox.margin>
-            <Insets left="5.0" />
-         </HBox.margin>
-         <image>
-            <Image url="@../img/book_cover.jpg" />
-         </image>
-      </ImageView>
-      <Label fx:id="title" text="Titre" />
-      <Label fx:id="author" text="Auteur" />
-      <Label fx:id="genre" text="Genre" />
-      <Label fx:id="loanDate" text="Date emprunt" />
-      <StackPane prefHeight="95.0" prefWidth="165.0">
+            <Insets left="10.0" />
+         </HBox.margin></Label>
+      <Label fx:id="author" prefHeight="18.0" prefWidth="199.0" text="Auteur" />
+      <Label fx:id="genre" prefHeight="18.0" prefWidth="176.0" text="Genre" />
+      <Label fx:id="loanDate" prefHeight="18.0" prefWidth="146.0" text="Date emprunt" />
+      <StackPane prefHeight="95.0" prefWidth="150.0">
          <children>
             <JFXButton fx:id="notCompletedLoan" prefHeight="33.0" prefWidth="151.0" style="-fx-border-color: #ffd700; -fx-border-radius: 10; -fx-border-width: 2;" text="Rendre" textFill="GOLD" visible="false">
                <font>

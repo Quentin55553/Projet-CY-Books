@@ -20,7 +20,7 @@ public class DBTest {
 
         try {
 
-            Book thebook = Core.getBook("12148/bpt6k33646735");
+            /*Book thebook = Core.getBook("12148/bpt6k33646735");
             String thebokktitle = thebook.getTitle();
 
             System.out.println(thebokktitle);
@@ -35,6 +35,8 @@ public class DBTest {
 //             for (Customer c : customers) {
 //                 System.out.println(c);
 //             }
+
+            DBHandler.getMostPopularBooks();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

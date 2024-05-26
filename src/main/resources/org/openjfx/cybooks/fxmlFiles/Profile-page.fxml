@@ -19,26 +19,29 @@
    <children>
       <VBox alignment="CENTER" layoutX="28.0" layoutY="68.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
-            <GridPane alignment="BOTTOM_CENTER" prefHeight="609.0" prefWidth="1000.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: #BC6C25;">
+            <GridPane alignment="BOTTOM_CENTER" prefHeight="609.0" prefWidth="1000.0" style="-fx-border-radius: 10; -fx-border-width: 5; -fx-border-color: #BC6C25; -fx-background-color: #DDA15E;">
                <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" valignment="CENTER" vgrow="SOMETIMES" />
-                  <RowConstraints prefHeight="361.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <GridPane prefHeight="509.0" prefWidth="990.0" style="-fx-background-color: #DDA15E;" GridPane.rowIndex="1">
+                  <GridPane prefHeight="509.0" prefWidth="990.0" GridPane.rowIndex="1">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="0.0" prefWidth="44.0" />
-                        <ColumnConstraints halignment="LEFT" maxWidth="468.0" minWidth="10.0" prefWidth="451.0" />
-                      <ColumnConstraints halignment="LEFT" maxWidth="523.0" minWidth="10.0" prefWidth="523.0" />
+                        <ColumnConstraints halignment="LEFT" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="425.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="425.0" />
+                      <ColumnConstraints halignment="LEFT" minWidth="10.0" prefWidth="75.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="0.0" prefWidth="0.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="-Infinity" minHeight="15.0" prefHeight="55.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="15.0" prefHeight="55.0" vgrow="SOMETIMES" />
-                      <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="299.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="15.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                      <RowConstraints fillHeight="false" maxHeight="509.0" minHeight="10.0" prefHeight="462.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints fillHeight="false" maxHeight="253.0" minHeight="6.0" prefHeight="53.0" valignment="CENTER" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <HBox alignment="CENTER" prefHeight="55.0" prefWidth="923.0" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
@@ -71,9 +74,9 @@
                               </Text>
                            </children>
                         </HBox>
-                        <ScrollPane prefHeight="509.0" prefWidth="956.0" style="-fx-background-color: #DDA15E;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefWidth="1350.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                            <content>
-                              <VBox fx:id="CustomerHistory" prefHeight="435.0" prefWidth="954.0" style="-fx-background-color: #DDA15E;" />
+                              <VBox fx:id="CustomerHistory" prefHeight="396.0" prefWidth="887.0" style="-fx-background-color: #DDA15E;" />
                            </content>
                         </ScrollPane>
                         <HBox alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="923.0" spacing="10.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
@@ -91,6 +94,36 @@
                               <Insets />
                            </opaqueInsets>
                         </HBox>
+                        <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="95.0" prefWidth="900.0" spacing="10.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="title" prefHeight="18.0" prefWidth="188.0" text="Titre" textFill="#fefae0">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="author" prefHeight="18.0" prefWidth="199.0" text="Auteur" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Demi ITC" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="genre" prefHeight="18.0" prefWidth="176.0" text="Genre" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Demi ITC" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="loanDate" prefHeight="18.0" prefWidth="146.0" text="Date emprunt" textFill="#fefae0">
+                                 <font>
+                                    <Font name="Eras Demi ITC" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets right="100.0" />
+                           </padding>
+                        </HBox>
                      </children>
                   </GridPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #BC6C25;">
@@ -102,7 +135,7 @@
                         </Label>
                         <HBox prefHeight="36.0" prefWidth="841.0">
                            <children>
-                              <JFXButton maxWidth="-Infinity" prefHeight="28.0" prefWidth="156.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" onMouseClicked="#editProfileClicked" text="Modifier le profil" textFill="#fefae0">
+                              <JFXButton maxWidth="-Infinity" onMouseClicked="#editProfileClicked" prefHeight="28.0" prefWidth="156.0" style="-fx-background-color: #606C38; -fx-background-radius: 10;" text="Modifier le profil" textFill="#fefae0">
                                  <font>
                                     <Font name="Eras Medium ITC" size="14.0" />
                                  </font>

@@ -2,6 +2,8 @@ package org.openjfx.cybooks.Controllers;
 
 import com.jfoenix.controls.JFXButton;
 
+import com.jfoenix.controls.JFXScrollPane;
+import javafx.scene.control.ScrollPane;
 import org.openjfx.cybooks.API.APIErrorException;
 import org.openjfx.cybooks.API.APIHandler;
 import org.openjfx.cybooks.API.QueryParameterException;
@@ -30,6 +32,7 @@ import java.util.List;
  * Controller that allows the user to see the profile of a customer, with his loan history
  */
 public class ProfilePageController {
+
     /**
      * View of the customer's loans
      */
@@ -91,51 +94,53 @@ public class ProfilePageController {
         APIHandler api = new APIHandler();
         List <SearchResult> results;
 
-        for (Loan loan : loans) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-CustomerHistory.fxml"));
-                Node node = loader.load();
+        for(int i = 0; i< 8;i ++) {
+            for (Loan loan : loans) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/openjfx/cybooks/fxmlFiles/Item-CustomerHistory.fxml"));
+                    Node node = loader.load();
 
-                Label titleLabel = (Label) node.lookup("#title");
-                Label authorLabel = (Label) node.lookup("#author");
-                Label genreLabel = (Label) node.lookup("#genre");
-                Label loanDateLabel = (Label) node.lookup("#loanDate");
-                JFXButton completedButton = (JFXButton) node.lookup("#completedLoan");
-                JFXButton notCompletedButton = (JFXButton) node.lookup("#notCompletedLoan");
-                JFXButton lateButton = (JFXButton) node.lookup("#lateLoan");
+                    Label titleLabel = (Label) node.lookup("#title");
+                    Label authorLabel = (Label) node.lookup("#author");
+                    Label genreLabel = (Label) node.lookup("#genre");
+                    Label loanDateLabel = (Label) node.lookup("#loanDate");
+                    JFXButton completedButton = (JFXButton) node.lookup("#completedLoan");
+                    JFXButton notCompletedButton = (JFXButton) node.lookup("#notCompletedLoan");
+                    JFXButton lateButton = (JFXButton) node.lookup("#lateLoan");
 
-                api.generateQueryStandard("", "", "", loan.getBookId(), "", "", "");
-                api.exec();
-                results = api.getResults();
+                    api.generateQueryStandard("", "", "", loan.getBookId(), "", "", "");
+                    api.exec();
+                    results = api.getResults();
 
-                if (api.getNumberOfResults() >= 1) {
-                    titleLabel.setText(results.get(0).getTitle());
-                    authorLabel.setText(results.get(0).getAuthors().get(0));
-                    genreLabel.setText(results.get(0).getSubjects().get(0));
+                    if (api.getNumberOfResults() >= 1) {
+                        titleLabel.setText(results.get(0).getTitle());
+                        authorLabel.setText(results.get(0).getAuthors().get(0));
+                        genreLabel.setText(results.get(0).getSubjects().get(0));
 
-                // No results returned
-                } else {
-                    titleLabel.setText("N/A");
-                    authorLabel.setText("N/A");
-                    genreLabel.setText("N/A");
+                        // No results returned
+                    } else {
+                        titleLabel.setText("N/A");
+                        authorLabel.setText("N/A");
+                        genreLabel.setText("N/A");
+                    }
+
+                    loanDateLabel.setText(loan.getBeginDate());
+
+                    completedButton.setId("completedLoanButton" + loan.getId());
+                    notCompletedButton.setId("notCompletedLoanButton" + loan.getId());
+                    lateButton.setId("lateLoanButton" + loan.getId());
+
+                    setButtonVisibility(completedButton, notCompletedButton, lateButton, loan.isCompleted(), loan.hasExpired());
+
+                    completedButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton, lateButton));
+                    notCompletedButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton, lateButton));
+                    lateButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton, lateButton));
+
+                    CustomerHistory.getChildren().add(node);
+
+                } catch (IOException | QueryParameterException | APIErrorException e) {
+                    e.printStackTrace();
                 }
-
-                loanDateLabel.setText(loan.getBeginDate());
-
-                completedButton.setId("completedLoanButton" + loan.getId());
-                notCompletedButton.setId("notCompletedLoanButton" + loan.getId());
-                lateButton.setId("lateLoanButton" + loan.getId());
-
-                setButtonVisibility(completedButton, notCompletedButton, lateButton, loan.isCompleted(), loan.hasExpired());
-
-                completedButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton, lateButton));
-                notCompletedButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton, lateButton));
-                lateButton.setOnAction(actionEvent -> toggleLoanStatus(loan, completedButton, notCompletedButton, lateButton));
-
-                CustomerHistory.getChildren().add(node);
-
-            } catch (IOException | QueryParameterException | APIErrorException e) {
-                e.printStackTrace();
             }
         }
     }

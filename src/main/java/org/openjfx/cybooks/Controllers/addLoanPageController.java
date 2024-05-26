@@ -176,13 +176,13 @@ public class addLoanPageController {
     }
 
     /**
-     * This method is called when the loan is validated. The librarian msut enter an expiration date for the loan
+     * This method is called when the loan is validated. The librarian must enter an expiration date for the loan
      * @return true if a date was entered, false if not
      */
     public boolean PickDate() {
         // Create the date picker dialog
         Dialog<LocalDate> dialog = new Dialog<>();
-        dialog.setTitle("Select a Date");
+        dialog.setTitle("Date d'expiration");
 
         // Initialize DatePicker with today's date
         DatePicker datePicker = new DatePicker(LocalDate.now());
