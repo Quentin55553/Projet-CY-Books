@@ -15,6 +15,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <BorderPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="org.openjfx.cybooks.Controllers.HomePageController">
    <top>
@@ -173,7 +175,42 @@
    <center>
       <AnchorPane>
          <children>
-            <AnchorPane fx:id="Center" style="-fx-background-color: #FEFAE0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <AnchorPane fx:id="Center" style="-fx-background-color: #FEFAE0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox alignment="CENTER" layoutX="373.0" layoutY="142.0" prefHeight="305.0" prefWidth="559.0" AnchorPane.bottomAnchor="236.0" AnchorPane.leftAnchor="373.0" AnchorPane.rightAnchor="368.0" AnchorPane.topAnchor="142.0">
+                     <children>
+                        <ImageView fitHeight="207.0" fitWidth="324.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/book_opening.gif" />
+                           </image>
+                        </ImageView>
+                        <TextFlow fx:id="welcomeMESSAGE" prefHeight="95.0" prefWidth="864.0" textAlignment="CENTER">
+                           <children>
+                              <Text fill="#dda15e" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue, ">
+                                 <font>
+                                    <Font name="Eras Demi ITC" size="35.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="firstName" fill="#bc6c25" strokeType="OUTSIDE" strokeWidth="0.0" text="Prénom">
+                                 <font>
+                                    <Font name="Eras Demi ITC" size="35.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" ">
+                                 <font>
+                                    <Font name="Eras Bold ITC" size="35.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="lastName" fill="#bc6c25" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom">
+                                 <font>
+                                    <Font name="Eras Demi ITC" size="35.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </TextFlow>
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
             <AnchorPane fx:id="Menuside" prefHeight="333.0" prefWidth="208.0" style="-fx-background-color: #606C38;">
                <children>
                   <VBox layoutY="18.0" prefHeight="276.0" prefWidth="208.0" style="-fx-background-color: #606C38;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="18.0">

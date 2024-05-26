@@ -100,11 +100,10 @@ public class BestBooksPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Afficher la date du jour
+
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         date.setText(today.format(formatter));
-        // Mettre à jour l'affichage avec la date du jour
         updateBooksDisplay(today);
     }
 
@@ -116,7 +115,6 @@ public class BestBooksPageController implements Initializable {
      */
     @FXML
     private void handleDateClick(MouseEvent event){
-        // Créer le DatePicker
         DatePicker datePicker = new DatePicker();
         Dialog<LocalDate> dialog = new Dialog<>();
         dialog.setTitle("Sélectionnez une date");
@@ -136,7 +134,6 @@ public class BestBooksPageController implements Initializable {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 date.setText(selectedDate.format(formatter));
 
-                // Mettre à jour l'affichage avec la nouvelle date sélectionnée
                 updateBooksDisplay(selectedDate);
             });
     }
@@ -147,9 +144,13 @@ public class BestBooksPageController implements Initializable {
      * @param selectedDate The date from which to retrieve the most popular books.
      */
     private void updateBooksDisplay(LocalDate selectedDate) {
-        List<Book> books = Core.getMostPopularBooksSince(selectedDate.toString());
+        String sqlDate = selectedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        List<Book> books = Core.getMostPopularBooksSince(sqlDate);
+        String textid1 = "";
+        String textid2 = "";
+        String textid3 = "";
         if (books.size() > 0) {
-            String textid1 = books.get(0).getId();
+            textid1 = books.get(0).getId();
             id1.setText(textid1);
             String texttitle1 = Core.getBook(textid1).getTitle();
             title1.setText(texttitle1.isEmpty() ? "N/A" : texttitle1);
@@ -161,7 +162,7 @@ public class BestBooksPageController implements Initializable {
             author1.setText("N/A");
         }
         if (books.size() > 1) {
-            String textid2 = books.get(1).getId();
+            textid2 = books.get(1).getId();
             id2.setText(textid2);
             String texttitle2 = Core.getBook(textid2).getTitle();
             title2.setText(texttitle2.isEmpty() ? "N/A" : texttitle2);
@@ -173,7 +174,7 @@ public class BestBooksPageController implements Initializable {
             author2.setText("N/A");
         }
         if (books.size() > 2) {
-            String textid3 = books.get(2).getId();
+            textid3 = books.get(2).getId();
             id3.setText(textid3);
             String texttitle3 = Core.getBook(textid3).getTitle();
             title3.setText(texttitle3.isEmpty() ? "N/A" : texttitle3);
@@ -184,7 +185,7 @@ public class BestBooksPageController implements Initializable {
             title3.setText("N/A");
             author3.setText("N/A");
         }
-        List<Integer> ListNbLoanTop3 = Core.getTop3LoansCountsSince(id1.getText(), id2.getText(), id3.getText(), selectedDate.toString());
+        List<Integer> ListNbLoanTop3 = Core.getTop3LoansCountsSince(id1.getText(), id2.getText(), id3.getText(), sqlDate);
         if (ListNbLoanTop3.size() > 0) {
             nb1.setText(String.valueOf(ListNbLoanTop3.get(0)));
             nb2.setText(ListNbLoanTop3.size() > 1 ? String.valueOf(ListNbLoanTop3.get(1)) : "N/A");

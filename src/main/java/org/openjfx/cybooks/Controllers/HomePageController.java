@@ -13,6 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.openjfx.cybooks.Main;
 import org.openjfx.cybooks.data.Librarian;
@@ -119,6 +120,16 @@ public class HomePageController implements Initializable {
     @FXML
     private AnchorPane Menuside;
     /**
+     * welcome text first name
+     */
+    @FXML
+    private Text firstName;
+    /**
+     * welcome text last name
+     */
+    @FXML
+    private Text lastName;
+    /**
      * Reference to the main application
      */
     private Main main;
@@ -128,6 +139,7 @@ public class HomePageController implements Initializable {
      * Reference to the connected librarian
      */
     protected Librarian connectedLibrarian;
+
 
     /**
      * Default constructor of the HomePageController class
@@ -149,10 +161,13 @@ public class HomePageController implements Initializable {
      * @param librarian Reference to the connected librarian
      */
     public void setLibrarian(Librarian librarian) {
+
         this.connectedLibrarian = librarian;
         if (IDLabel != null) {
             IDLabel.setText(Character.toUpperCase(librarian.getFirstName().charAt(0))+librarian.getFirstName().substring(1) + " " + Character.toUpperCase(librarian.getLastName().charAt(0)) + ". ");
         }
+        firstName.setText(connectedLibrarian.getFirstName());
+        lastName.setText(connectedLibrarian.getLastName());
     }
 
     /**
@@ -162,6 +177,8 @@ public class HomePageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
 
         // Hide menu
         Menuside.setTranslateX(-208);

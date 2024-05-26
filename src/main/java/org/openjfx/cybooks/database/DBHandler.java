@@ -692,10 +692,10 @@ public class DBHandler {
 
         try {
             createConnection();
-            res = statement.executeQuery("SELECT *, count(book_id) as nb FROM books RIGHT JOIN loans l on books.id = l.book_id WHERE begin_date >= '" + date + "' GROUP BY book_id ORDER BY COUNT(book_id) DESC");
+            res = statement.executeQuery("SELECT books.id, books.quantity AS quantity, books.stock AS stock, COUNT(l.book_id) AS nb FROM books RIGHT JOIN loans l ON books.id = l.book_id WHERE l.begin_date >= " + date +" GROUP BY books.id ORDER BY nb DESC");
 
             while (res.next()) {
-                // System.out.println(res.getString("id") + ", " + res.getInt("nb"));
+                System.out.println(res.getString("id") + ", " + res.getInt("nb"));
                 Book book = new Book(res.getString("id"), res.getInt("quantity"), res.getInt("stock"));
                 books.add(book);
             }
