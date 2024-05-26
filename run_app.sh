@@ -4,6 +4,7 @@ Couleur_OFF='\033[0m'    # Réinitialisation des couleurs
 Rouge='\033[0;31m'       # Rouge
 Vert='\033[0;32m'        # Vert
 Cyan='\033[0;36m'        # Cyan
+Orange='\e[38;5;208m'    # Orange
 
 
 function generate_javadoc() {
@@ -15,6 +16,14 @@ function generate_javadoc() {
 
 	if [ "$generate_javadoc" = "o" ] || [ "$generate_javadoc" = "oui" ]; then
 		echo -e "Génération de la Javadoc..."
+		
+		root_directory=$(pwd)
+
+		# Executes Maven command to obtain the full path to the project's reports output directory
+		full_path=$(mvn help:evaluate -Dexpression=project.reporting.outputDirectory | grep -v '^\[')
+
+		# Extracts the part of the path after the project's root directory
+		relative_path=${full_path#$root_directory/}
 
 		# Generates the Javadoc with Maven
        		mvn -q javadoc:javadoc
@@ -23,8 +32,10 @@ function generate_javadoc() {
 			echo -e "${Vert}Génération de la Javadoc réussie !${Couleur_OFF}"
 
 		else
-			echo -e "${Rouge}Échec de la génération de la Javadoc${Couleur_OFF}"
+			echo -e "${Rouge}La génération de la Javadoc s'est terminée avec une ou plusieurs erreurs${Couleur_OFF}"
 		fi
+		
+		echo -e "${Cyan}Le dossier contenant les fichiers générés se trouve dans le répertoire : ${Orange}${relative_path}${Couleur_OFF}"
 
 	else
 		echo -e "${Cyan}La Javadoc n'a pas été générée${Couleur_OFF}"
@@ -63,12 +74,12 @@ function run() {
 	if [ "$run_gui" = "o" ] || [ "$run_gui" = "oui" ]; then
 		echo -e "Lancement de l'interface graphique"
 		# Runs the project with GUI
-		mvn -q clean javafx:run
+		mvn -q javafx:run
 	
 	# Otherwise, we run the project with CLI
 	else
 		echo -e "Lancement de l'interface en ligne de commande"
-		mvn -q clean javafx:run@commandline-cli
+		mvn -q javafx:run@commandline-cli
 	fi
 }
 

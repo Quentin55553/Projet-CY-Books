@@ -77,6 +77,18 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <reportOutputDirectory>${project.reporting.outputDirectory}/Javadoc</reportOutputDirectory>
+                    <source>21</source>
+                    <additionalOptions>
+                        <additionalOption>-private</additionalOption>
+                    </additionalOptions>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
@@ -99,18 +111,6 @@
                         <id>commandline-cli</id>
                         <configuration>
                             <mainClass>org.openjfx.cybooks/org.openjfx.cybooks.CommandLine.CommandLineHandler</mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.3</version>
-                <executions>
-                    <execution>
-                        <configuration>
-                            <aggregate>true</aggregate>
                         </configuration>
                     </execution>
                 </executions>
