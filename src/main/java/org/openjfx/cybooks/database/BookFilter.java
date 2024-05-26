@@ -3,6 +3,9 @@ package org.openjfx.cybooks.database;
 
 import java.util.Objects;
 
+/**
+ * Class used as a filter for book research
+ */
 public class BookFilter {
 
     /**
