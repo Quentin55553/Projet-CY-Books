@@ -9,9 +9,13 @@ import org.openjfx.cybooks.data.*;
 import org.openjfx.cybooks.database.DBHandler;
 import org.openjfx.cybooks.UserInput.IncorrectFieldException;
 
+import java.io.Console;
+import java.io.Console.*;
+
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.logging.ConsoleHandler;
 
 import static java.lang.Math.min;
 
@@ -84,31 +88,32 @@ public class CommandLineHandler {
                     // Books
                     Colors.printlnPurple("\nI. Livres :");
                     Colors.printlnWhite("1 - Consulter les livres");
-                    Colors.printlnWhite("2 - Rechercher un livre");
+                    Colors.printlnWhite("2 - Rechercher des livres");
                     Colors.printlnWhite("3 - Ajouter un livre");
-                    Colors.printlnWhite("4 - Mettre à jour le stock d'un livre");
-                    Colors.printlnWhite("5 - Voir les livres de la bibliothèque");
-                    Colors.printlnWhite("6 - Voir les livres les plus populaires");
+                    Colors.printlnWhite("4 - Voir le stock d'un livre");
+                    Colors.printlnWhite("5 - Mettre à jour le stock d'un livre");
+                    Colors.printlnWhite("6 - Voir les livres de la bibliothèque");
+                    Colors.printlnWhite("7 - Voir les livres les plus populaires");
                     // Customers
                     Colors.printlnPurple("\nII. Membres :");
-                    Colors.printlnWhite("7 - Inscrire un nouveau membre");
-                    Colors.printlnWhite("8 - Mettre à jour le profil d'un membre");
-                    Colors.printlnWhite("9 - Rechercher un membre");
-                    Colors.printlnWhite("10 - Afficher la liste des membres");
+                    Colors.printlnWhite("8 - Inscrire un nouveau membre");
+                    Colors.printlnWhite("9 - Mettre à jour le profil d'un membre");
+                    Colors.printlnWhite("10 - Rechercher un membre");
+                    Colors.printlnWhite("11 - Afficher la liste des membres");
                     // Loans
                     Colors.printlnPurple("\nIII. Emprunts :");
-                    Colors.printlnWhite("11 - Créer un nouvel emprunt");
-                    Colors.printlnWhite("12 - Mettre à jour un emprunt");
-                    Colors.printlnWhite("13 - Voir les emprunts d'un membre");
-                    Colors.printlnWhite("14 - Voir les emprunts d'un livre");
-                    Colors.printlnWhite("15 - Voir les emprunts en cours");
-                    Colors.printlnWhite("16 - Afficher la liste des emprunts");
-                    Colors.printlnWhite("17 - Afficher la liste des problèmes d'emprunts");
+                    Colors.printlnWhite("12 - Créer un nouvel emprunt");
+                    Colors.printlnWhite("13 - Mettre à jour un emprunt");
+                    Colors.printlnWhite("14 - Voir les emprunts d'un membre");
+                    Colors.printlnWhite("15 - Voir les emprunts d'un livre");
+                    Colors.printlnWhite("16 - Voir les emprunts en cours");
+                    Colors.printlnWhite("17 - Afficher la liste des emprunts");
+                    Colors.printlnWhite("18 - Afficher la liste des problèmes d'emprunts");
                     // Miscellaneous
                     Colors.printlnPurple("\nIV. Autres :");
-                    Colors.printlnWhite("18 - Créer un nouveau compte bibliothécaire");
-                    Colors.printlnWhite("19 - Consulter son compte");
-                    Colors.printlnWhite("20 - Se déconnecter (fermera l'application)");
+                    Colors.printlnWhite("19 - Créer un nouveau compte bibliothécaire");
+                    Colors.printlnWhite("20 - Consulter son compte");
+                    Colors.printlnWhite("21 - Se déconnecter (fermera l'application)");
 
                     action = Integer.parseInt(in.nextLine());
                     switch (action) {
@@ -116,29 +121,30 @@ public class CommandLineHandler {
                         case 1 -> consultBooks();
                         case 2 -> searchBook();
                         case 3 -> addNewBook();
-                        case 4 -> changeBookStock();
-                        case 5 -> printBooks();
-                        case 6 -> printMostPopularBooks();
+                        case 4 -> seeBookStock();
+                        case 5 -> changeBookStock();
+                        case 6 -> printBooks();
+                        case 7 -> printMostPopularBooks();
                         // Members
-                        case 7 -> addNewMember();
-                        case 8 -> updateMemberProfile();
-                        case 9 -> searchForMember();
-                        case 10 -> printMembers();
+                        case 8 -> addNewMember();
+                        case 9 -> updateMemberProfile();
+                        case 10 -> searchForMember();
+                        case 11 -> printMembers();
                         // Loans
-                        case 11 -> addNewLoan();
-                        case 12 -> updateOngoingLoan();
-                        case 13 -> printMemberLoans();
-                        case 14 -> printBookLoans();
-                        case 15 -> printOngoingLoans();
-                        case 16 -> printLoans();
-                        case 17 -> printLoanProblems();
+                        case 12 -> addNewLoan();
+                        case 13 -> updateOngoingLoan();
+                        case 14 -> printMemberLoans();
+                        case 15 -> printBookLoans();
+                        case 16 -> printOngoingLoans();
+                        case 17 -> printLoans();
+                        case 18 -> printLoanProblems();
                         // Miscellaneous
-                        case 18 -> createAccount();
-                        case 19 -> {
+                        case 19 -> createAccount();
+                        case 20 -> {
                             Colors.printlnCyan("Voici les informations de votre compte :\n");
                             Colors.printColorfulLibrarian(user, login);
                         }
-                        case 20 -> disconnectUser();
+                        case 21 -> disconnectUser();
                         default -> {
                             Colors.printlnRed("Valeur invalide.");
                         }
@@ -146,7 +152,7 @@ public class CommandLineHandler {
             } catch (Exception e) {
                 Colors.printlnRed("Valeur invalide.");
             }
-        }while(action!=20);
+        }while(action!=21);
 
 
         // Ending
@@ -167,6 +173,7 @@ public class CommandLineHandler {
      */
     private static void consultBooks() {
         try {
+            Colors.printlnCyan("\nConsultation des livres :\n");
             APIHandler API = new APIHandler();
             Random random = new Random();
             int randomfieldchoice;
@@ -351,6 +358,7 @@ public class CommandLineHandler {
      */
     private static void searchBook(){
         try {
+            Colors.printlnCyan("\nRecherche de livres :\n");
             APIHandler API = new APIHandler();
             String title;
             String author;
@@ -373,6 +381,11 @@ public class CommandLineHandler {
             publisher = sc.nextLine();
             Colors.printlnWhite("Entrez un sujet :");
             subject = sc.nextLine();
+
+            if(title.equals("") && author.equals("") && date.equals("") && identifier.equals("") && publisher.equals("") && subject.equals("")){
+                Colors.printlnRed("Vous devez au moins compléter un champ.");
+                return;
+            }
 
             API.generateQueryStandard(title,author,date,identifier,publisher,"",subject);
             API.exec();
@@ -401,17 +414,21 @@ public class CommandLineHandler {
      * This command line method is used to add an unkown book to the databse using the terminal
      */
     private static void addNewBook() {
+        Colors.printlnCyan("\nAjout d'un nouveau livre à la bibliothèque :\n");
         String identifier = null;
         int stock = 0;
         try {
             Scanner sc = new Scanner(System.in);
-            Colors.printlnWhite("Entrez l'ID du livre à ajouter :");
+            Colors.printlnWhite("Entrez l'ID du livre à ajouter (format : [Chiffres]/[Chiffres ou lettres]:");
             identifier = sc.nextLine();
             Colors.printlnWhite("Entrez le stock actuellement disponible :");
             stock = Integer.parseInt(sc.nextLine());
             if (FieldChecks.isValidBookIdentifier(identifier) && stock >= 0) {
                 DBHandler.getBook(identifier);
                 Colors.printlnRed("Le livre existe déjà dans la bibliothèque !");
+            }
+            else if(stock<0){
+                Colors.printlnRed("Un stock négatif n'est pas autorisé.");
             }
         } catch (NoSuchElementException e) {
             DBHandler.addBook(identifier, stock, stock);
@@ -451,15 +468,53 @@ public class CommandLineHandler {
     }
 
     /**
+     * This command line method allows the user to see the stock of a book.
+     * It will ask for the identifier. If the book is not in the library, it tells the user.
+     */
+    private static void seeBookStock(){
+        try {
+            Colors.printlnCyan("\nConsultation du stock d'un livre :\n");
+            String identifier;
+            Scanner sc = new Scanner(System.in);
+            Colors.printlnWhite("Entrez l'ID du livre (format : [Chiffres]/[Chiffres ou lettres]):");
+            identifier = sc.nextLine();
+            if(FieldChecks.isValidBookIdentifier(identifier)){
+                Book b = DBHandler.getBook(identifier);
+                Colors.printlnCyan("\nVoici le stock du livre d'identifiant " + identifier +" : "+b.getTitle());
+                if(b.getStock()<0){
+                    Colors.printlnCyan("Stock : 0");
+                }
+                else{
+                    Colors.printlnCyan("Stock : "+b.getStock());
+                }
+            }
+        }
+        catch (NoSuchElementException e){
+            Colors.printlnRed("Ce livre n'est pas dans la biliothèque !");
+        }
+        catch(NumberFormatException e){
+            Colors.printlnRed("Veuillez entrer une valeur numérique.");
+        }
+        catch(IncorrectFieldException e){
+            Colors.printlnRed(e.getMessage());
+        }
+        catch(Exception e){
+            Colors.printlnRed("Une erreur est survenue.");
+        }
+
+    }
+
+    /**
      * This command line method allows the user to change the stock of a book.
      * It will ask for the identifier and the new stock.
      */
     private static void changeBookStock(){
         try {
+            Colors.printlnCyan("\nMise à jour du stock d'un livre :\n");
             String identifier;
             int stock;
             Scanner sc = new Scanner(System.in);
-            Colors.printlnWhite("Entrez l'ID du livre :");
+            Colors.printlnWhite("Entrez l'ID du livre (format : [Chiffres]/[Chiffres ou lettres]):");
             identifier = sc.nextLine();
             Colors.printlnWhite("Entrez le stock actuellement disponible :");
             stock = Integer.parseInt(sc.nextLine());
@@ -491,11 +546,12 @@ public class CommandLineHandler {
      */
     private static void printBooks(){
         try {
+            Colors.printlnCyan("\n :\n");
             APIHandler API=new APIHandler();
             List<Book> bookList;
             String identifier;
             bookList = DBHandler.getAllBooks();
-            Colors.printlnCyan("Voici les livres de la bibliothèque :\n");
+            Colors.printlnCyan("\nVoici les livres de la bibliothèque :\n");
             for (int i = 0; i < min(5,bookList.size()); i++) {
                 identifier=bookList.get(i).getId();
                 API.generateQueryStandard("","","",identifier,"","","");
@@ -520,8 +576,11 @@ public class CommandLineHandler {
      */
     private static void printMostPopularBooks(){
         try {
+            Colors.printlnCyan("\nVoici les livres les plus populaires :\n");
+            Colors.printlnYellow("Attention : cette fonctionnalité peut ne pas être fonctionelle.");
             List<Book> bookList;
             bookList = Core.getMostPopularBooks();
+
             for (int i = 0; i < bookList.size(); i++) {
                 Colors.printlnWhite(bookList.get(i).toString());
                 Colors.printlnWhite("");
@@ -541,6 +600,7 @@ public class CommandLineHandler {
      */
     private static void addNewMember(){
         try {
+            Colors.printlnCyan("\nAjout d'un nouveau membre :\n");
             String firstname;
             String lastname;
             String phone;
@@ -575,6 +635,7 @@ public class CommandLineHandler {
      */
     private static void updateMemberProfile(){
         try {
+            Colors.printlnCyan("\nMise à jour du profil d'un membre :\n");
             String firstname;
             String lastname;
             String member_id_string;
@@ -597,9 +658,9 @@ public class CommandLineHandler {
             email = sc.nextLine();
             Colors.printlnWhite("Entrez sa nouvelle adresse :");
             adress = sc.nextLine();
-            Colors.printlnCyan("Mise à jour du profil du membre " + firstname + " " + lastname + ".");
             if(FieldChecks.isValidCustomer(firstname,lastname,phone,email,adress)){
                 DBHandler.updateEntireCustomer(member_id,lastname,firstname,phone,email,adress);
+                Colors.printlnCyan("Mise à jour du profil du membre " + firstname + " " + lastname + ".");
             }
         }
         catch(NumberFormatException e){
@@ -620,7 +681,7 @@ public class CommandLineHandler {
         try {
             List<Customer> customersList;
             customersList = DBHandler.getCustomers("");
-            Colors.printlnCyan("Voici la liste des membres inscrits :\n");
+            Colors.printlnCyan("\nVoici la liste des membres inscrits :\n");
             for (int i = 0; i < customersList.size(); i++) {
                 Colors.printColorfulCustomer(customersList.get(i));
                 Colors.printlnWhite("");
@@ -636,6 +697,7 @@ public class CommandLineHandler {
      */
     private static void searchForMember() {
         try {
+            Colors.printlnCyan("\nRecherche d'un membre :\n");
             String lastname;
             List<Customer> customersList = null;
             Scanner sc = new Scanner(System.in);
@@ -673,6 +735,7 @@ public class CommandLineHandler {
      */
     private static void addNewLoan() {
         try {
+            Colors.printlnCyan("\nAjout d'un nouvel emprunt :\n");
             String book_identifier;
             String member_id_string;
             int member_id;
@@ -684,7 +747,7 @@ public class CommandLineHandler {
             Colors.printlnWhite("Entrez l'ID du membre :");
             member_id_string = sc.nextLine();
             member_id=Integer.parseInt(member_id_string);
-            Colors.printlnWhite("Entrez l'identifiant du livre :");
+            Colors.printlnWhite("Entrez l'identifiant du livre (format : [Chiffres]/[Chiffres ou lettres]):");
             book_identifier = sc.nextLine();
             Colors.printlnWhite("Entrez l'année d'expiration :");
             year = Integer.parseInt(sc.nextLine());
@@ -695,8 +758,12 @@ public class CommandLineHandler {
             expirationDate=new java.sql.Date(year-1900,month-1,day);
             if(FieldChecks.isValidBookIdentifier(book_identifier) && FieldChecks.isValidDate(day,month,year)){
                 Book b = DBHandler.getBook(book_identifier);
+                Customer c=findCustomer(member_id);
                 if(b.getStock() <= 0){
                     Colors.printlnRed("Rupture de stock !");
+                }
+                else if(c.getLoanCount()>=3){
+                    Colors.printlnRed("Ce membre a atteint la limite d'emprunts.");
                 }
                 else{
                     DBHandler.addLoan(book_identifier,member_id,expirationDate.toString());
@@ -719,6 +786,28 @@ public class CommandLineHandler {
     }
 
     /**
+     * This method is used to find a customer in the database using his ID
+     * @param ID The id of the customer
+     * @return A found customer object
+     * @throws Exception If the customer is not found
+     */
+    private static Customer findCustomer(int ID) throws Exception{
+        try {
+            List<Customer> customersList;
+            customersList = DBHandler.getCustomers("");
+            for (int i = 0; i < customersList.size(); i++) {
+                if(customersList.get(i).getId()==ID){
+                    return customersList.get(i);
+                }
+            }
+            throw new Exception("Le membre n'a pas été trouvé dans la base de données.");
+        }
+        catch(NoSuchElementException e){
+            throw new Exception("Le membre n'a pas été trouvé dans la base de données.");
+        }
+    }
+
+    /**
      * This command line method is used to update an existing loan.
      * Two ways of updating are possible :
      * - Marking the loan as ended / completed when the customer returned the book.
@@ -727,6 +816,7 @@ public class CommandLineHandler {
      */
     private static void updateOngoingLoan(){
         try {
+            Colors.printlnCyan("\nMise à jour d'un emprunt :\n");
             int action = 0;
             Scanner in = new Scanner(System.in);
             // Choices
@@ -788,7 +878,7 @@ public class CommandLineHandler {
         try {
             List<Loan> loanList;
             loanList = DBHandler.getLoans();
-            Colors.printlnCyan("Voici la liste de tous les emprunts :\n");
+            Colors.printlnCyan("\nVoici la liste de tous les emprunts :\n");
             for (int i = 0; i < loanList.size(); i++) {
                 Colors.printColorfulLoan(loanList.get(i));
                 Colors.printlnWhite("");
@@ -804,6 +894,7 @@ public class CommandLineHandler {
      */
     private static void printMemberLoans(){
         try {
+            Colors.printlnCyan("\nListe des emprunts d'un membre :\n");
             String string_id;
             int id;
             List<Loan> loanList;
@@ -834,17 +925,20 @@ public class CommandLineHandler {
      */
     private static void printBookLoans(){
         try {
+            Colors.printlnCyan("\nListe des emprunts d'un livre :\n");
             String identifier;
             List<Loan> loanList;
             Scanner sc = new Scanner(System.in);
-            Colors.printlnWhite("Entrez son identifiant :");
+            Colors.printlnWhite("Entrez l'ID du livre (format : [Chiffres]/[Chiffres ou lettres]):");
             identifier = sc.nextLine();
             if(FieldChecks.isValidBookIdentifier(identifier)){
-                loanList = DBHandler.getLoansByBookId(identifier);
-                Colors.printlnCyan("Voici les emprunts liés au livre d'identifiant "+identifier+" :\n");
+                loanList = DBHandler.getLoans();
+                Colors.printlnCyan("\nVoici les emprunts liés au livre d'identifiant "+identifier+" :\n");
                 for (int i = 0; i < loanList.size(); i++) {
-                    Colors.printColorfulLoan(loanList.get(i));
-                    Colors.printlnWhite("");
+                    if(loanList.get(i).getBookId().equals(identifier)){
+                        Colors.printColorfulLoan(loanList.get(i));
+                        Colors.printlnWhite("");
+                    }
                 }
             }
         }
@@ -866,7 +960,7 @@ public class CommandLineHandler {
         try {
             List<Loan> ongoingLoansList;
             ongoingLoansList = DBHandler.getOngoingLoans();
-            Colors.printlnCyan("Voici la liste des emprunts en cours :\n");
+            Colors.printlnCyan("\nVoici la liste des emprunts en cours :\n");
             for (int i = 0; i < ongoingLoansList.size(); i++) {
                 Colors.printColorfulLoan(ongoingLoansList.get(i));
                 Colors.printlnWhite("");
@@ -884,7 +978,7 @@ public class CommandLineHandler {
         try {
             List<Loan> problematicLoansList;
             problematicLoansList = DBHandler.getExpiredLoans();
-            Colors.printlnCyan("Voici la liste des emprunts expirés :\n");
+            Colors.printlnCyan("\nVoici la liste des emprunts expirés :\n");
             for (int i = 0; i < problematicLoansList.size(); i++) {
                 Colors.printColorfulLoan(problematicLoansList.get(i));
                 Colors.printlnWhite("");
@@ -904,6 +998,7 @@ public class CommandLineHandler {
      */
     private static void createAccount(){
         try {
+            Colors.printlnCyan("\nCréation d'un nouveau compte :\n");
             String login;
             String password;
             String password2;
