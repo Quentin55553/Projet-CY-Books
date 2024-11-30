@@ -19,8 +19,8 @@ L'application utilise l'API de la Bibliothèque nationale de France (BNF) afin d
 
 ### 👀 Aperçu
 
-Gif de présentation du projet
 <div align="center">
+  Gif de présentation du projet
   <img src="img/cybooks_presentation.gif" />
 </div>
 
